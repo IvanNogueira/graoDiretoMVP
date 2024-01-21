@@ -63,11 +63,11 @@ public class EstabelecimentoCriteria implements Serializable, Criteria {
 
     private LongFilter cardapioId;
 
-    private LongFilter imagensId;
-
     private LongFilter cupomDescontoId;
 
     private LongFilter cidadeId;
+
+    private LongFilter userId;
 
     private Boolean distinct;
 
@@ -86,9 +86,10 @@ public class EstabelecimentoCriteria implements Serializable, Criteria {
         this.bairro = other.bairro == null ? null : other.bairro.copy();
         this.cep = other.cep == null ? null : other.cep.copy();
         this.cardapioId = other.cardapioId == null ? null : other.cardapioId.copy();
-        this.imagensId = other.imagensId == null ? null : other.imagensId.copy();
         this.cupomDescontoId = other.cupomDescontoId == null ? null : other.cupomDescontoId.copy();
         this.cidadeId = other.cidadeId == null ? null : other.cidadeId.copy();
+        this.userId = other.userId == null ? null : other.userId.copy();
+
         this.distinct = other.distinct;
     }
 
@@ -277,21 +278,6 @@ public class EstabelecimentoCriteria implements Serializable, Criteria {
         this.cardapioId = cardapioId;
     }
 
-    public LongFilter getImagensId() {
-        return imagensId;
-    }
-
-    public LongFilter imagensId() {
-        if (imagensId == null) {
-            imagensId = new LongFilter();
-        }
-        return imagensId;
-    }
-
-    public void setImagensId(LongFilter imagensId) {
-        this.imagensId = imagensId;
-    }
-
     public LongFilter getCupomDescontoId() {
         return cupomDescontoId;
     }
@@ -320,6 +306,21 @@ public class EstabelecimentoCriteria implements Serializable, Criteria {
 
     public void setCidadeId(LongFilter cidadeId) {
         this.cidadeId = cidadeId;
+    }
+
+    public LongFilter getUserId() {
+        return userId;
+    }
+
+    public LongFilter userId() {
+        if (userId == null) {
+            userId = new LongFilter();
+        }
+        return userId;
+    }
+
+    public void setUserId(LongFilter userId) {
+        this.userId = userId;
     }
 
     public Boolean getDistinct() {
@@ -352,9 +353,9 @@ public class EstabelecimentoCriteria implements Serializable, Criteria {
             Objects.equals(bairro, that.bairro) &&
             Objects.equals(cep, that.cep) &&
             Objects.equals(cardapioId, that.cardapioId) &&
-            Objects.equals(imagensId, that.imagensId) &&
             Objects.equals(cupomDescontoId, that.cupomDescontoId) &&
             Objects.equals(cidadeId, that.cidadeId) &&
+            Objects.equals(userId, that.userId) &&
             Objects.equals(distinct, that.distinct)
         );
     }
@@ -374,9 +375,9 @@ public class EstabelecimentoCriteria implements Serializable, Criteria {
             bairro,
             cep,
             cardapioId,
-            imagensId,
             cupomDescontoId,
             cidadeId,
+            userId,
             distinct
         );
     }
@@ -397,9 +398,9 @@ public class EstabelecimentoCriteria implements Serializable, Criteria {
             (bairro != null ? "bairro=" + bairro + ", " : "") +
             (cep != null ? "cep=" + cep + ", " : "") +
             (cardapioId != null ? "cardapioId=" + cardapioId + ", " : "") +
-            (imagensId != null ? "imagensId=" + imagensId + ", " : "") +
             (cupomDescontoId != null ? "cupomDescontoId=" + cupomDescontoId + ", " : "") +
             (cidadeId != null ? "cidadeId=" + cidadeId + ", " : "") +
+            (userId != null ? "userId=" + userId + ", " : "") +
             (distinct != null ? "distinct=" + distinct + ", " : "") +
             "}";
     }

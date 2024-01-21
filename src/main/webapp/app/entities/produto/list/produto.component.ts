@@ -11,10 +11,11 @@ import { FormsModule } from '@angular/forms';
 
 import { ITEMS_PER_PAGE } from 'app/config/pagination.constants';
 import { ASC, DESC, SORT, ITEM_DELETED_EVENT, DEFAULT_SORT_DATA } from 'app/config/navigation.constants';
+import { DataUtils } from 'app/core/util/data-util.service';
 import { ParseLinks } from 'app/core/util/parse-links.service';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
-import { EntityArrayResponseType, ProdutoService } from '../service/produto.service';
 import { ProdutoDeleteDialogComponent } from '../delete/produto-delete-dialog.component';
+import { EntityArrayResponseType, ProdutoService } from '../service/produto.service';
 import { IProduto } from '../produto.model';
 
 @Component({
@@ -51,6 +52,7 @@ export class ProdutoComponent implements OnInit {
     protected activatedRoute: ActivatedRoute,
     public router: Router,
     protected parseLinks: ParseLinks,
+    protected dataUtils: DataUtils,
     protected modalService: NgbModal,
   ) {}
 
@@ -69,6 +71,14 @@ export class ProdutoComponent implements OnInit {
 
   ngOnInit(): void {
     this.load();
+  }
+
+  byteSize(base64String: string): string {
+    return this.dataUtils.byteSize(base64String);
+  }
+
+  openFile(base64String: string, contentType: string | null | undefined): void {
+    return this.dataUtils.openFile(base64String, contentType);
   }
 
   delete(produto: IProduto): void {

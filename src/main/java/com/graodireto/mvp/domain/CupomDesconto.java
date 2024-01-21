@@ -20,6 +20,9 @@ public class CupomDesconto implements Serializable {
     @Column(name = "id")
     private Long id;
 
+    @Column(name = "nome")
+    private String nome;
+
     @Column(name = "valor_desconto", precision = 21, scale = 2)
     private BigDecimal valorDesconto;
 
@@ -52,6 +55,19 @@ public class CupomDesconto implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getNome() {
+        return this.nome;
+    }
+
+    public CupomDesconto nome(String nome) {
+        this.setNome(nome);
+        return this;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
     public BigDecimal getValorDesconto() {
@@ -156,6 +172,7 @@ public class CupomDesconto implements Serializable {
     public String toString() {
         return "CupomDesconto{" +
             "id=" + getId() +
+            ", nome='" + getNome() + "'" +
             ", valorDesconto=" + getValorDesconto() +
             ", valorMinimo='" + getValorMinimo() + "'" +
             ", valorMinimoRegra=" + getValorMinimoRegra() +

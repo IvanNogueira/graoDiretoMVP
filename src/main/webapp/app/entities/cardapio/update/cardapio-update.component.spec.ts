@@ -50,10 +50,10 @@ describe('Cardapio Management Update Component', () => {
   describe('ngOnInit', () => {
     it('Should call Estabelecimento query and add missing value', () => {
       const cardapio: ICardapio = { id: 456 };
-      const estabelecimento: IEstabelecimento = { id: 11620 };
+      const estabelecimento: IEstabelecimento = { id: 26401 };
       cardapio.estabelecimento = estabelecimento;
 
-      const estabelecimentoCollection: IEstabelecimento[] = [{ id: 31058 }];
+      const estabelecimentoCollection: IEstabelecimento[] = [{ id: 4547 }];
       jest.spyOn(estabelecimentoService, 'query').mockReturnValue(of(new HttpResponse({ body: estabelecimentoCollection })));
       const additionalEstabelecimentos = [estabelecimento];
       const expectedCollection: IEstabelecimento[] = [...additionalEstabelecimentos, ...estabelecimentoCollection];
@@ -72,7 +72,7 @@ describe('Cardapio Management Update Component', () => {
 
     it('Should update editForm', () => {
       const cardapio: ICardapio = { id: 456 };
-      const estabelecimento: IEstabelecimento = { id: 14944 };
+      const estabelecimento: IEstabelecimento = { id: 31134 };
       cardapio.estabelecimento = estabelecimento;
 
       activatedRoute.data = of({ cardapio });

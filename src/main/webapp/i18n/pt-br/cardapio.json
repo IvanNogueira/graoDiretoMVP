@@ -20,7 +20,7 @@
       "id": "ID",
       "nome": "Nome",
       "dataCriacao": "Data Criacao",
-      "ativo": "Ativo",
+      "ativo": "Status do Cadapio.",
       "produto": "Produto",
       "estabelecimento": "Estabelecimento"
     }

@@ -11,7 +11,7 @@
     -->
     <changeSet id="20240120015024-1" author="jhipster">
         <createTable tableName="produto">
-            <column name="id" type="bigint" autoIncrement="true" startWith="1500">
+            <column name="id" type="bigint" autoIncrement="true" startWith="0">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="nome" type="varchar(255)">
@@ -24,6 +24,12 @@
                 <constraints nullable="false" />
             </column>
             <column name="desconto" type="decimal(21,2)">
+                <constraints nullable="true" />
+            </column>
+            <column name="imagem_produto" type="${blobType}">
+                <constraints nullable="true" />
+            </column>
+            <column name="imagem_produto_content_type" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
             <column name="categoria_produto_id" type="bigint">

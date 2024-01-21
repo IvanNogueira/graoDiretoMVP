@@ -31,8 +31,6 @@ public class ProdutoCriteria implements Serializable, Criteria {
 
     private BigDecimalFilter desconto;
 
-    private LongFilter imagensId;
-
     private LongFilter categoriaProdutoId;
 
     private LongFilter cardapioId;
@@ -47,7 +45,6 @@ public class ProdutoCriteria implements Serializable, Criteria {
         this.descricao = other.descricao == null ? null : other.descricao.copy();
         this.preco = other.preco == null ? null : other.preco.copy();
         this.desconto = other.desconto == null ? null : other.desconto.copy();
-        this.imagensId = other.imagensId == null ? null : other.imagensId.copy();
         this.categoriaProdutoId = other.categoriaProdutoId == null ? null : other.categoriaProdutoId.copy();
         this.cardapioId = other.cardapioId == null ? null : other.cardapioId.copy();
         this.distinct = other.distinct;
@@ -133,21 +130,6 @@ public class ProdutoCriteria implements Serializable, Criteria {
         this.desconto = desconto;
     }
 
-    public LongFilter getImagensId() {
-        return imagensId;
-    }
-
-    public LongFilter imagensId() {
-        if (imagensId == null) {
-            imagensId = new LongFilter();
-        }
-        return imagensId;
-    }
-
-    public void setImagensId(LongFilter imagensId) {
-        this.imagensId = imagensId;
-    }
-
     public LongFilter getCategoriaProdutoId() {
         return categoriaProdutoId;
     }
@@ -201,7 +183,6 @@ public class ProdutoCriteria implements Serializable, Criteria {
             Objects.equals(descricao, that.descricao) &&
             Objects.equals(preco, that.preco) &&
             Objects.equals(desconto, that.desconto) &&
-            Objects.equals(imagensId, that.imagensId) &&
             Objects.equals(categoriaProdutoId, that.categoriaProdutoId) &&
             Objects.equals(cardapioId, that.cardapioId) &&
             Objects.equals(distinct, that.distinct)
@@ -210,7 +191,7 @@ public class ProdutoCriteria implements Serializable, Criteria {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, nome, descricao, preco, desconto, imagensId, categoriaProdutoId, cardapioId, distinct);
+        return Objects.hash(id, nome, descricao, preco, desconto, categoriaProdutoId, cardapioId, distinct);
     }
 
     // prettier-ignore
@@ -222,7 +203,6 @@ public class ProdutoCriteria implements Serializable, Criteria {
             (descricao != null ? "descricao=" + descricao + ", " : "") +
             (preco != null ? "preco=" + preco + ", " : "") +
             (desconto != null ? "desconto=" + desconto + ", " : "") +
-            (imagensId != null ? "imagensId=" + imagensId + ", " : "") +
             (categoriaProdutoId != null ? "categoriaProdutoId=" + categoriaProdutoId + ", " : "") +
             (cardapioId != null ? "cardapioId=" + cardapioId + ", " : "") +
             (distinct != null ? "distinct=" + distinct + ", " : "") +

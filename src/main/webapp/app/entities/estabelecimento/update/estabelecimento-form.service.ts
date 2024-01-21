@@ -46,6 +46,7 @@ type EstabelecimentoFormGroupContent = {
   bairro: FormControl<EstabelecimentoFormRawValue['bairro']>;
   cep: FormControl<EstabelecimentoFormRawValue['cep']>;
   cidade: FormControl<EstabelecimentoFormRawValue['cidade']>;
+  user: FormControl<EstabelecimentoFormRawValue['user']>;
 };
 
 export type EstabelecimentoFormGroup = FormGroup<EstabelecimentoFormGroupContent>;
@@ -88,6 +89,7 @@ export class EstabelecimentoFormService {
         validators: [Validators.required],
       }),
       cidade: new FormControl(estabelecimentoRawValue.cidade),
+      user: new FormControl(estabelecimentoRawValue.user),
     });
   }
 

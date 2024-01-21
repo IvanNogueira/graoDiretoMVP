@@ -5,8 +5,6 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * A Produto.
@@ -37,9 +35,12 @@ public class Produto implements Serializable {
     @Column(name = "desconto", precision = 21, scale = 2)
     private BigDecimal desconto;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "produto")
-    @JsonIgnoreProperties(value = { "estabelecimento", "produto" }, allowSetters = true)
-    private Set<Imagens> imagens = new HashSet<>();
+    @Lob
+    @Column(name = "imagem_produto")
+    private byte[] imagemProduto;
+
+    @Column(name = "imagem_produto_content_type")
+    private String imagemProdutoContentType;
 
     @ManyToOne(fetch = FetchType.EAGER)
     private CategoriaProduto categoriaProduto;
@@ -115,35 +116,30 @@ public class Produto implements Serializable {
         this.desconto = desconto;
     }
 
-    public Set<Imagens> getImagens() {
-        return this.imagens;
+    public byte[] getImagemProduto() {
+        return this.imagemProduto;
     }
 
-    public void setImagens(Set<Imagens> imagens) {
-        if (this.imagens != null) {
-            this.imagens.forEach(i -> i.setProduto(null));
-        }
-        if (imagens != null) {
-            imagens.forEach(i -> i.setProduto(this));
-        }
-        this.imagens = imagens;
-    }
-
-    public Produto imagens(Set<Imagens> imagens) {
-        this.setImagens(imagens);
+    public Produto imagemProduto(byte[] imagemProduto) {
+        this.setImagemProduto(imagemProduto);
         return this;
     }
 
-    public Produto addImagens(Imagens imagens) {
-        this.imagens.add(imagens);
-        imagens.setProduto(this);
+    public void setImagemProduto(byte[] imagemProduto) {
+        this.imagemProduto = imagemProduto;
+    }
+
+    public String getImagemProdutoContentType() {
+        return this.imagemProdutoContentType;
+    }
+
+    public Produto imagemProdutoContentType(String imagemProdutoContentType) {
+        this.imagemProdutoContentType = imagemProdutoContentType;
         return this;
     }
 
-    public Produto removeImagens(Imagens imagens) {
-        this.imagens.remove(imagens);
-        imagens.setProduto(null);
-        return this;
+    public void setImagemProdutoContentType(String imagemProdutoContentType) {
+        this.imagemProdutoContentType = imagemProdutoContentType;
     }
 
     public CategoriaProduto getCategoriaProduto() {
@@ -200,6 +196,8 @@ public class Produto implements Serializable {
             ", descricao='" + getDescricao() + "'" +
             ", preco=" + getPreco() +
             ", desconto=" + getDesconto() +
+            ", imagemProduto='" + getImagemProduto() + "'" +
+            ", imagemProdutoContentType='" + getImagemProdutoContentType() + "'" +
             "}";
     }
 }

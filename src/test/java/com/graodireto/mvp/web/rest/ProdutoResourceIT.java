@@ -9,11 +9,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import com.graodireto.mvp.IntegrationTest;
 import com.graodireto.mvp.domain.Cardapio;
 import com.graodireto.mvp.domain.CategoriaProduto;
-import com.graodireto.mvp.domain.Imagens;
 import com.graodireto.mvp.domain.Produto;
 import com.graodireto.mvp.repository.ProdutoRepository;
 import jakarta.persistence.EntityManager;
 import java.math.BigDecimal;
+import java.util.Base64;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
@@ -48,6 +48,11 @@ class ProdutoResourceIT {
     private static final BigDecimal UPDATED_DESCONTO = new BigDecimal(2);
     private static final BigDecimal SMALLER_DESCONTO = new BigDecimal(1 - 1);
 
+    private static final byte[] DEFAULT_IMAGEM_PRODUTO = TestUtil.createByteArray(1, "0");
+    private static final byte[] UPDATED_IMAGEM_PRODUTO = TestUtil.createByteArray(1, "1");
+    private static final String DEFAULT_IMAGEM_PRODUTO_CONTENT_TYPE = "image/jpg";
+    private static final String UPDATED_IMAGEM_PRODUTO_CONTENT_TYPE = "image/png";
+
     private static final String ENTITY_API_URL = "/api/produtos";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
 
@@ -72,7 +77,13 @@ class ProdutoResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Produto createEntity(EntityManager em) {
-        Produto produto = new Produto().nome(DEFAULT_NOME).descricao(DEFAULT_DESCRICAO).preco(DEFAULT_PRECO).desconto(DEFAULT_DESCONTO);
+        Produto produto = new Produto()
+            .nome(DEFAULT_NOME)
+            .descricao(DEFAULT_DESCRICAO)
+            .preco(DEFAULT_PRECO)
+            .desconto(DEFAULT_DESCONTO)
+            .imagemProduto(DEFAULT_IMAGEM_PRODUTO)
+            .imagemProdutoContentType(DEFAULT_IMAGEM_PRODUTO_CONTENT_TYPE);
         return produto;
     }
 
@@ -83,7 +94,13 @@ class ProdutoResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Produto createUpdatedEntity(EntityManager em) {
-        Produto produto = new Produto().nome(UPDATED_NOME).descricao(UPDATED_DESCRICAO).preco(UPDATED_PRECO).desconto(UPDATED_DESCONTO);
+        Produto produto = new Produto()
+            .nome(UPDATED_NOME)
+            .descricao(UPDATED_DESCRICAO)
+            .preco(UPDATED_PRECO)
+            .desconto(UPDATED_DESCONTO)
+            .imagemProduto(UPDATED_IMAGEM_PRODUTO)
+            .imagemProdutoContentType(UPDATED_IMAGEM_PRODUTO_CONTENT_TYPE);
         return produto;
     }
 
@@ -109,6 +126,8 @@ class ProdutoResourceIT {
         assertThat(testProduto.getDescricao()).isEqualTo(DEFAULT_DESCRICAO);
         assertThat(testProduto.getPreco()).isEqualByComparingTo(DEFAULT_PRECO);
         assertThat(testProduto.getDesconto()).isEqualByComparingTo(DEFAULT_DESCONTO);
+        assertThat(testProduto.getImagemProduto()).isEqualTo(DEFAULT_IMAGEM_PRODUTO);
+        assertThat(testProduto.getImagemProdutoContentType()).isEqualTo(DEFAULT_IMAGEM_PRODUTO_CONTENT_TYPE);
     }
 
     @Test
@@ -178,7 +197,9 @@ class ProdutoResourceIT {
             .andExpect(jsonPath("$.[*].nome").value(hasItem(DEFAULT_NOME)))
             .andExpect(jsonPath("$.[*].descricao").value(hasItem(DEFAULT_DESCRICAO)))
             .andExpect(jsonPath("$.[*].preco").value(hasItem(sameNumber(DEFAULT_PRECO))))
-            .andExpect(jsonPath("$.[*].desconto").value(hasItem(sameNumber(DEFAULT_DESCONTO))));
+            .andExpect(jsonPath("$.[*].desconto").value(hasItem(sameNumber(DEFAULT_DESCONTO))))
+            .andExpect(jsonPath("$.[*].imagemProdutoContentType").value(hasItem(DEFAULT_IMAGEM_PRODUTO_CONTENT_TYPE)))
+            .andExpect(jsonPath("$.[*].imagemProduto").value(hasItem(Base64.getEncoder().encodeToString(DEFAULT_IMAGEM_PRODUTO))));
     }
 
     @Test
@@ -196,7 +217,9 @@ class ProdutoResourceIT {
             .andExpect(jsonPath("$.nome").value(DEFAULT_NOME))
             .andExpect(jsonPath("$.descricao").value(DEFAULT_DESCRICAO))
             .andExpect(jsonPath("$.preco").value(sameNumber(DEFAULT_PRECO)))
-            .andExpect(jsonPath("$.desconto").value(sameNumber(DEFAULT_DESCONTO)));
+            .andExpect(jsonPath("$.desconto").value(sameNumber(DEFAULT_DESCONTO)))
+            .andExpect(jsonPath("$.imagemProdutoContentType").value(DEFAULT_IMAGEM_PRODUTO_CONTENT_TYPE))
+            .andExpect(jsonPath("$.imagemProduto").value(Base64.getEncoder().encodeToString(DEFAULT_IMAGEM_PRODUTO)));
     }
 
     @Test
@@ -531,28 +554,6 @@ class ProdutoResourceIT {
 
     @Test
     @Transactional
-    void getAllProdutosByImagensIsEqualToSomething() throws Exception {
-        Imagens imagens;
-        if (TestUtil.findAll(em, Imagens.class).isEmpty()) {
-            produtoRepository.saveAndFlush(produto);
-            imagens = ImagensResourceIT.createEntity(em);
-        } else {
-            imagens = TestUtil.findAll(em, Imagens.class).get(0);
-        }
-        em.persist(imagens);
-        em.flush();
-        produto.addImagens(imagens);
-        produtoRepository.saveAndFlush(produto);
-        Long imagensId = imagens.getId();
-        // Get all the produtoList where imagens equals to imagensId
-        defaultProdutoShouldBeFound("imagensId.equals=" + imagensId);
-
-        // Get all the produtoList where imagens equals to (imagensId + 1)
-        defaultProdutoShouldNotBeFound("imagensId.equals=" + (imagensId + 1));
-    }
-
-    @Test
-    @Transactional
     void getAllProdutosByCategoriaProdutoIsEqualToSomething() throws Exception {
         CategoriaProduto categoriaProduto;
         if (TestUtil.findAll(em, CategoriaProduto.class).isEmpty()) {
@@ -607,7 +608,9 @@ class ProdutoResourceIT {
             .andExpect(jsonPath("$.[*].nome").value(hasItem(DEFAULT_NOME)))
             .andExpect(jsonPath("$.[*].descricao").value(hasItem(DEFAULT_DESCRICAO)))
             .andExpect(jsonPath("$.[*].preco").value(hasItem(sameNumber(DEFAULT_PRECO))))
-            .andExpect(jsonPath("$.[*].desconto").value(hasItem(sameNumber(DEFAULT_DESCONTO))));
+            .andExpect(jsonPath("$.[*].desconto").value(hasItem(sameNumber(DEFAULT_DESCONTO))))
+            .andExpect(jsonPath("$.[*].imagemProdutoContentType").value(hasItem(DEFAULT_IMAGEM_PRODUTO_CONTENT_TYPE)))
+            .andExpect(jsonPath("$.[*].imagemProduto").value(hasItem(Base64.getEncoder().encodeToString(DEFAULT_IMAGEM_PRODUTO))));
 
         // Check, that the count call also returns 1
         restProdutoMockMvc
@@ -655,7 +658,13 @@ class ProdutoResourceIT {
         Produto updatedProduto = produtoRepository.findById(produto.getId()).orElseThrow();
         // Disconnect from session so that the updates on updatedProduto are not directly saved in db
         em.detach(updatedProduto);
-        updatedProduto.nome(UPDATED_NOME).descricao(UPDATED_DESCRICAO).preco(UPDATED_PRECO).desconto(UPDATED_DESCONTO);
+        updatedProduto
+            .nome(UPDATED_NOME)
+            .descricao(UPDATED_DESCRICAO)
+            .preco(UPDATED_PRECO)
+            .desconto(UPDATED_DESCONTO)
+            .imagemProduto(UPDATED_IMAGEM_PRODUTO)
+            .imagemProdutoContentType(UPDATED_IMAGEM_PRODUTO_CONTENT_TYPE);
 
         restProdutoMockMvc
             .perform(
@@ -673,6 +682,8 @@ class ProdutoResourceIT {
         assertThat(testProduto.getDescricao()).isEqualTo(UPDATED_DESCRICAO);
         assertThat(testProduto.getPreco()).isEqualByComparingTo(UPDATED_PRECO);
         assertThat(testProduto.getDesconto()).isEqualByComparingTo(UPDATED_DESCONTO);
+        assertThat(testProduto.getImagemProduto()).isEqualTo(UPDATED_IMAGEM_PRODUTO);
+        assertThat(testProduto.getImagemProdutoContentType()).isEqualTo(UPDATED_IMAGEM_PRODUTO_CONTENT_TYPE);
     }
 
     @Test
@@ -743,7 +754,13 @@ class ProdutoResourceIT {
         Produto partialUpdatedProduto = new Produto();
         partialUpdatedProduto.setId(produto.getId());
 
-        partialUpdatedProduto.nome(UPDATED_NOME).descricao(UPDATED_DESCRICAO).preco(UPDATED_PRECO).desconto(UPDATED_DESCONTO);
+        partialUpdatedProduto
+            .nome(UPDATED_NOME)
+            .descricao(UPDATED_DESCRICAO)
+            .preco(UPDATED_PRECO)
+            .desconto(UPDATED_DESCONTO)
+            .imagemProduto(UPDATED_IMAGEM_PRODUTO)
+            .imagemProdutoContentType(UPDATED_IMAGEM_PRODUTO_CONTENT_TYPE);
 
         restProdutoMockMvc
             .perform(
@@ -761,6 +778,8 @@ class ProdutoResourceIT {
         assertThat(testProduto.getDescricao()).isEqualTo(UPDATED_DESCRICAO);
         assertThat(testProduto.getPreco()).isEqualByComparingTo(UPDATED_PRECO);
         assertThat(testProduto.getDesconto()).isEqualByComparingTo(UPDATED_DESCONTO);
+        assertThat(testProduto.getImagemProduto()).isEqualTo(UPDATED_IMAGEM_PRODUTO);
+        assertThat(testProduto.getImagemProdutoContentType()).isEqualTo(UPDATED_IMAGEM_PRODUTO_CONTENT_TYPE);
     }
 
     @Test
@@ -775,7 +794,13 @@ class ProdutoResourceIT {
         Produto partialUpdatedProduto = new Produto();
         partialUpdatedProduto.setId(produto.getId());
 
-        partialUpdatedProduto.nome(UPDATED_NOME).descricao(UPDATED_DESCRICAO).preco(UPDATED_PRECO).desconto(UPDATED_DESCONTO);
+        partialUpdatedProduto
+            .nome(UPDATED_NOME)
+            .descricao(UPDATED_DESCRICAO)
+            .preco(UPDATED_PRECO)
+            .desconto(UPDATED_DESCONTO)
+            .imagemProduto(UPDATED_IMAGEM_PRODUTO)
+            .imagemProdutoContentType(UPDATED_IMAGEM_PRODUTO_CONTENT_TYPE);
 
         restProdutoMockMvc
             .perform(
@@ -793,6 +818,8 @@ class ProdutoResourceIT {
         assertThat(testProduto.getDescricao()).isEqualTo(UPDATED_DESCRICAO);
         assertThat(testProduto.getPreco()).isEqualByComparingTo(UPDATED_PRECO);
         assertThat(testProduto.getDesconto()).isEqualByComparingTo(UPDATED_DESCONTO);
+        assertThat(testProduto.getImagemProduto()).isEqualTo(UPDATED_IMAGEM_PRODUTO);
+        assertThat(testProduto.getImagemProdutoContentType()).isEqualTo(UPDATED_IMAGEM_PRODUTO_CONTENT_TYPE);
     }
 
     @Test

@@ -2,6 +2,7 @@ import { IEstabelecimento } from 'app/entities/estabelecimento/estabelecimento.m
 
 export interface ICupomDesconto {
   id: number;
+  nome?: string | null;
   valorDesconto?: number | null;
   valorMinimo?: boolean | null;
   valorMinimoRegra?: number | null;

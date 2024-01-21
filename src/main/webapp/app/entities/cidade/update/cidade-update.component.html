@@ -39,7 +39,7 @@
           >
             <option [ngValue]="null"></option>
             @for (estadoOption of estadosSharedCollection; track $index) {
-              <option [ngValue]="estadoOption">{{ estadoOption.nome }} -{{ estadoOption.uf }}</option>
+              <option [ngValue]="estadoOption">{{ estadoOption.nome }}</option>
             }
           </select>
         </div>

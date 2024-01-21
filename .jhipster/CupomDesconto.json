@@ -6,6 +6,10 @@
   "entityTableName": "cupom_desconto",
   "fields": [
     {
+      "fieldName": "nome",
+      "fieldType": "String"
+    },
+    {
       "fieldName": "valorDesconto",
       "fieldType": "BigDecimal"
     },

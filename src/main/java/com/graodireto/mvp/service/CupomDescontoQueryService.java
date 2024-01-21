@@ -85,6 +85,9 @@ public class CupomDescontoQueryService extends QueryService<CupomDesconto> {
             if (criteria.getId() != null) {
                 specification = specification.and(buildRangeSpecification(criteria.getId(), CupomDesconto_.id));
             }
+            if (criteria.getNome() != null) {
+                specification = specification.and(buildStringSpecification(criteria.getNome(), CupomDesconto_.nome));
+            }
             if (criteria.getValorDesconto() != null) {
                 specification = specification.and(buildRangeSpecification(criteria.getValorDesconto(), CupomDesconto_.valorDesconto));
             }

@@ -4,7 +4,6 @@ import static com.graodireto.mvp.domain.CardapioTestSamples.*;
 import static com.graodireto.mvp.domain.CidadeTestSamples.*;
 import static com.graodireto.mvp.domain.CupomDescontoTestSamples.*;
 import static com.graodireto.mvp.domain.EstabelecimentoTestSamples.*;
-import static com.graodireto.mvp.domain.ImagensTestSamples.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.graodireto.mvp.web.rest.TestUtil;
@@ -48,28 +47,6 @@ class EstabelecimentoTest {
         estabelecimento.setCardapios(new HashSet<>());
         assertThat(estabelecimento.getCardapios()).doesNotContain(cardapioBack);
         assertThat(cardapioBack.getEstabelecimento()).isNull();
-    }
-
-    @Test
-    void imagensTest() throws Exception {
-        Estabelecimento estabelecimento = getEstabelecimentoRandomSampleGenerator();
-        Imagens imagensBack = getImagensRandomSampleGenerator();
-
-        estabelecimento.addImagens(imagensBack);
-        assertThat(estabelecimento.getImagens()).containsOnly(imagensBack);
-        assertThat(imagensBack.getEstabelecimento()).isEqualTo(estabelecimento);
-
-        estabelecimento.removeImagens(imagensBack);
-        assertThat(estabelecimento.getImagens()).doesNotContain(imagensBack);
-        assertThat(imagensBack.getEstabelecimento()).isNull();
-
-        estabelecimento.imagens(new HashSet<>(Set.of(imagensBack)));
-        assertThat(estabelecimento.getImagens()).containsOnly(imagensBack);
-        assertThat(imagensBack.getEstabelecimento()).isEqualTo(estabelecimento);
-
-        estabelecimento.setImagens(new HashSet<>());
-        assertThat(estabelecimento.getImagens()).doesNotContain(imagensBack);
-        assertThat(imagensBack.getEstabelecimento()).isNull();
     }
 
     @Test

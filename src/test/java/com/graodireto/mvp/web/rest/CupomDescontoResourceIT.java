@@ -32,6 +32,9 @@ import org.springframework.transaction.annotation.Transactional;
 @WithMockUser
 class CupomDescontoResourceIT {
 
+    private static final String DEFAULT_NOME = "AAAAAAAAAA";
+    private static final String UPDATED_NOME = "BBBBBBBBBB";
+
     private static final BigDecimal DEFAULT_VALOR_DESCONTO = new BigDecimal(1);
     private static final BigDecimal UPDATED_VALOR_DESCONTO = new BigDecimal(2);
     private static final BigDecimal SMALLER_VALOR_DESCONTO = new BigDecimal(1 - 1);
@@ -74,6 +77,7 @@ class CupomDescontoResourceIT {
      */
     public static CupomDesconto createEntity(EntityManager em) {
         CupomDesconto cupomDesconto = new CupomDesconto()
+            .nome(DEFAULT_NOME)
             .valorDesconto(DEFAULT_VALOR_DESCONTO)
             .valorMinimo(DEFAULT_VALOR_MINIMO)
             .valorMinimoRegra(DEFAULT_VALOR_MINIMO_REGRA)
@@ -90,6 +94,7 @@ class CupomDescontoResourceIT {
      */
     public static CupomDesconto createUpdatedEntity(EntityManager em) {
         CupomDesconto cupomDesconto = new CupomDesconto()
+            .nome(UPDATED_NOME)
             .valorDesconto(UPDATED_VALOR_DESCONTO)
             .valorMinimo(UPDATED_VALOR_MINIMO)
             .valorMinimoRegra(UPDATED_VALOR_MINIMO_REGRA)
@@ -116,6 +121,7 @@ class CupomDescontoResourceIT {
         List<CupomDesconto> cupomDescontoList = cupomDescontoRepository.findAll();
         assertThat(cupomDescontoList).hasSize(databaseSizeBeforeCreate + 1);
         CupomDesconto testCupomDesconto = cupomDescontoList.get(cupomDescontoList.size() - 1);
+        assertThat(testCupomDesconto.getNome()).isEqualTo(DEFAULT_NOME);
         assertThat(testCupomDesconto.getValorDesconto()).isEqualByComparingTo(DEFAULT_VALOR_DESCONTO);
         assertThat(testCupomDesconto.getValorMinimo()).isEqualTo(DEFAULT_VALOR_MINIMO);
         assertThat(testCupomDesconto.getValorMinimoRegra()).isEqualByComparingTo(DEFAULT_VALOR_MINIMO_REGRA);
@@ -153,6 +159,7 @@ class CupomDescontoResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(cupomDesconto.getId().intValue())))
+            .andExpect(jsonPath("$.[*].nome").value(hasItem(DEFAULT_NOME)))
             .andExpect(jsonPath("$.[*].valorDesconto").value(hasItem(sameNumber(DEFAULT_VALOR_DESCONTO))))
             .andExpect(jsonPath("$.[*].valorMinimo").value(hasItem(DEFAULT_VALOR_MINIMO.booleanValue())))
             .andExpect(jsonPath("$.[*].valorMinimoRegra").value(hasItem(sameNumber(DEFAULT_VALOR_MINIMO_REGRA))))
@@ -172,6 +179,7 @@ class CupomDescontoResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(cupomDesconto.getId().intValue()))
+            .andExpect(jsonPath("$.nome").value(DEFAULT_NOME))
             .andExpect(jsonPath("$.valorDesconto").value(sameNumber(DEFAULT_VALOR_DESCONTO)))
             .andExpect(jsonPath("$.valorMinimo").value(DEFAULT_VALOR_MINIMO.booleanValue()))
             .andExpect(jsonPath("$.valorMinimoRegra").value(sameNumber(DEFAULT_VALOR_MINIMO_REGRA)))
@@ -195,6 +203,71 @@ class CupomDescontoResourceIT {
 
         defaultCupomDescontoShouldBeFound("id.lessThanOrEqual=" + id);
         defaultCupomDescontoShouldNotBeFound("id.lessThan=" + id);
+    }
+
+    @Test
+    @Transactional
+    void getAllCupomDescontosByNomeIsEqualToSomething() throws Exception {
+        // Initialize the database
+        cupomDescontoRepository.saveAndFlush(cupomDesconto);
+
+        // Get all the cupomDescontoList where nome equals to DEFAULT_NOME
+        defaultCupomDescontoShouldBeFound("nome.equals=" + DEFAULT_NOME);
+
+        // Get all the cupomDescontoList where nome equals to UPDATED_NOME
+        defaultCupomDescontoShouldNotBeFound("nome.equals=" + UPDATED_NOME);
+    }
+
+    @Test
+    @Transactional
+    void getAllCupomDescontosByNomeIsInShouldWork() throws Exception {
+        // Initialize the database
+        cupomDescontoRepository.saveAndFlush(cupomDesconto);
+
+        // Get all the cupomDescontoList where nome in DEFAULT_NOME or UPDATED_NOME
+        defaultCupomDescontoShouldBeFound("nome.in=" + DEFAULT_NOME + "," + UPDATED_NOME);
+
+        // Get all the cupomDescontoList where nome equals to UPDATED_NOME
+        defaultCupomDescontoShouldNotBeFound("nome.in=" + UPDATED_NOME);
+    }
+
+    @Test
+    @Transactional
+    void getAllCupomDescontosByNomeIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        cupomDescontoRepository.saveAndFlush(cupomDesconto);
+
+        // Get all the cupomDescontoList where nome is not null
+        defaultCupomDescontoShouldBeFound("nome.specified=true");
+
+        // Get all the cupomDescontoList where nome is null
+        defaultCupomDescontoShouldNotBeFound("nome.specified=false");
+    }
+
+    @Test
+    @Transactional
+    void getAllCupomDescontosByNomeContainsSomething() throws Exception {
+        // Initialize the database
+        cupomDescontoRepository.saveAndFlush(cupomDesconto);
+
+        // Get all the cupomDescontoList where nome contains DEFAULT_NOME
+        defaultCupomDescontoShouldBeFound("nome.contains=" + DEFAULT_NOME);
+
+        // Get all the cupomDescontoList where nome contains UPDATED_NOME
+        defaultCupomDescontoShouldNotBeFound("nome.contains=" + UPDATED_NOME);
+    }
+
+    @Test
+    @Transactional
+    void getAllCupomDescontosByNomeNotContainsSomething() throws Exception {
+        // Initialize the database
+        cupomDescontoRepository.saveAndFlush(cupomDesconto);
+
+        // Get all the cupomDescontoList where nome does not contain DEFAULT_NOME
+        defaultCupomDescontoShouldNotBeFound("nome.doesNotContain=" + DEFAULT_NOME);
+
+        // Get all the cupomDescontoList where nome does not contain UPDATED_NOME
+        defaultCupomDescontoShouldBeFound("nome.doesNotContain=" + UPDATED_NOME);
     }
 
     @Test
@@ -553,6 +626,7 @@ class CupomDescontoResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(cupomDesconto.getId().intValue())))
+            .andExpect(jsonPath("$.[*].nome").value(hasItem(DEFAULT_NOME)))
             .andExpect(jsonPath("$.[*].valorDesconto").value(hasItem(sameNumber(DEFAULT_VALOR_DESCONTO))))
             .andExpect(jsonPath("$.[*].valorMinimo").value(hasItem(DEFAULT_VALOR_MINIMO.booleanValue())))
             .andExpect(jsonPath("$.[*].valorMinimoRegra").value(hasItem(sameNumber(DEFAULT_VALOR_MINIMO_REGRA))))
@@ -606,6 +680,7 @@ class CupomDescontoResourceIT {
         // Disconnect from session so that the updates on updatedCupomDesconto are not directly saved in db
         em.detach(updatedCupomDesconto);
         updatedCupomDesconto
+            .nome(UPDATED_NOME)
             .valorDesconto(UPDATED_VALOR_DESCONTO)
             .valorMinimo(UPDATED_VALOR_MINIMO)
             .valorMinimoRegra(UPDATED_VALOR_MINIMO_REGRA)
@@ -624,6 +699,7 @@ class CupomDescontoResourceIT {
         List<CupomDesconto> cupomDescontoList = cupomDescontoRepository.findAll();
         assertThat(cupomDescontoList).hasSize(databaseSizeBeforeUpdate);
         CupomDesconto testCupomDesconto = cupomDescontoList.get(cupomDescontoList.size() - 1);
+        assertThat(testCupomDesconto.getNome()).isEqualTo(UPDATED_NOME);
         assertThat(testCupomDesconto.getValorDesconto()).isEqualByComparingTo(UPDATED_VALOR_DESCONTO);
         assertThat(testCupomDesconto.getValorMinimo()).isEqualTo(UPDATED_VALOR_MINIMO);
         assertThat(testCupomDesconto.getValorMinimoRegra()).isEqualByComparingTo(UPDATED_VALOR_MINIMO_REGRA);
@@ -699,7 +775,7 @@ class CupomDescontoResourceIT {
         CupomDesconto partialUpdatedCupomDesconto = new CupomDesconto();
         partialUpdatedCupomDesconto.setId(cupomDesconto.getId());
 
-        partialUpdatedCupomDesconto.valorMinimo(UPDATED_VALOR_MINIMO).valido(UPDATED_VALIDO);
+        partialUpdatedCupomDesconto.valorDesconto(UPDATED_VALOR_DESCONTO).descricaoRegras(UPDATED_DESCRICAO_REGRAS);
 
         restCupomDescontoMockMvc
             .perform(
@@ -713,11 +789,12 @@ class CupomDescontoResourceIT {
         List<CupomDesconto> cupomDescontoList = cupomDescontoRepository.findAll();
         assertThat(cupomDescontoList).hasSize(databaseSizeBeforeUpdate);
         CupomDesconto testCupomDesconto = cupomDescontoList.get(cupomDescontoList.size() - 1);
-        assertThat(testCupomDesconto.getValorDesconto()).isEqualByComparingTo(DEFAULT_VALOR_DESCONTO);
-        assertThat(testCupomDesconto.getValorMinimo()).isEqualTo(UPDATED_VALOR_MINIMO);
+        assertThat(testCupomDesconto.getNome()).isEqualTo(DEFAULT_NOME);
+        assertThat(testCupomDesconto.getValorDesconto()).isEqualByComparingTo(UPDATED_VALOR_DESCONTO);
+        assertThat(testCupomDesconto.getValorMinimo()).isEqualTo(DEFAULT_VALOR_MINIMO);
         assertThat(testCupomDesconto.getValorMinimoRegra()).isEqualByComparingTo(DEFAULT_VALOR_MINIMO_REGRA);
-        assertThat(testCupomDesconto.getDescricaoRegras()).isEqualTo(DEFAULT_DESCRICAO_REGRAS);
-        assertThat(testCupomDesconto.getValido()).isEqualTo(UPDATED_VALIDO);
+        assertThat(testCupomDesconto.getDescricaoRegras()).isEqualTo(UPDATED_DESCRICAO_REGRAS);
+        assertThat(testCupomDesconto.getValido()).isEqualTo(DEFAULT_VALIDO);
     }
 
     @Test
@@ -733,6 +810,7 @@ class CupomDescontoResourceIT {
         partialUpdatedCupomDesconto.setId(cupomDesconto.getId());
 
         partialUpdatedCupomDesconto
+            .nome(UPDATED_NOME)
             .valorDesconto(UPDATED_VALOR_DESCONTO)
             .valorMinimo(UPDATED_VALOR_MINIMO)
             .valorMinimoRegra(UPDATED_VALOR_MINIMO_REGRA)
@@ -751,6 +829,7 @@ class CupomDescontoResourceIT {
         List<CupomDesconto> cupomDescontoList = cupomDescontoRepository.findAll();
         assertThat(cupomDescontoList).hasSize(databaseSizeBeforeUpdate);
         CupomDesconto testCupomDesconto = cupomDescontoList.get(cupomDescontoList.size() - 1);
+        assertThat(testCupomDesconto.getNome()).isEqualTo(UPDATED_NOME);
         assertThat(testCupomDesconto.getValorDesconto()).isEqualByComparingTo(UPDATED_VALOR_DESCONTO);
         assertThat(testCupomDesconto.getValorMinimo()).isEqualTo(UPDATED_VALOR_MINIMO);
         assertThat(testCupomDesconto.getValorMinimoRegra()).isEqualByComparingTo(UPDATED_VALOR_MINIMO_REGRA);

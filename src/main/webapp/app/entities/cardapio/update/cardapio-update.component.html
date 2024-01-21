@@ -27,9 +27,19 @@
           }
         </div>
 
-        <div class="mb-3">
+        <div class="mb-3 checkbox">
+          <button
+            type="button"
+            class="form-check btn-toggle"
+            name="showChamadoPublic"
+            id="field_ativo"
+            data-cy="ativo"
+            [ngClass]="{ active: editForm.controls.ativo.value, inactive: !editForm.controls.ativo.value }"
+            (click)="toggleCheckbox('ativo')"
+          >
+            {{ editForm.controls.ativo.value ? 'ON' : 'OFF' }}
+          </button>
           <label class="form-label" jhiTranslate="graoDiretoMvpApp.cardapio.ativo" for="field_ativo">Ativo</label>
-          <input type="checkbox" class="form-check" name="ativo" id="field_ativo" data-cy="ativo" formControlName="ativo" />
         </div>
 
         <div class="mb-3">

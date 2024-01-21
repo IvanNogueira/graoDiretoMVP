@@ -1,4 +1,3 @@
-import { IImagens } from 'app/entities/imagens/imagens.model';
 import { ICategoriaProduto } from 'app/entities/categoria-produto/categoria-produto.model';
 import { ICardapio } from 'app/entities/cardapio/cardapio.model';
 
@@ -8,7 +7,8 @@ export interface IProduto {
   descricao?: string | null;
   preco?: number | null;
   desconto?: number | null;
-  imagens?: IImagens[] | null;
+  imagemProduto?: string | null;
+  imagemProdutoContentType?: string | null;
   categoriaProduto?: ICategoriaProduto | null;
   cardapio?: ICardapio | null;
 }

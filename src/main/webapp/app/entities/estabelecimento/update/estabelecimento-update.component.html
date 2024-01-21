@@ -135,6 +135,21 @@
         </div>
 
         <div class="mb-3">
+          <label class="form-label" jhiTranslate="graoDiretoMvpApp.estabelecimento.criadoEm" for="field_criadoEm">Criado Em</label>
+          <div class="d-flex">
+            <input
+              id="field_criadoEm"
+              data-cy="criadoEm"
+              type="datetime-local"
+              class="form-control"
+              name="criadoEm"
+              formControlName="criadoEm"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+        </div>
+
+        <div class="mb-3">
           <label class="form-label" jhiTranslate="graoDiretoMvpApp.estabelecimento.logradouro" for="field_logradouro">Logradouro</label>
           <input
             type="text"
@@ -207,6 +222,16 @@
             <option [ngValue]="null"></option>
             @for (cidadeOption of cidadesSharedCollection; track $index) {
               <option [ngValue]="cidadeOption">{{ cidadeOption.nome }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_cidade">Usuario Responsavel</label>
+          <select class="form-control" id="field_user" data-cy="user" name="user" formControlName="user">
+            <option [ngValue]="null"></option>
+            @for (userOption of userSharedCollection; track $index) {
+              <option [ngValue]="userOption">{{ userOption.login }}</option>
             }
           </select>
         </div>

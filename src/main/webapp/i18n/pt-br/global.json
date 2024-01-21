@@ -9,10 +9,9 @@
         "main": "Entidades",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)",
         "estabelecimento": "Estabelecimento",
-        "cupomDesconto": "Cupons",
+        "cupomDesconto": "Cupom Desconto",
         "produto": "Produto",
         "categoriaProduto": "Categoria Produto",
-        "imagens": "Imagens",
         "cardapio": "Cardapio",
         "estado": "Estado",
         "cidade": "Cidade"

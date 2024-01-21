@@ -1,22 +1,22 @@
 import { ICupomDesconto, NewCupomDesconto } from './cupom-desconto.model';
 
 export const sampleWithRequiredData: ICupomDesconto = {
-  id: 28026,
+  id: 1904,
 };
 
 export const sampleWithPartialData: ICupomDesconto = {
-  id: 23179,
-  valorDesconto: 27031.21,
-  valorMinimo: false,
-  valorMinimoRegra: 15208.45,
+  id: 26642,
+  nome: 'pfft garland',
+  valorDesconto: 25847.82,
 };
 
 export const sampleWithFullData: ICupomDesconto = {
-  id: 27516,
-  valorDesconto: 22061.44,
+  id: 10173,
+  nome: 'whoa',
+  valorDesconto: 19368.91,
   valorMinimo: false,
-  valorMinimoRegra: 18468.81,
-  descricaoRegras: 'aw yoga',
+  valorMinimoRegra: 20958.34,
+  descricaoRegras: 'certainly',
   valido: true,
 };
 

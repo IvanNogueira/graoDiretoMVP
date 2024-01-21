@@ -22,6 +22,8 @@ type ProdutoFormGroupContent = {
   descricao: FormControl<IProduto['descricao']>;
   preco: FormControl<IProduto['preco']>;
   desconto: FormControl<IProduto['desconto']>;
+  imagemProduto: FormControl<IProduto['imagemProduto']>;
+  imagemProdutoContentType: FormControl<IProduto['imagemProdutoContentType']>;
   categoriaProduto: FormControl<IProduto['categoriaProduto']>;
   cardapio: FormControl<IProduto['cardapio']>;
 };
@@ -51,6 +53,8 @@ export class ProdutoFormService {
         validators: [Validators.required],
       }),
       desconto: new FormControl(produtoRawValue.desconto),
+      imagemProduto: new FormControl(produtoRawValue.imagemProduto),
+      imagemProdutoContentType: new FormControl(produtoRawValue.imagemProdutoContentType),
       categoriaProduto: new FormControl(produtoRawValue.categoriaProduto),
       cardapio: new FormControl(produtoRawValue.cardapio),
     });

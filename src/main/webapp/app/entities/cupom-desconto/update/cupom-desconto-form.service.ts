@@ -18,6 +18,7 @@ type CupomDescontoFormDefaults = Pick<NewCupomDesconto, 'id' | 'valorMinimo' | '
 
 type CupomDescontoFormGroupContent = {
   id: FormControl<ICupomDesconto['id'] | NewCupomDesconto['id']>;
+  nome: FormControl<ICupomDesconto['nome']>;
   valorDesconto: FormControl<ICupomDesconto['valorDesconto']>;
   valorMinimo: FormControl<ICupomDesconto['valorMinimo']>;
   valorMinimoRegra: FormControl<ICupomDesconto['valorMinimoRegra']>;
@@ -43,6 +44,7 @@ export class CupomDescontoFormService {
           validators: [Validators.required],
         },
       ),
+      nome: new FormControl(cupomDescontoRawValue.nome),
       valorDesconto: new FormControl(cupomDescontoRawValue.valorDesconto),
       valorMinimo: new FormControl(cupomDescontoRawValue.valorMinimo),
       valorMinimoRegra: new FormControl(cupomDescontoRawValue.valorMinimoRegra),

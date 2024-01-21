@@ -53,6 +53,54 @@
         </div>
 
         <div class="mb-3">
+          <label class="form-label" jhiTranslate="graoDiretoMvpApp.produto.imagemProduto" for="field_imagemProduto">Imagem Produto</label>
+          <div>
+            @if (editForm.get('imagemProduto')!.value) {
+              <div class="form-text text-danger clearfix">
+                <a
+                  class="pull-start"
+                  (click)="openFile(editForm.get('imagemProduto')!.value!, editForm.get('imagemProdutoContentType')!.value!)"
+                  jhiTranslate="entity.action.open"
+                  >Abrir</a
+                ><br />
+                <span class="pull-start"
+                  >{{ editForm.get('imagemProdutoContentType')!.value }}, {{ byteSize(editForm.get('imagemProduto')!.value!) }}</span
+                >
+                <button
+                  type="button"
+                  (click)="editForm.patchValue({ imagemProduto: undefined, imagemProdutoContentType: undefined })"
+                  class="btn btn-secondary btn-xs pull-end"
+                >
+                  <fa-icon icon="times"></fa-icon>
+                </button>
+              </div>
+            }
+            <input
+              type="file"
+              id="file_imagemProduto"
+              data-cy="imagemProduto"
+              (change)="setFileData($event, 'imagemProduto', false)"
+              jhiTranslate="entity.action.addblob"
+            />
+          </div>
+          <input
+            type="hidden"
+            class="form-control"
+            name="imagemProduto"
+            id="field_imagemProduto"
+            data-cy="imagemProduto"
+            formControlName="imagemProduto"
+          />
+          <input
+            type="hidden"
+            class="form-control"
+            name="imagemProdutoContentType"
+            id="field_imagemProdutoContentType"
+            formControlName="imagemProdutoContentType"
+          />
+        </div>
+
+        <div class="mb-3">
           <label class="form-label" jhiTranslate="graoDiretoMvpApp.produto.categoriaProduto" for="field_categoriaProduto"
             >Categoria Produto</label
           >

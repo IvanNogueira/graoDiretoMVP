@@ -20,6 +20,7 @@ describe('CupomDesconto Form Service', () => {
         expect(formGroup.controls).toEqual(
           expect.objectContaining({
             id: expect.any(Object),
+            nome: expect.any(Object),
             valorDesconto: expect.any(Object),
             valorMinimo: expect.any(Object),
             valorMinimoRegra: expect.any(Object),
@@ -36,6 +37,7 @@ describe('CupomDesconto Form Service', () => {
         expect(formGroup.controls).toEqual(
           expect.objectContaining({
             id: expect.any(Object),
+            nome: expect.any(Object),
             valorDesconto: expect.any(Object),
             valorMinimo: expect.any(Object),
             valorMinimoRegra: expect.any(Object),

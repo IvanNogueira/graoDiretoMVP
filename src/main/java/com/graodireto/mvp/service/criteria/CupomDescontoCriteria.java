@@ -23,6 +23,8 @@ public class CupomDescontoCriteria implements Serializable, Criteria {
 
     private LongFilter id;
 
+    private StringFilter nome;
+
     private BigDecimalFilter valorDesconto;
 
     private BooleanFilter valorMinimo;
@@ -41,6 +43,7 @@ public class CupomDescontoCriteria implements Serializable, Criteria {
 
     public CupomDescontoCriteria(CupomDescontoCriteria other) {
         this.id = other.id == null ? null : other.id.copy();
+        this.nome = other.nome == null ? null : other.nome.copy();
         this.valorDesconto = other.valorDesconto == null ? null : other.valorDesconto.copy();
         this.valorMinimo = other.valorMinimo == null ? null : other.valorMinimo.copy();
         this.valorMinimoRegra = other.valorMinimoRegra == null ? null : other.valorMinimoRegra.copy();
@@ -68,6 +71,21 @@ public class CupomDescontoCriteria implements Serializable, Criteria {
 
     public void setId(LongFilter id) {
         this.id = id;
+    }
+
+    public StringFilter getNome() {
+        return nome;
+    }
+
+    public StringFilter nome() {
+        if (nome == null) {
+            nome = new StringFilter();
+        }
+        return nome;
+    }
+
+    public void setNome(StringFilter nome) {
+        this.nome = nome;
     }
 
     public BigDecimalFilter getValorDesconto() {
@@ -179,6 +197,7 @@ public class CupomDescontoCriteria implements Serializable, Criteria {
         final CupomDescontoCriteria that = (CupomDescontoCriteria) o;
         return (
             Objects.equals(id, that.id) &&
+            Objects.equals(nome, that.nome) &&
             Objects.equals(valorDesconto, that.valorDesconto) &&
             Objects.equals(valorMinimo, that.valorMinimo) &&
             Objects.equals(valorMinimoRegra, that.valorMinimoRegra) &&
@@ -191,7 +210,7 @@ public class CupomDescontoCriteria implements Serializable, Criteria {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, valorDesconto, valorMinimo, valorMinimoRegra, descricaoRegras, valido, estabelecimentoId, distinct);
+        return Objects.hash(id, nome, valorDesconto, valorMinimo, valorMinimoRegra, descricaoRegras, valido, estabelecimentoId, distinct);
     }
 
     // prettier-ignore
@@ -199,6 +218,7 @@ public class CupomDescontoCriteria implements Serializable, Criteria {
     public String toString() {
         return "CupomDescontoCriteria{" +
             (id != null ? "id=" + id + ", " : "") +
+            (nome != null ? "nome=" + nome + ", " : "") +
             (valorDesconto != null ? "valorDesconto=" + valorDesconto + ", " : "") +
             (valorMinimo != null ? "valorMinimo=" + valorMinimo + ", " : "") +
             (valorMinimoRegra != null ? "valorMinimoRegra=" + valorMinimoRegra + ", " : "") +

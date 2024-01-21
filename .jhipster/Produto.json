@@ -22,18 +22,17 @@
     {
       "fieldName": "desconto",
       "fieldType": "BigDecimal"
+    },
+    {
+      "fieldName": "imagemProduto",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "any"
     }
   ],
   "jpaMetamodelFiltering": true,
   "name": "Produto",
   "pagination": "infinite-scroll",
   "relationships": [
-    {
-      "otherEntityName": "imagens",
-      "relationshipName": "imagens",
-      "relationshipSide": "left",
-      "relationshipType": "one-to-many"
-    },
     {
       "otherEntityName": "categoriaProduto",
       "relationshipName": "categoriaProduto",

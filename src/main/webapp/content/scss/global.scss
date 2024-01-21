@@ -247,3 +247,29 @@ angular-cli removes postcss-rtl processed inline css, processed rules must be ad
 nav.navbar.navbar-dark.navbar-expand-md.bg-dark {
   background-color: rgb(24, 24, 24) !important;
 }
+
+.btn-toggle.active {
+  background-color: var(--bs-primary);
+  color: var(--bs-primary-color);
+}
+
+.btn-toggle.inactive {
+  background-color: var(--bs-secondary);
+  color: var(--bs-secondary-color);
+}
+
+.btn-toggle {
+  padding: 5px 5px;
+  margin-right: 8px;
+  margin-left: 8px;
+  width: 70px;
+  color: #000;
+  border: 1px solid rgb(117, 114, 114);
+  cursor: pointer;
+  border-radius: 20px;
+}
+
+.checkbox {
+  display: flex;
+  align-items: center;
+}

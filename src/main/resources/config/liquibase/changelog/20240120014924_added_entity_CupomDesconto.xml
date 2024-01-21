@@ -11,8 +11,11 @@
     -->
     <changeSet id="20240120014924-1" author="jhipster">
         <createTable tableName="cupom_desconto">
-            <column name="id" type="bigint" autoIncrement="true" startWith="1500">
+            <column name="id" type="bigint" autoIncrement="true" startWith="0">
                 <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="nome" type="varchar(255)">
+                <constraints nullable="true" />
             </column>
             <column name="valor_desconto" type="decimal(21,2)">
                 <constraints nullable="true" />
@@ -38,5 +41,5 @@
 
     <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here -->
 
-   
+    
 </databaseChangeLog>

@@ -72,12 +72,6 @@
       "relationshipType": "one-to-many"
     },
     {
-      "otherEntityName": "imagens",
-      "relationshipName": "imagens",
-      "relationshipSide": "left",
-      "relationshipType": "one-to-many"
-    },
-    {
       "otherEntityName": "cupomDesconto",
       "relationshipName": "cupomDesconto",
       "relationshipSide": "left",

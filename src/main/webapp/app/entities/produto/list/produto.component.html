@@ -70,6 +70,13 @@
                 <fa-icon class="p-1" icon="sort"></fa-icon>
               </div>
             </th>
+            <th scope="col" jhiSortBy="imagemProduto">
+              <div class="d-flex">
+                <span jhiTranslate="graoDiretoMvpApp.produto.imagemProduto">Imagem Produto</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
             <th scope="col" jhiSortBy="categoriaProduto.id">
               <div class="d-flex">
                 <span jhiTranslate="graoDiretoMvpApp.produto.categoriaProduto">Categoria Produto</span>
@@ -100,6 +107,12 @@
               <td>{{ produto.descricao }}</td>
               <td>{{ produto.preco }}</td>
               <td>{{ produto.desconto }}</td>
+              <td>
+                @if (produto.imagemProduto) {
+                  <a (click)="openFile(produto.imagemProduto, produto.imagemProdutoContentType)" jhiTranslate="entity.action.open">Abrir</a>
+                  <span>{{ produto.imagemProdutoContentType }}, {{ byteSize(produto.imagemProduto) }}</span>
+                }
+              </td>
               <td>
                 @if (produto.categoriaProduto) {
                   <div>

@@ -1,29 +1,30 @@
 import { IProduto, NewProduto } from './produto.model';
 
 export const sampleWithRequiredData: IProduto = {
-  id: 3386,
-  nome: 'dogwood lively',
-  preco: 3403.63,
+  id: 11209,
+  nome: 'yippee bump amidst',
+  preco: 23573.01,
 };
 
 export const sampleWithPartialData: IProduto = {
-  id: 17955,
-  nome: 'molder yet ack',
-  preco: 21990.04,
-  desconto: 898.14,
+  id: 30320,
+  nome: 'fine all kissingly',
+  preco: 11874.21,
 };
 
 export const sampleWithFullData: IProduto = {
-  id: 10730,
-  nome: 'but forceful',
-  descricao: 'neatly',
-  preco: 26191.46,
-  desconto: 2229.18,
+  id: 4306,
+  nome: 'absent neatly',
+  descricao: 'tremendously spike excitedly',
+  preco: 9424.51,
+  desconto: 28426.96,
+  imagemProduto: '../fake-data/blob/hipster.png',
+  imagemProdutoContentType: 'unknown',
 };
 
 export const sampleWithNewData: NewProduto = {
-  nome: 'unbearably airspace',
-  preco: 15047.65,
+  nome: 'zone between',
+  preco: 8218.94,
   id: null,
 };
 

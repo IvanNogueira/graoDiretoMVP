@@ -125,15 +125,6 @@ public class EstabelecimentoQueryService extends QueryService<Estabelecimento> {
                         )
                     );
             }
-            if (criteria.getImagensId() != null) {
-                specification =
-                    specification.and(
-                        buildSpecification(
-                            criteria.getImagensId(),
-                            root -> root.join(Estabelecimento_.imagens, JoinType.LEFT).get(Imagens_.id)
-                        )
-                    );
-            }
             if (criteria.getCupomDescontoId() != null) {
                 specification =
                     specification.and(
@@ -150,6 +141,12 @@ public class EstabelecimentoQueryService extends QueryService<Estabelecimento> {
                             criteria.getCidadeId(),
                             root -> root.join(Estabelecimento_.cidade, JoinType.LEFT).get(Cidade_.id)
                         )
+                    );
+            }
+            if (criteria.getUserId() != null) {
+                specification =
+                    specification.and(
+                        buildSpecification(criteria.getUserId(), root -> root.join(Estabelecimento_.user, JoinType.INNER).get(User_.id))
                     );
             }
         }

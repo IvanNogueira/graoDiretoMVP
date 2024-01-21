@@ -57,6 +57,12 @@ public class ProdutoServiceImpl implements ProdutoService {
                 if (produto.getDesconto() != null) {
                     existingProduto.setDesconto(produto.getDesconto());
                 }
+                if (produto.getImagemProduto() != null) {
+                    existingProduto.setImagemProduto(produto.getImagemProduto());
+                }
+                if (produto.getImagemProdutoContentType() != null) {
+                    existingProduto.setImagemProdutoContentType(produto.getImagemProdutoContentType());
+                }
 
                 return existingProduto;
             })

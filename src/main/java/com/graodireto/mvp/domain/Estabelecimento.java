@@ -78,16 +78,15 @@ public class Estabelecimento implements Serializable {
     private Set<Cardapio> cardapios = new HashSet<>();
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "estabelecimento")
-    @JsonIgnoreProperties(value = { "estabelecimento", "produto" }, allowSetters = true)
-    private Set<Imagens> imagens = new HashSet<>();
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "estabelecimento")
     @JsonIgnoreProperties(value = { "estabelecimento" }, allowSetters = true)
     private Set<CupomDesconto> cupomDescontos = new HashSet<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonIgnoreProperties(value = { "estabelecimentos", "estado" }, allowSetters = true)
     private Cidade cidade;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    private User user;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -317,37 +316,6 @@ public class Estabelecimento implements Serializable {
         return this;
     }
 
-    public Set<Imagens> getImagens() {
-        return this.imagens;
-    }
-
-    public void setImagens(Set<Imagens> imagens) {
-        if (this.imagens != null) {
-            this.imagens.forEach(i -> i.setEstabelecimento(null));
-        }
-        if (imagens != null) {
-            imagens.forEach(i -> i.setEstabelecimento(this));
-        }
-        this.imagens = imagens;
-    }
-
-    public Estabelecimento imagens(Set<Imagens> imagens) {
-        this.setImagens(imagens);
-        return this;
-    }
-
-    public Estabelecimento addImagens(Imagens imagens) {
-        this.imagens.add(imagens);
-        imagens.setEstabelecimento(this);
-        return this;
-    }
-
-    public Estabelecimento removeImagens(Imagens imagens) {
-        this.imagens.remove(imagens);
-        imagens.setEstabelecimento(null);
-        return this;
-    }
-
     public Set<CupomDesconto> getCupomDescontos() {
         return this.cupomDescontos;
     }
@@ -390,6 +358,19 @@ public class Estabelecimento implements Serializable {
     public Estabelecimento cidade(Cidade cidade) {
         this.setCidade(cidade);
         return this;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public Estabelecimento user(User user) {
+        this.setUser(user);
+        return this;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here

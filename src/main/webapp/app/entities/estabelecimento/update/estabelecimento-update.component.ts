@@ -16,6 +16,8 @@ import { TipoEstabelicimento } from 'app/entities/enumerations/tipo-estabelicime
 import { EstabelecimentoService } from '../service/estabelecimento.service';
 import { IEstabelecimento } from '../estabelecimento.model';
 import { EstabelecimentoFormService, EstabelecimentoFormGroup } from './estabelecimento-form.service';
+import { UserService } from 'app/entities/user/user.service';
+import { IUser } from 'app/admin/user-management/user-management.model';
 
 @Component({
   standalone: true,
@@ -31,6 +33,7 @@ export class EstabelecimentoUpdateComponent implements OnInit {
   cidadesSharedCollection: ICidade[] = [];
 
   editForm: EstabelecimentoFormGroup = this.estabelecimentoFormService.createEstabelecimentoFormGroup();
+  userSharedCollection: IUser[] = [];
 
   constructor(
     protected dataUtils: DataUtils,
@@ -39,6 +42,7 @@ export class EstabelecimentoUpdateComponent implements OnInit {
     protected estabelecimentoFormService: EstabelecimentoFormService,
     protected cidadeService: CidadeService,
     protected activatedRoute: ActivatedRoute,
+    protected userService: UserService,
   ) {}
 
   compareCidade = (o1: ICidade | null, o2: ICidade | null): boolean => this.cidadeService.compareCidade(o1, o2);
@@ -118,5 +122,11 @@ export class EstabelecimentoUpdateComponent implements OnInit {
       .pipe(map((res: HttpResponse<ICidade[]>) => res.body ?? []))
       .pipe(map((cidades: ICidade[]) => this.cidadeService.addCidadeToCollectionIfMissing<ICidade>(cidades, this.estabelecimento?.cidade)))
       .subscribe((cidades: ICidade[]) => (this.cidadesSharedCollection = cidades));
+
+    this.userService
+      .query()
+      .pipe(map((res: HttpResponse<IUser[]>) => res.body ?? []))
+      .subscribe((users: IUser[]) => (this.userSharedCollection = users));
+    console.log(this.userSharedCollection);
   }
 }

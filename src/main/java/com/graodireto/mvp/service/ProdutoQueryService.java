@@ -1,6 +1,7 @@
 package com.graodireto.mvp.service;
 
 import com.graodireto.mvp.domain.*; // for static metamodels
+import com.graodireto.mvp.domain.Produto;
 import com.graodireto.mvp.repository.ProdutoRepository;
 import com.graodireto.mvp.service.criteria.ProdutoCriteria;
 import jakarta.persistence.criteria.JoinType;
@@ -95,12 +96,6 @@ public class ProdutoQueryService extends QueryService<Produto> {
             }
             if (criteria.getDesconto() != null) {
                 specification = specification.and(buildRangeSpecification(criteria.getDesconto(), Produto_.desconto));
-            }
-            if (criteria.getImagensId() != null) {
-                specification =
-                    specification.and(
-                        buildSpecification(criteria.getImagensId(), root -> root.join(Produto_.imagens, JoinType.LEFT).get(Imagens_.id))
-                    );
             }
             if (criteria.getCategoriaProdutoId() != null) {
                 specification =

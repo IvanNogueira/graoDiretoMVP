@@ -18,6 +18,7 @@
         "title": "Cupom Desconto"
       },
       "id": "ID",
+      "nome": "Nome",
       "valorDesconto": "Valor Desconto",
       "valorMinimo": "Valor Minimo",
       "valorMinimoRegra": "Valor Minimo Regra",

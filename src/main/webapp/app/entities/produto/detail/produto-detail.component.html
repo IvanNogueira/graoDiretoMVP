@@ -31,6 +31,15 @@
           <dd>
             <span>{{ produto.desconto }}</span>
           </dd>
+          <dt><span jhiTranslate="graoDiretoMvpApp.produto.imagemProduto">Imagem Produto</span></dt>
+          <dd>
+            @if (produto.imagemProduto) {
+              <div>
+                <a (click)="openFile(produto.imagemProduto, produto.imagemProdutoContentType)" jhiTranslate="entity.action.open">Abrir</a>
+                {{ produto.imagemProdutoContentType }}, {{ byteSize(produto.imagemProduto) }}
+              </div>
+            }
+          </dd>
           <dt><span jhiTranslate="graoDiretoMvpApp.produto.categoriaProduto">Categoria Produto</span></dt>
           <dd>
             @if (produto.categoriaProduto) {

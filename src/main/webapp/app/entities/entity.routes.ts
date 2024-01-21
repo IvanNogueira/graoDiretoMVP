@@ -22,11 +22,6 @@ const routes: Routes = [
     loadChildren: () => import('./categoria-produto/categoria-produto.routes'),
   },
   {
-    path: 'imagens',
-    data: { pageTitle: 'graoDiretoMvpApp.imagens.home.title' },
-    loadChildren: () => import('./imagens/imagens.routes'),
-  },
-  {
     path: 'cardapio',
     data: { pageTitle: 'graoDiretoMvpApp.cardapio.home.title' },
     loadChildren: () => import('./cardapio/cardapio.routes'),

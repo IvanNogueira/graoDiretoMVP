@@ -42,6 +42,13 @@
                 <fa-icon class="p-1" icon="sort"></fa-icon>
               </div>
             </th>
+            <th scope="col" jhiSortBy="nome">
+              <div class="d-flex">
+                <span jhiTranslate="graoDiretoMvpApp.cupomDesconto.nome">Nome</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
             <th scope="col" jhiSortBy="valorDesconto">
               <div class="d-flex">
                 <span jhiTranslate="graoDiretoMvpApp.cupomDesconto.valorDesconto">Valor Desconto</span>
@@ -97,6 +104,7 @@
               <td>
                 <a [routerLink]="['/cupom-desconto', cupomDesconto.id, 'view']">{{ cupomDesconto.id }}</a>
               </td>
+              <td>{{ cupomDesconto.nome }}</td>
               <td>{{ cupomDesconto.valorDesconto }}</td>
               <td>{{ cupomDesconto.valorMinimo }}</td>
               <td>{{ cupomDesconto.valorMinimoRegra }}</td>

@@ -20,6 +20,11 @@
         }
 
         <div class="mb-3">
+          <label class="form-label" jhiTranslate="graoDiretoMvpApp.cupomDesconto.nome" for="field_nome">Nome</label>
+          <input type="text" class="form-control" name="nome" id="field_nome" data-cy="nome" formControlName="nome" />
+        </div>
+
+        <div class="mb-3">
           <label class="form-label" jhiTranslate="graoDiretoMvpApp.cupomDesconto.valorDesconto" for="field_valorDesconto"
             >Valor Desconto</label
           >
@@ -33,16 +38,19 @@
           />
         </div>
 
-        <div class="mb-3">
-          <label class="form-label" jhiTranslate="graoDiretoMvpApp.cupomDesconto.valorMinimo" for="field_valorMinimo">Valor Minimo</label>
-          <input
-            type="checkbox"
-            class="form-check"
+        <div class="mb-3 checkbox">
+          <label class="form-label" jhiTranslate="graoDiretoMvpApp.cupomDesconto.valorMinimo" for="field_valorMinimo">Valor Minimo: </label>
+          <button
+            type="button"
+            class="form-check btn-toggle"
             name="valorMinimo"
             id="field_valorMinimo"
             data-cy="valorMinimo"
-            formControlName="valorMinimo"
-          />
+            [ngClass]="{ active: editForm.controls.valorMinimo.value, inactive: !editForm.controls.valorMinimo.value }"
+            (click)="toggleCheckbox('valorMinimo')"
+          >
+            {{ editForm.controls.valorMinimo.value ? 'SIM' : 'NÃO' }}
+          </button>
         </div>
 
         <div class="mb-3">
@@ -73,9 +81,19 @@
           />
         </div>
 
-        <div class="mb-3">
+        <div class="mb-3 checkbox">
           <label class="form-label" jhiTranslate="graoDiretoMvpApp.cupomDesconto.valido" for="field_valido">Valido</label>
-          <input type="checkbox" class="form-check" name="valido" id="field_valido" data-cy="valido" formControlName="valido" />
+          <button
+            type="button"
+            class="form-check btn-toggle"
+            name="valido"
+            id="field_valido"
+            data-cy="valido"
+            [ngClass]="{ active: editForm.controls.valido.value, inactive: !editForm.controls.valido.value }"
+            (click)="toggleCheckbox('valido')"
+          >
+            {{ editForm.controls.valido.value ? 'ON' : 'OFF' }}
+          </button>
         </div>
 
         <div class="mb-3">

@@ -10,7 +10,6 @@ import com.graodireto.mvp.domain.Cardapio;
 import com.graodireto.mvp.domain.Cidade;
 import com.graodireto.mvp.domain.CupomDesconto;
 import com.graodireto.mvp.domain.Estabelecimento;
-import com.graodireto.mvp.domain.Imagens;
 import com.graodireto.mvp.domain.enumeration.TipoEstabelicimento;
 import com.graodireto.mvp.repository.EstabelecimentoRepository;
 import jakarta.persistence.EntityManager;
@@ -968,28 +967,6 @@ class EstabelecimentoResourceIT {
 
         // Get all the estabelecimentoList where cardapio equals to (cardapioId + 1)
         defaultEstabelecimentoShouldNotBeFound("cardapioId.equals=" + (cardapioId + 1));
-    }
-
-    @Test
-    @Transactional
-    void getAllEstabelecimentosByImagensIsEqualToSomething() throws Exception {
-        Imagens imagens;
-        if (TestUtil.findAll(em, Imagens.class).isEmpty()) {
-            estabelecimentoRepository.saveAndFlush(estabelecimento);
-            imagens = ImagensResourceIT.createEntity(em);
-        } else {
-            imagens = TestUtil.findAll(em, Imagens.class).get(0);
-        }
-        em.persist(imagens);
-        em.flush();
-        estabelecimento.addImagens(imagens);
-        estabelecimentoRepository.saveAndFlush(estabelecimento);
-        Long imagensId = imagens.getId();
-        // Get all the estabelecimentoList where imagens equals to imagensId
-        defaultEstabelecimentoShouldBeFound("imagensId.equals=" + imagensId);
-
-        // Get all the estabelecimentoList where imagens equals to (imagensId + 1)
-        defaultEstabelecimentoShouldNotBeFound("imagensId.equals=" + (imagensId + 1));
     }
 
     @Test

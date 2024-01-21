@@ -45,6 +45,9 @@ public class CupomDescontoServiceImpl implements CupomDescontoService {
         return cupomDescontoRepository
             .findById(cupomDesconto.getId())
             .map(existingCupomDesconto -> {
+                if (cupomDesconto.getNome() != null) {
+                    existingCupomDesconto.setNome(cupomDesconto.getNome());
+                }
                 if (cupomDesconto.getValorDesconto() != null) {
                     existingCupomDesconto.setValorDesconto(cupomDesconto.getValorDesconto());
                 }

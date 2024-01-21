@@ -11,7 +11,7 @@
     -->
     <changeSet id="20240120015124-1" author="jhipster">
         <createTable tableName="categoria_produto">
-            <column name="id" type="bigint" autoIncrement="true" startWith="1500">
+            <column name="id" type="bigint" autoIncrement="true" startWith="0">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="nome" type="varchar(255)">
@@ -26,5 +26,5 @@
 
     <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here -->
 
-    
+
 </databaseChangeLog>

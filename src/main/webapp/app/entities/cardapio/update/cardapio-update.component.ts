@@ -105,4 +105,11 @@ export class CardapioUpdateComponent implements OnInit {
       )
       .subscribe((estabelecimentos: IEstabelecimento[]) => (this.estabelecimentosSharedCollection = estabelecimentos));
   }
+
+  toggleCheckbox(controlName: string) {
+    const control = this.editForm.get(controlName);
+    if (control) {
+      control.setValue(!control.value);
+    }
+  }
 }
