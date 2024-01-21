@@ -75,9 +75,9 @@
                     </div>
                   }
                 </td>
-                <td>{{ user.createdDate | date: 'dd/MM/yy HH:mm' }}</td>
+                <td>{{ user.createdDate }}</td>
                 <td>{{ user.lastModifiedBy }}</td>
-                <td>{{ user.lastModifiedDate | date: 'dd/MM/yy HH:mm' }}</td>
+                <td>{{ user.lastModifiedDate }}</td>
                 <td class="text-end">
                   <div class="btn-group">
                     <button type="submit" [routerLink]="['./', user.login, 'view']" class="btn btn-info btn-sm">

@@ -19,3 +19,49 @@ Main page styles
     background-size: contain;
   }
 }
+/* restaurante-info.component.css */
+
+.capa {
+  width: 100%;
+  overflow: hidden;
+}
+
+.capa img {
+  width: 100%;
+}
+
+.info {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+}
+
+.bolinha {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-top: -80px;
+}
+
+.bolinha img {
+  width: 100%;
+}
+
+.nome-restaurante {
+  margin-left: 10px;
+}
+.restaurante-info-container {
+  max-width: 300px;
+  background-color: var(--background);
+  border-radius: 1.5rem;
+  box-shadow: var(--shadow);
+  flex-basis: calc(40% - 20px);
+  margin: 10px;
+}
+
+.home-restaurantes {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}

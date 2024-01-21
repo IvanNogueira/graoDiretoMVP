@@ -1,0 +1,22 @@
+<h3>
+  Olá,<strong> {{ account!.firstName! ? account!.firstName! : account!.login! }}</strong> . Explore o Sabor: Descubra uma Experiência
+  Culinária Única nos Nossos Restaurantes.
+</h3>
+
+<div class="home-restaurantes">
+  <div class="restaurante-info-container" *ngFor="let estabelecimento of estabelecimentoCollection">
+    <div class="capa">
+      <img [src]="'data:.jpeg;base64,' + estabelecimento.capa" style="max-width: 300px; max-height: 260px" alt="Imagem de Capa" />
+    </div>
+
+    <div class="info">
+      <div class="bolinha">
+        <img [src]="'data:image;base64,' + estabelecimento.logo" alt="Logo do Restaurante" />
+      </div>
+      <div class="nome-restaurante">
+        <h3>{{ estabelecimento.nome }}</h3>
+        <label>{{ estabelecimento.tipoEstabelecimento }}</label>
+      </div>
+    </div>
+  </div>
+</div>
