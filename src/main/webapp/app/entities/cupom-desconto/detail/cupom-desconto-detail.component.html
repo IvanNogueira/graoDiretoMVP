@@ -41,7 +41,9 @@
           <dd>
             @if (cupomDesconto.estabelecimento) {
               <div>
-                <a [routerLink]="['/estabelecimento', cupomDesconto.estabelecimento.id, 'view']">{{ cupomDesconto.estabelecimento.id }}</a>
+                <a [routerLink]="['/estabelecimento', cupomDesconto.estabelecimento.id, 'view']">{{
+                  cupomDesconto.estabelecimento.nome
+                }}</a>
               </div>
             }
           </dd>

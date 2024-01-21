@@ -1,8 +1,11 @@
 package com.graodireto.mvp.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * A CategoriaProduto.
@@ -26,7 +29,17 @@ public class CategoriaProduto implements Serializable {
     @Column(name = "descricao")
     private String descricao;
 
-    // jhipster-needle-entity-add-field - JHipster will add fields here
+    @OneToMany(mappedBy = "categoriaProduto", cascade = CascadeType.REFRESH, orphanRemoval = true)
+    @JsonIgnoreProperties(value = { "estabelecimento", "categoriaProduto", "cardapio" }, allowSetters = true)
+    private Set<Produto> produtos = new HashSet<>();
+
+    @PreRemove
+    private void preRemove() {
+        // Desvincula os produtos da categoria antes de excluí-la
+        for (Produto produto : produtos) {
+            produto.setCategoriaProduto(null);
+        }
+    }
 
     public Long getId() {
         return this.id;

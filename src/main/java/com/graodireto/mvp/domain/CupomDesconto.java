@@ -35,7 +35,7 @@ public class CupomDesconto implements Serializable {
     @Column(name = "valido")
     private Boolean valido;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JsonIgnoreProperties(value = { "cardapios", "imagens", "cupomDescontos", "cidade" }, allowSetters = true)
     private Estabelecimento estabelecimento;
 

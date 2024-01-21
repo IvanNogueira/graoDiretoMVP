@@ -97,7 +97,7 @@ public class CardapioQueryService extends QueryService<Cardapio> {
             if (criteria.getProdutoId() != null) {
                 specification =
                     specification.and(
-                        buildSpecification(criteria.getProdutoId(), root -> root.join(Cardapio_.produtos, JoinType.LEFT).get(Produto_.id))
+                        buildSpecification(criteria.getProdutoId(), root -> root.join(Cardapio_.produtos, JoinType.INNER).get(Produto_.id))
                     );
             }
             if (criteria.getEstabelecimentoId() != null) {

@@ -103,14 +103,14 @@
               <td>
                 @if (produto.categoriaProduto) {
                   <div>
-                    <a [routerLink]="['/categoria-produto', produto.categoriaProduto.id, 'view']">{{ produto.categoriaProduto.id }}</a>
+                    <a [routerLink]="['/categoria-produto', produto.categoriaProduto.id, 'view']">{{ produto.categoriaProduto.nome }}</a>
                   </div>
                 }
               </td>
               <td>
                 @if (produto.cardapio) {
                   <div>
-                    <a [routerLink]="['/cardapio', produto.cardapio.id, 'view']">{{ produto.cardapio.id }}</a>
+                    <a [routerLink]="['/cardapio', produto.cardapio.id, 'view']">{{ produto.cardapio.nome }}</a>
                   </div>
                 }
               </td>

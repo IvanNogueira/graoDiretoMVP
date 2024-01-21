@@ -28,25 +28,6 @@
         </div>
 
         <div class="mb-3">
-          <label class="form-label" jhiTranslate="graoDiretoMvpApp.cardapio.dataCriacao" for="field_dataCriacao">Data Criacao</label>
-          <div class="input-group">
-            <input
-              id="field_dataCriacao"
-              data-cy="dataCriacao"
-              type="text"
-              class="form-control"
-              name="dataCriacao"
-              ngbDatepicker
-              #dataCriacaoDp="ngbDatepicker"
-              formControlName="dataCriacao"
-            />
-            <button type="button" class="btn btn-secondary" (click)="dataCriacaoDp.toggle()">
-              <fa-icon icon="calendar-alt"></fa-icon>
-            </button>
-          </div>
-        </div>
-
-        <div class="mb-3">
           <label class="form-label" jhiTranslate="graoDiretoMvpApp.cardapio.ativo" for="field_ativo">Ativo</label>
           <input type="checkbox" class="form-check" name="ativo" id="field_ativo" data-cy="ativo" formControlName="ativo" />
         </div>

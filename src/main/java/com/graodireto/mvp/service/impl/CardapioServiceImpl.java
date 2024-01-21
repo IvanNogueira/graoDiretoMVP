@@ -3,6 +3,7 @@ package com.graodireto.mvp.service.impl;
 import com.graodireto.mvp.domain.Cardapio;
 import com.graodireto.mvp.repository.CardapioRepository;
 import com.graodireto.mvp.service.CardapioService;
+import java.time.LocalDate;
 import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,6 +30,7 @@ public class CardapioServiceImpl implements CardapioService {
     @Override
     public Cardapio save(Cardapio cardapio) {
         log.debug("Request to save Cardapio : {}", cardapio);
+        cardapio.setDataCriacao(LocalDate.now());
         return cardapioRepository.save(cardapio);
     }
 

@@ -74,7 +74,7 @@ public class Estabelecimento implements Serializable {
     private String cep;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "estabelecimento")
-    @JsonIgnoreProperties(value = { "produtos", "estabelecimento" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "produtos" }, allowSetters = true)
     private Set<Cardapio> cardapios = new HashSet<>();
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "estabelecimento")

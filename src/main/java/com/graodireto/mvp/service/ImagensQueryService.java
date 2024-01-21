@@ -96,14 +96,14 @@ public class ImagensQueryService extends QueryService<Imagens> {
                     specification.and(
                         buildSpecification(
                             criteria.getEstabelecimentoId(),
-                            root -> root.join(Imagens_.estabelecimento, JoinType.LEFT).get(Estabelecimento_.id)
+                            root -> root.join(Imagens_.estabelecimento, JoinType.INNER).get(Estabelecimento_.id)
                         )
                     );
             }
             if (criteria.getProdutoId() != null) {
                 specification =
                     specification.and(
-                        buildSpecification(criteria.getProdutoId(), root -> root.join(Imagens_.produto, JoinType.LEFT).get(Produto_.id))
+                        buildSpecification(criteria.getProdutoId(), root -> root.join(Imagens_.produto, JoinType.INNER).get(Produto_.id))
                     );
             }
         }

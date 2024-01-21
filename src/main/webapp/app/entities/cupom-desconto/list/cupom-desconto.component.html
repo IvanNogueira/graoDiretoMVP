@@ -106,7 +106,7 @@
                 @if (cupomDesconto.estabelecimento) {
                   <div>
                     <a [routerLink]="['/estabelecimento', cupomDesconto.estabelecimento.id, 'view']">{{
-                      cupomDesconto.estabelecimento.id
+                      cupomDesconto.estabelecimento.nome
                     }}</a>
                   </div>
                 }

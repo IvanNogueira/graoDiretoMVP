@@ -37,9 +37,17 @@ public class Cardapio implements Serializable {
     @JsonIgnoreProperties(value = { "imagens", "categoriaProduto", "cardapio" }, allowSetters = true)
     private Set<Produto> produtos = new HashSet<>();
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JsonIgnoreProperties(value = { "cardapios", "imagens", "cupomDescontos", "cidade" }, allowSetters = true)
     private Estabelecimento estabelecimento;
+
+    @PreRemove
+    private void preRemove() {
+        // Desvincula os produtos do cardápio antes de excluí-lo
+        for (Produto produto : produtos) {
+            produto.setCardapio(null);
+        }
+    }
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 

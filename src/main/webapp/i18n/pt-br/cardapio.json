@@ -12,7 +12,7 @@
       "updated": "Um Cardapio foi atualizado com o identificador {{ param }}",
       "deleted": "Um Cardapio foi excluído com o identificador {{ param }}",
       "delete": {
-        "question": "Tem certeza de que deseja excluir Cardapio {{ id }}?"
+        "question": "Tem certeza de que deseja excluir Cardapio {{ nome }}?"
       },
       "detail": {
         "title": "Cardapio"

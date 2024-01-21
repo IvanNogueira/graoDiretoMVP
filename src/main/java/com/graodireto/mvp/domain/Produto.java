@@ -37,14 +37,14 @@ public class Produto implements Serializable {
     @Column(name = "desconto", precision = 21, scale = 2)
     private BigDecimal desconto;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "produto")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "produto")
     @JsonIgnoreProperties(value = { "estabelecimento", "produto" }, allowSetters = true)
     private Set<Imagens> imagens = new HashSet<>();
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     private CategoriaProduto categoriaProduto;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JsonIgnoreProperties(value = { "produtos", "estabelecimento" }, allowSetters = true)
     private Cardapio cardapio;
 

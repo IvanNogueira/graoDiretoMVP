@@ -236,4 +236,14 @@ angular-cli removes postcss-rtl processed inline css, processed rules must be ad
     }
   }
 }
-/* jhipster-needle-scss-add-main JHipster will add new css style */
+
+.navbar-dark,
+.navbar[data-bs-theme='dark'] {
+  --bs-navbar-color: rgb(255, 255, 255) !important;
+  --bs-navbar-hover-color: rgb(248, 78, 78) !important;
+  --bs-navbar-active-color: #ff5f5f !important;
+}
+
+nav.navbar.navbar-dark.navbar-expand-md.bg-dark {
+  background-color: rgb(24, 24, 24) !important;
+}

@@ -105,7 +105,7 @@ public class CupomDescontoQueryService extends QueryService<CupomDesconto> {
                     specification.and(
                         buildSpecification(
                             criteria.getEstabelecimentoId(),
-                            root -> root.join(CupomDesconto_.estabelecimento, JoinType.LEFT).get(Estabelecimento_.id)
+                            root -> root.join(CupomDesconto_.estabelecimento, JoinType.INNER).get(Estabelecimento_.id)
                         )
                     );
             }
