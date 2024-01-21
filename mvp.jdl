@@ -1,0 +1,102 @@
+entity Estabelecimento {
+nome String required,
+endereco String required,
+telefone String,
+email String
+tipoEstabelecimento TipoEstabelicimento
+capa Blob
+logo Blob
+criadoEm Instant
+}
+
+entity CupomDesconto{
+valorDesconto BigDecimal,
+valorMinimo Boolean,
+valorMinimoRegra BigDecimal,
+descricaoRegras String,
+valido Boolean
+}
+
+enum TipoEstabelicimento{
+LANCHES
+SAUDAVEIS
+PIZZA
+JAPONESA
+BRASILEIRA
+ITALIANA
+PASTEL
+ARABE
+DOCES_BOLOS
+CARNES
+SORVETE
+ACAI
+}
+
+entity Produto {
+nome String required,
+descricao String,
+preco BigDecimal required,
+desconto BigDecimal,
+}
+
+entity CategoriaProduto {
+nome String required
+descricao String
+}
+
+
+entity Imagens{
+imagemContent ImageBlob
+imagemContentType String,
+localImagem LocalImagem
+}
+enum LocalImagem{
+PRODUTO,
+LOGO,
+CAPA_ESTABELECIMENTO
+}
+
+
+
+entity Cardapio {
+nome String required,
+data LocalDate
+}
+
+entity Estado {
+nome String required,
+uf String required
+}
+
+entity Cidade {
+nome String required,
+}
+
+entity Endereco {
+logradouro String required,
+numero String,
+complemento String,
+bairro String required,
+cep String required
+}
+entity User{}
+
+relationship ManyToOne {
+Produto{categoriaProduto} to CategoriaProduto
+}
+
+relationship OneToMany {
+Estabelecimento {endereco} to Endereco
+Estabelecimento {endereco} to User
+Cardapio{estabelecimento} to Estabelecimento
+Estado{cidade} to Cidade
+Cidade{endereco} to Endereco
+Produto{imagens} to Imagens
+Estabelecimento{imagens} to Imagens
+CupomDesconto {estabelecimento} to Estabelecimento
+Cardapio{produto} to Produto{cardapio}
+
+}
+
+
+

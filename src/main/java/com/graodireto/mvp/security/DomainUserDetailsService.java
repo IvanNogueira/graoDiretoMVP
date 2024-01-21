@@ -37,7 +37,7 @@ public class DomainUserDetailsService implements UserDetailsService {
             return userRepository
                 .findOneWithAuthoritiesByEmailIgnoreCase(login)
                 .map(user -> createSpringSecurityUser(login, user))
-                .orElseThrow(() -> new UsernameNotFoundException("User with email " + login + " was not found in the database"));
+                .orElseThrow(() -> new UsernameNotFoundException("Usuário com email “+login+” não foi encontrado no banco de dados"));
         }
 
         String lowercaseLogin = login.toLowerCase(Locale.ENGLISH);
