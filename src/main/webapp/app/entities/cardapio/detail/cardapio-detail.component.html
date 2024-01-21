@@ -1,0 +1,50 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (cardapio) {
+      <div>
+        <h2 data-cy="cardapioDetailsHeading"><span jhiTranslate="graoDiretoMvpApp.cardapio.detail.title">Cardapio</span></h2>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="global.field.id">Código</span></dt>
+          <dd>
+            <span>{{ cardapio.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="graoDiretoMvpApp.cardapio.nome">Nome</span></dt>
+          <dd>
+            <span>{{ cardapio.nome }}</span>
+          </dd>
+          <dt><span jhiTranslate="graoDiretoMvpApp.cardapio.dataCriacao">Data Criacao</span></dt>
+          <dd>
+            <span>{{ cardapio.dataCriacao | formatMediumDate }}</span>
+          </dd>
+          <dt><span jhiTranslate="graoDiretoMvpApp.cardapio.ativo">Ativo</span></dt>
+          <dd>
+            <span>{{ cardapio.ativo }}</span>
+          </dd>
+          <dt><span jhiTranslate="graoDiretoMvpApp.cardapio.estabelecimento">Estabelecimento</span></dt>
+          <dd>
+            @if (cardapio.estabelecimento) {
+              <div>
+                <a [routerLink]="['/estabelecimento', cardapio.estabelecimento.id, 'view']">{{ cardapio.estabelecimento.nome }}</a>
+              </div>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Voltar</span>
+        </button>
+
+        <button type="button" [routerLink]="['/cardapio', cardapio.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Editar</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

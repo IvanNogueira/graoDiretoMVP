@@ -1,0 +1,35 @@
+{
+  "annotations": {
+    "changelogDate": "20240120014924"
+  },
+  "applications": "*",
+  "entityTableName": "cupom_desconto",
+  "fields": [
+    {
+      "fieldName": "valorDesconto",
+      "fieldType": "BigDecimal"
+    },
+    {
+      "fieldName": "valorMinimo",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "valorMinimoRegra",
+      "fieldType": "BigDecimal"
+    },
+    {
+      "fieldName": "descricaoRegras",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "valido",
+      "fieldType": "Boolean"
+    }
+  ],
+  "jpaMetamodelFiltering": true,
+  "name": "CupomDesconto",
+  "pagination": "infinite-scroll",
+  "relationships": [],
+  "searchEngine": "no",
+  "service": "serviceImpl"
+}

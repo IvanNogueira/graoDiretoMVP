@@ -1,0 +1,89 @@
+{
+  "annotations": {
+    "changelogDate": "20240120014824"
+  },
+  "applications": "*",
+  "entityTableName": "estabelecimento",
+  "fields": [
+    {
+      "fieldName": "nome",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "telefone",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "email",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "tipoEstabelecimento",
+      "fieldType": "TipoEstabelicimento",
+      "fieldValues": "LANCHES,SAUDAVEIS,PIZZA,JAPONESA,BRASILEIRA,ITALIANA,PASTEL,ARABE,DOCES_BOLOS,CARNES,SORVETE,ACAI"
+    },
+    {
+      "fieldName": "capa",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "any"
+    },
+    {
+      "fieldName": "logo",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "any"
+    },
+    {
+      "fieldName": "criadoEm",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "logradouro",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "numero",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "complemento",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "bairro",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "cep",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "jpaMetamodelFiltering": true,
+  "name": "Estabelecimento",
+  "pagination": "infinite-scroll",
+  "relationships": [
+    {
+      "otherEntityName": "cardapio",
+      "relationshipName": "cardapio",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "imagens",
+      "relationshipName": "imagens",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "cupomDesconto",
+      "relationshipName": "cupomDesconto",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-many"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceImpl"
+}

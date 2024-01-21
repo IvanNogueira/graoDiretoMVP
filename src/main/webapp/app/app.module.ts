@@ -14,23 +14,22 @@ import './config/dayjs';
 import { TranslationModule } from 'app/shared/language/translation.module';
 import { httpInterceptorProviders } from 'app/core/interceptor/index';
 import { AppRoutingModule } from './app-routing.module';
-// jhipster-needle-angular-add-module-import JHipster will add new module here
 import { NgbDateDayjsAdapter } from './config/datepicker-adapter';
 import { fontAwesomeIcons } from './config/font-awesome-icons';
 import MainComponent from './layouts/main/main.component';
 import MainModule from './layouts/main/main.module';
 import { AppPageTitleStrategy } from './app-page-title-strategy';
+import { TextMaskModule } from 'angular2-text-mask';
 
 @NgModule({
   imports: [
     BrowserModule,
-    // jhipster-needle-angular-add-module JHipster will add new module here
     AppRoutingModule,
-    // Set this to true to enable service worker (PWA)
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: false }),
     HttpClientModule,
     MainModule,
     TranslationModule,
+    TextMaskModule,
   ],
   providers: [
     Title,

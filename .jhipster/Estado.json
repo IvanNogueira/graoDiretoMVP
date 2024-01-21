@@ -1,0 +1,32 @@
+{
+  "annotations": {
+    "changelogDate": "20240120015424"
+  },
+  "applications": "*",
+  "entityTableName": "estado",
+  "fields": [
+    {
+      "fieldName": "nome",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "uf",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "jpaMetamodelFiltering": true,
+  "name": "Estado",
+  "pagination": "infinite-scroll",
+  "relationships": [
+    {
+      "otherEntityName": "cidade",
+      "relationshipName": "cidade",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-many"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceImpl"
+}

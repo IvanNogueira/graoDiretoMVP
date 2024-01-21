@@ -1,0 +1,36 @@
+{
+  "annotations": {
+    "changelogDate": "20240120015324"
+  },
+  "applications": "*",
+  "entityTableName": "cardapio",
+  "fields": [
+    {
+      "fieldName": "nome",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "dataCriacao",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "ativo",
+      "fieldType": "Boolean"
+    }
+  ],
+  "jpaMetamodelFiltering": true,
+  "name": "Cardapio",
+  "pagination": "infinite-scroll",
+  "relationships": [
+    {
+      "otherEntityName": "produto",
+      "otherEntityRelationshipName": "cardapio",
+      "relationshipName": "produto",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-many"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceImpl"
+}

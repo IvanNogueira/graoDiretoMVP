@@ -1,11 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { TextMaskModule } from 'angular2-text-mask';
 
 @NgModule({
-  imports: [
-    RouterModule.forChild([
-      /* jhipster-needle-add-entity-route - JHipster will add entity modules routes here */
-    ]),
-  ],
+  imports: [RouterModule.forChild([]), TextMaskModule],
 })
 export class EntityRoutingModule {}

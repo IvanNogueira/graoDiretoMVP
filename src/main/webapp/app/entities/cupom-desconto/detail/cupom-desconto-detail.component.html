@@ -1,0 +1,60 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (cupomDesconto) {
+      <div>
+        <h2 data-cy="cupomDescontoDetailsHeading">
+          <span jhiTranslate="graoDiretoMvpApp.cupomDesconto.detail.title">Cupom Desconto</span>
+        </h2>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="global.field.id">Código</span></dt>
+          <dd>
+            <span>{{ cupomDesconto.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="graoDiretoMvpApp.cupomDesconto.valorDesconto">Valor Desconto</span></dt>
+          <dd>
+            <span>{{ cupomDesconto.valorDesconto }}</span>
+          </dd>
+          <dt><span jhiTranslate="graoDiretoMvpApp.cupomDesconto.valorMinimo">Valor Minimo</span></dt>
+          <dd>
+            <span>{{ cupomDesconto.valorMinimo }}</span>
+          </dd>
+          <dt><span jhiTranslate="graoDiretoMvpApp.cupomDesconto.valorMinimoRegra">Valor Minimo Regra</span></dt>
+          <dd>
+            <span>{{ cupomDesconto.valorMinimoRegra }}</span>
+          </dd>
+          <dt><span jhiTranslate="graoDiretoMvpApp.cupomDesconto.descricaoRegras">Descricao Regras</span></dt>
+          <dd>
+            <span>{{ cupomDesconto.descricaoRegras }}</span>
+          </dd>
+          <dt><span jhiTranslate="graoDiretoMvpApp.cupomDesconto.valido">Valido</span></dt>
+          <dd>
+            <span>{{ cupomDesconto.valido }}</span>
+          </dd>
+          <dt><span jhiTranslate="graoDiretoMvpApp.cupomDesconto.estabelecimento">Estabelecimento</span></dt>
+          <dd>
+            @if (cupomDesconto.estabelecimento) {
+              <div>
+                <a [routerLink]="['/estabelecimento', cupomDesconto.estabelecimento.id, 'view']">{{ cupomDesconto.estabelecimento.id }}</a>
+              </div>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Voltar</span>
+        </button>
+
+        <button type="button" [routerLink]="['/cupom-desconto', cupomDesconto.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Editar</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

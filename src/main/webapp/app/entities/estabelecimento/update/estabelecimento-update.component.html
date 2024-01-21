@@ -1,0 +1,232 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2
+        id="jhi-estabelecimento-heading"
+        data-cy="EstabelecimentoCreateUpdateHeading"
+        jhiTranslate="graoDiretoMvpApp.estabelecimento.home.createOrEditLabel"
+      >
+        Criar ou editar Estabelecimento
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        @if (editForm.controls.id.value !== null) {
+          <div class="mb-3">
+            <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+            <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+          </div>
+        }
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="graoDiretoMvpApp.estabelecimento.nome" for="field_nome">Nome</label>
+          <input type="text" class="form-control" name="nome" id="field_nome" data-cy="nome" formControlName="nome" />
+          @if (editForm.get('nome')!.invalid && (editForm.get('nome')!.dirty || editForm.get('nome')!.touched)) {
+            <div>
+              @if (editForm.get('nome')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">O campo é obrigatório.</small>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="graoDiretoMvpApp.estabelecimento.telefone" for="field_telefone">Telefone</label>
+          <input
+            type="text"
+            class="form-control"
+            name="telefone"
+            id="field_telefone"
+            data-cy="telefone"
+            formControlName="telefone"
+            placeholder="(00) 0 0000-0000"
+            mask="(00) 0 0000-0000"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="graoDiretoMvpApp.estabelecimento.email" for="field_email">Email</label>
+          <input type="text" class="form-control" name="email" id="field_email" data-cy="email" formControlName="email" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="graoDiretoMvpApp.estabelecimento.tipoEstabelecimento" for="field_tipoEstabelecimento"
+            >Tipo Estabelecimento</label
+          >
+          <select
+            class="form-control"
+            name="tipoEstabelecimento"
+            formControlName="tipoEstabelecimento"
+            id="field_tipoEstabelecimento"
+            data-cy="tipoEstabelecimento"
+          >
+            <option [ngValue]="null">{{ 'graoDiretoMvpApp.TipoEstabelicimento.null' | translate }}</option>
+            @for (tipoEstabelicimento of tipoEstabelicimentoValues; track $index) {
+              <option [value]="tipoEstabelicimento">{{ 'graoDiretoMvpApp.TipoEstabelicimento.' + tipoEstabelicimento | translate }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="graoDiretoMvpApp.estabelecimento.capa" for="field_capa">Capa</label>
+          <div>
+            @if (editForm.get('capa')!.value) {
+              <div class="form-text text-danger clearfix">
+                <a
+                  class="pull-start"
+                  (click)="openFile(editForm.get('capa')!.value!, editForm.get('capaContentType')!.value!)"
+                  jhiTranslate="entity.action.open"
+                  >Abrir</a
+                ><br />
+                <span class="pull-start">{{ editForm.get('capaContentType')!.value }}, {{ byteSize(editForm.get('capa')!.value!) }}</span>
+                <button
+                  type="button"
+                  (click)="editForm.patchValue({ capa: undefined, capaContentType: undefined })"
+                  class="btn btn-secondary btn-xs pull-end"
+                >
+                  <fa-icon icon="times"></fa-icon>
+                </button>
+              </div>
+            }
+            <input
+              type="file"
+              id="file_capa"
+              data-cy="capa"
+              (change)="setFileData($event, 'capa', false)"
+              jhiTranslate="entity.action.addblob"
+            />
+          </div>
+          <input type="hidden" class="form-control" name="capa" id="field_capa" data-cy="capa" formControlName="capa" />
+          <input type="hidden" class="form-control" name="capaContentType" id="field_capaContentType" formControlName="capaContentType" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="graoDiretoMvpApp.estabelecimento.logo" for="field_logo">Logo</label>
+          <div>
+            @if (editForm.get('logo')!.value) {
+              <div class="form-text text-danger clearfix">
+                <a
+                  class="pull-start"
+                  (click)="openFile(editForm.get('logo')!.value!, editForm.get('logoContentType')!.value!)"
+                  jhiTranslate="entity.action.open"
+                  >Abrir</a
+                ><br />
+                <span class="pull-start">{{ editForm.get('logoContentType')!.value }}, {{ byteSize(editForm.get('logo')!.value!) }}</span>
+                <button
+                  type="button"
+                  (click)="editForm.patchValue({ logo: undefined, logoContentType: undefined })"
+                  class="btn btn-secondary btn-xs pull-end"
+                >
+                  <fa-icon icon="times"></fa-icon>
+                </button>
+              </div>
+            }
+            <input
+              type="file"
+              id="file_logo"
+              data-cy="logo"
+              (change)="setFileData($event, 'logo', false)"
+              jhiTranslate="entity.action.addblob"
+            />
+          </div>
+          <input type="hidden" class="form-control" name="logo" id="field_logo" data-cy="logo" formControlName="logo" />
+          <input type="hidden" class="form-control" name="logoContentType" id="field_logoContentType" formControlName="logoContentType" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="graoDiretoMvpApp.estabelecimento.logradouro" for="field_logradouro">Logradouro</label>
+          <input
+            type="text"
+            class="form-control"
+            name="logradouro"
+            id="field_logradouro"
+            data-cy="logradouro"
+            formControlName="logradouro"
+          />
+          @if (editForm.get('logradouro')!.invalid && (editForm.get('logradouro')!.dirty || editForm.get('logradouro')!.touched)) {
+            <div>
+              @if (editForm.get('logradouro')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">O campo é obrigatório.</small>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="graoDiretoMvpApp.estabelecimento.numero" for="field_numero">Numero</label>
+          <input type="text" class="form-control" name="numero" id="field_numero" data-cy="numero" formControlName="numero" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="graoDiretoMvpApp.estabelecimento.complemento" for="field_complemento">Complemento</label>
+          <input
+            type="text"
+            class="form-control"
+            name="complemento"
+            id="field_complemento"
+            data-cy="complemento"
+            formControlName="complemento"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="graoDiretoMvpApp.estabelecimento.bairro" for="field_bairro">Bairro</label>
+          <input type="text" class="form-control" name="bairro" id="field_bairro" data-cy="bairro" formControlName="bairro" />
+          @if (editForm.get('bairro')!.invalid && (editForm.get('bairro')!.dirty || editForm.get('bairro')!.touched)) {
+            <div>
+              @if (editForm.get('bairro')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">O campo é obrigatório.</small>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="graoDiretoMvpApp.estabelecimento.cep" for="field_cep">Cep</label>
+          <input type="text" class="form-control" name="cep" id="field_cep" data-cy="cep" formControlName="cep" />
+          @if (editForm.get('cep')!.invalid && (editForm.get('cep')!.dirty || editForm.get('cep')!.touched)) {
+            <div>
+              @if (editForm.get('cep')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">O campo é obrigatório.</small>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="graoDiretoMvpApp.estabelecimento.cidade" for="field_cidade">Cidade</label>
+          <select
+            class="form-control"
+            id="field_cidade"
+            data-cy="cidade"
+            name="cidade"
+            formControlName="cidade"
+            [compareWith]="compareCidade"
+          >
+            <option [ngValue]="null"></option>
+            @for (cidadeOption of cidadesSharedCollection; track $index) {
+              <option [ngValue]="cidadeOption">{{ cidadeOption.nome }}</option>
+            }
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancelar</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Salvar</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

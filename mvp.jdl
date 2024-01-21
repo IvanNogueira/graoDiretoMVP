@@ -1,15 +1,20 @@
 entity Estabelecimento {
 nome String required,
-endereco String required,
 telefone String,
 email String
 tipoEstabelecimento TipoEstabelicimento
 capa Blob
 logo Blob
 criadoEm Instant
+logradouro String required,
+numero String,
+complemento String,
+bairro String required,
+cep String required
 }
 
 entity CupomDesconto{
+nome String
 valorDesconto BigDecimal,
 valorMinimo Boolean,
 valorMinimoRegra BigDecimal,
@@ -37,6 +42,8 @@ nome String required,
 descricao String,
 preco BigDecimal required,
 desconto BigDecimal,
+imagemProduto Blob
+
 }
 
 entity CategoriaProduto {
@@ -44,23 +51,10 @@ nome String required
 descricao String
 }
 
-
-entity Imagens{
-imagemContent ImageBlob
-imagemContentType String,
-localImagem LocalImagem
-}
-enum LocalImagem{
-PRODUTO,
-LOGO,
-CAPA_ESTABELECIMENTO
-}
-
-
-
 entity Cardapio {
 nome String required,
-data LocalDate
+dataCriacao LocalDate
+ativo Boolean 
 }
 
 entity Estado {
@@ -72,31 +66,20 @@ entity Cidade {
 nome String required,
 }
 
-entity Endereco {
-logradouro String required,
-numero String,
-complemento String,
-bairro String required,
-cep String required
-}
-entity User{}
-
 relationship ManyToOne {
 Produto{categoriaProduto} to CategoriaProduto
 }
 
 relationship OneToMany {
-Estabelecimento {endereco} to Endereco
-Estabelecimento {endereco} to User
-Cardapio{estabelecimento} to Estabelecimento
+Estabelecimento {cardapio} to Cardapio 
 Estado{cidade} to Cidade
-Cidade{endereco} to Endereco
-Produto{imagens} to Imagens
-Estabelecimento{imagens} to Imagens
-CupomDesconto {estabelecimento} to Estabelecimento
+Cidade{estabelecimento} to Estabelecimento
+Estabelecimento {cupomDesconto} to CupomDesconto
 Cardapio{produto} to Produto{cardapio}
 
 }
 
-
+paginate * with infinite-scroll
+service * with serviceImpl
+filter *
 

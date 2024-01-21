@@ -1,0 +1,104 @@
+<div>
+  <h2 id="page-heading" data-cy="CidadeHeading">
+    <span jhiTranslate="graoDiretoMvpApp.cidade.home.title">Cidades</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="graoDiretoMvpApp.cidade.home.refreshListLabel">Atualizar lista</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-cidade"
+        [routerLink]="['/cidade/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="graoDiretoMvpApp.cidade.home.createLabel">Criar novo Cidade</span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  @if (cidades?.length === 0) {
+    <div class="alert alert-warning" id="no-result">
+      <span jhiTranslate="graoDiretoMvpApp.cidade.home.notFound">Nenhum Cidade encontrado</span>
+    </div>
+  }
+
+  @if (cidades && cidades.length > 0) {
+    <div class="table-responsive table-entities" id="entities">
+      <table class="table table-striped" aria-describedby="page-heading">
+        <thead>
+          <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
+            <th scope="col" jhiSortBy="id">
+              <div class="d-flex">
+                <span jhiTranslate="global.field.id">Código</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="nome">
+              <div class="d-flex">
+                <span jhiTranslate="graoDiretoMvpApp.cidade.nome">Nome</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="estado.id">
+              <div class="d-flex">
+                <span jhiTranslate="graoDiretoMvpApp.cidade.estado">Estado</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody
+          infinite-scroll
+          (scrolled)="loadPage(page + 1)"
+          [infiniteScrollDisabled]="page - 1 >= links['last']"
+          [infiniteScrollDistance]="0"
+        >
+          @for (cidade of cidades; track trackId) {
+            <tr data-cy="entityTable">
+              <td>
+                <a [routerLink]="['/cidade', cidade.id, 'view']">{{ cidade.id }}</a>
+              </td>
+              <td>{{ cidade.nome }}</td>
+              <td>
+                @if (cidade.estado) {
+                  <div>
+                    <a [routerLink]="['/estado', cidade.estado.id, 'view']">{{ cidade.estado.nome }} - {{ cidade.estado.uf }}</a>
+                  </div>
+                }
+              </td>
+              <td class="text-end">
+                <div class="btn-group">
+                  <a [routerLink]="['/cidade', cidade.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+                    <fa-icon icon="eye"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.view">Visualizar</span>
+                  </a>
+
+                  <a [routerLink]="['/cidade', cidade.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
+                    <fa-icon icon="pencil-alt"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Editar</span>
+                  </a>
+
+                  <button type="submit" (click)="delete(cidade)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                    <fa-icon icon="times"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Excluir</span>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+</div>

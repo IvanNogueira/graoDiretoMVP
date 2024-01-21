@@ -1,0 +1,25 @@
+{
+  "graoDiretoMvpApp": {
+    "categoriaProduto": {
+      "home": {
+        "title": "Categoria Produtos",
+        "refreshListLabel": "Atualizar lista",
+        "createLabel": "Criar novo Categoria Produto",
+        "createOrEditLabel": "Criar ou editar Categoria Produto",
+        "notFound": "Nenhum Categoria Produto encontrado"
+      },
+      "created": "Um novo Categoria Produto foi criado com o identificador {{ param }}",
+      "updated": "Um Categoria Produto foi atualizado com o identificador {{ param }}",
+      "deleted": "Um Categoria Produto foi excluído com o identificador {{ param }}",
+      "delete": {
+        "question": "Tem certeza de que deseja excluir Categoria Produto {{ id }}?"
+      },
+      "detail": {
+        "title": "Categoria Produto"
+      },
+      "id": "ID",
+      "nome": "Nome",
+      "descricao": "Descricao"
+    }
+  }
+}

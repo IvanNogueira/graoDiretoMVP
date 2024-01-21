@@ -1,0 +1,29 @@
+{
+  "graoDiretoMvpApp": {
+    "cupomDesconto": {
+      "home": {
+        "title": "Cupom Descontos",
+        "refreshListLabel": "Atualizar lista",
+        "createLabel": "Criar novo Cupom Desconto",
+        "createOrEditLabel": "Criar ou editar Cupom Desconto",
+        "notFound": "Nenhum Cupom Desconto encontrado"
+      },
+      "created": "Um novo Cupom Desconto foi criado com o identificador {{ param }}",
+      "updated": "Um Cupom Desconto foi atualizado com o identificador {{ param }}",
+      "deleted": "Um Cupom Desconto foi excluído com o identificador {{ param }}",
+      "delete": {
+        "question": "Tem certeza de que deseja excluir Cupom Desconto {{ id }}?"
+      },
+      "detail": {
+        "title": "Cupom Desconto"
+      },
+      "id": "ID",
+      "valorDesconto": "Valor Desconto",
+      "valorMinimo": "Valor Minimo",
+      "valorMinimoRegra": "Valor Minimo Regra",
+      "descricaoRegras": "Descricao Regras",
+      "valido": "Valido",
+      "estabelecimento": "Estabelecimento"
+    }
+  }
+}

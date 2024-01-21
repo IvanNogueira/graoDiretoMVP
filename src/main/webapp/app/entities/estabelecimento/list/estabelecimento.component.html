@@ -1,0 +1,212 @@
+<div>
+  <h2 id="page-heading" data-cy="EstabelecimentoHeading">
+    <span jhiTranslate="graoDiretoMvpApp.estabelecimento.home.title">Estabelecimentos</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="graoDiretoMvpApp.estabelecimento.home.refreshListLabel">Atualizar lista</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-estabelecimento"
+        [routerLink]="['/estabelecimento/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="graoDiretoMvpApp.estabelecimento.home.createLabel">Criar novo Estabelecimento</span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  @if (estabelecimentos?.length === 0) {
+    <div class="alert alert-warning" id="no-result">
+      <span jhiTranslate="graoDiretoMvpApp.estabelecimento.home.notFound">Nenhum Estabelecimento encontrado</span>
+    </div>
+  }
+
+  @if (estabelecimentos && estabelecimentos.length > 0) {
+    <div class="table-responsive table-entities" id="entities">
+      <table class="table table-striped" aria-describedby="page-heading">
+        <thead>
+          <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
+            <th scope="col" jhiSortBy="id">
+              <div class="d-flex">
+                <span jhiTranslate="global.field.id">Código</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="nome">
+              <div class="d-flex">
+                <span jhiTranslate="graoDiretoMvpApp.estabelecimento.nome">Nome</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="telefone">
+              <div class="d-flex">
+                <span jhiTranslate="graoDiretoMvpApp.estabelecimento.telefone">Telefone</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="email">
+              <div class="d-flex">
+                <span jhiTranslate="graoDiretoMvpApp.estabelecimento.email">Email</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="tipoEstabelecimento">
+              <div class="d-flex">
+                <span jhiTranslate="graoDiretoMvpApp.estabelecimento.tipoEstabelecimento">Tipo Estabelecimento</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="capa">
+              <div class="d-flex">
+                <span jhiTranslate="graoDiretoMvpApp.estabelecimento.capa">Capa</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="logo">
+              <div class="d-flex">
+                <span jhiTranslate="graoDiretoMvpApp.estabelecimento.logo">Logo</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="criadoEm">
+              <div class="d-flex">
+                <span jhiTranslate="graoDiretoMvpApp.estabelecimento.criadoEm">Criado Em</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="logradouro">
+              <div class="d-flex">
+                <span jhiTranslate="graoDiretoMvpApp.estabelecimento.logradouro">Logradouro</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="numero">
+              <div class="d-flex">
+                <span jhiTranslate="graoDiretoMvpApp.estabelecimento.numero">Numero</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="complemento">
+              <div class="d-flex">
+                <span jhiTranslate="graoDiretoMvpApp.estabelecimento.complemento">Complemento</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="bairro">
+              <div class="d-flex">
+                <span jhiTranslate="graoDiretoMvpApp.estabelecimento.bairro">Bairro</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="cep">
+              <div class="d-flex">
+                <span jhiTranslate="graoDiretoMvpApp.estabelecimento.cep">Cep</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="cidade.id">
+              <div class="d-flex">
+                <span jhiTranslate="graoDiretoMvpApp.estabelecimento.cidade">Cidade</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody
+          infinite-scroll
+          (scrolled)="loadPage(page + 1)"
+          [infiniteScrollDisabled]="page - 1 >= links['last']"
+          [infiniteScrollDistance]="0"
+        >
+          @for (estabelecimento of estabelecimentos; track trackId) {
+            <tr data-cy="entityTable">
+              <td>
+                <a [routerLink]="['/estabelecimento', estabelecimento.id, 'view']">{{ estabelecimento.id }}</a>
+              </td>
+              <td>{{ estabelecimento.nome }}</td>
+              <td>{{ estabelecimento.telefone }}</td>
+              <td>{{ estabelecimento.email }}</td>
+              <td jhiTranslate="{{ 'graoDiretoMvpApp.TipoEstabelicimento.' + estabelecimento.tipoEstabelecimento }}">
+                {{ estabelecimento.tipoEstabelecimento }}
+              </td>
+              <td>
+                @if (estabelecimento.capa) {
+                  <a (click)="openFile(estabelecimento.capa, estabelecimento.capaContentType)" jhiTranslate="entity.action.open">Abrir</a>
+                  <span>{{ estabelecimento.capaContentType }}, {{ byteSize(estabelecimento.capa) }}</span>
+                }
+              </td>
+              <td>
+                @if (estabelecimento.logo) {
+                  <a (click)="openFile(estabelecimento.logo, estabelecimento.logoContentType)" jhiTranslate="entity.action.open">Abrir</a>
+                  <span>{{ estabelecimento.logoContentType }}, {{ byteSize(estabelecimento.logo) }}</span>
+                }
+              </td>
+              <td>{{ estabelecimento.criadoEm | formatMediumDatetime }}</td>
+              <td>{{ estabelecimento.logradouro }}</td>
+              <td>{{ estabelecimento.numero }}</td>
+              <td>{{ estabelecimento.complemento }}</td>
+              <td>{{ estabelecimento.bairro }}</td>
+              <td>{{ estabelecimento.cep }}</td>
+              <td>
+                @if (estabelecimento.cidade) {
+                  <div>
+                    <a [routerLink]="['/cidade', estabelecimento.cidade.id, 'view']">{{ estabelecimento.cidade.id }}</a>
+                  </div>
+                }
+              </td>
+              <td class="text-end">
+                <div class="btn-group">
+                  <a
+                    [routerLink]="['/estabelecimento', estabelecimento.id, 'view']"
+                    class="btn btn-info btn-sm"
+                    data-cy="entityDetailsButton"
+                  >
+                    <fa-icon icon="eye"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.view">Visualizar</span>
+                  </a>
+
+                  <a
+                    [routerLink]="['/estabelecimento', estabelecimento.id, 'edit']"
+                    class="btn btn-primary btn-sm"
+                    data-cy="entityEditButton"
+                  >
+                    <fa-icon icon="pencil-alt"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Editar</span>
+                  </a>
+
+                  <button type="submit" (click)="delete(estabelecimento)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                    <fa-icon icon="times"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Excluir</span>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+</div>

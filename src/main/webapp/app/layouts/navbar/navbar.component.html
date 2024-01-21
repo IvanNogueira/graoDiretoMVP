@@ -2,8 +2,7 @@
   <div class="container-fluid">
     <a class="navbar-brand logo" routerLink="/" (click)="collapseNavbar()">
       <span class="logo-img"></span>
-      <span jhiTranslate="global.title" class="navbar-title">GraoDiretoMvp</span>
-      <span class="navbar-version">{{ version }}</span>
+      <span jhiTranslate="global.title" class="navbar-title">Grao Direto - Mvp</span>
     </a>
     <a
       class="navbar-toggler d-lg-none"
@@ -19,34 +18,66 @@
     </a>
     <div class="navbar-collapse collapse" id="navbarResponsive" [ngbCollapse]="isNavbarCollapsed">
       <ul class="navbar-nav ms-auto">
-        <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
-          <a class="nav-link" routerLink="/" (click)="collapseNavbar()">
-            <span>
-              <fa-icon icon="home"></fa-icon>
-              <span jhiTranslate="global.menu.home">Início</span>
-            </span>
-          </a>
-        </li>
-        <!-- jhipster-needle-add-element-to-menu - JHipster will add new menu items here -->
-        @if (account !== null) {
-          <li
-            ngbDropdown
-            class="nav-item dropdown pointer"
-            display="dynamic"
+        <li>
+          <a
+            class="nav-link"
+            routerLink="/cardapio"
             routerLinkActive="active"
             [routerLinkActiveOptions]="{ exact: true }"
+            (click)="collapseNavbar()"
           >
-            <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="entity-menu" data-cy="entity">
-              <span>
-                <fa-icon icon="th-list"></fa-icon>
-                <span jhiTranslate="global.menu.entities.main">Entidades</span>
-              </span>
-            </a>
-            <ul class="dropdown-menu" ngbDropdownMenu aria-labelledby="entity-menu">
-              <!-- jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here -->
-            </ul>
-          </li>
-        }
+            <fa-icon icon="utensils" [fixedWidth]="true"></fa-icon>
+            <span jhiTranslate="global.menu.entities.cardapio">Cardapio</span>
+          </a>
+        </li>
+        <li>
+          <a
+            class="nav-link"
+            routerLink="/produto"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+            (click)="collapseNavbar()"
+          >
+            <fa-icon icon="pizza-slice" [fixedWidth]="true"></fa-icon>
+            <span jhiTranslate="global.menu.entities.produto">Produto</span>
+          </a>
+        </li>
+        <li>
+          <a
+            class="nav-link"
+            routerLink="/categoria-produto"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+            (click)="collapseNavbar()"
+          >
+            <fa-icon icon="list" [fixedWidth]="true"></fa-icon>
+            <span jhiTranslate="global.menu.entities.categoriaProduto">Categoria Produto</span>
+          </a>
+        </li>
+        <li>
+          <a
+            class="nav-link"
+            routerLink="/cupom-desconto"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+            (click)="collapseNavbar()"
+          >
+            <fa-icon icon="ticket" [fixedWidth]="true"></fa-icon>
+            <span jhiTranslate="global.menu.entities.cupomDesconto">Cupom Desconto</span>
+          </a>
+        </li>
+        <li>
+          <a
+            class="nav-link"
+            routerLink="/estabelecimento"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+            (click)="collapseNavbar()"
+          >
+            <fa-icon icon="shop" [fixedWidth]="true"></fa-icon>
+            <span jhiTranslate="global.menu.entities.estabelecimento">Estabelecimento</span>
+          </a>
+        </li>
         <li
           *jhiHasAnyAuthority="'ROLE_ADMIN'"
           ngbDropdown
@@ -62,6 +93,42 @@
             </span>
           </a>
           <ul class="dropdown-menu" ngbDropdownMenu aria-labelledby="admin-menu">
+            <li>
+              <a
+                class="dropdown-item"
+                routerLink="/imagens"
+                routerLinkActive="active"
+                [routerLinkActiveOptions]="{ exact: true }"
+                (click)="collapseNavbar()"
+              >
+                <fa-icon icon="image" [fixedWidth]="true"></fa-icon>
+                <span jhiTranslate="global.menu.entities.imagens">Imagens</span>
+              </a>
+            </li>
+            <li>
+              <a
+                class="dropdown-item"
+                routerLink="/estado"
+                routerLinkActive="active"
+                [routerLinkActiveOptions]="{ exact: true }"
+                (click)="collapseNavbar()"
+              >
+                <fa-icon icon="location-dot" [fixedWidth]="true"></fa-icon>
+                <span jhiTranslate="global.menu.entities.estado">Estado</span>
+              </a>
+            </li>
+            <li>
+              <a
+                class="dropdown-item"
+                routerLink="/cidade"
+                routerLinkActive="active"
+                [routerLinkActiveOptions]="{ exact: true }"
+                (click)="collapseNavbar()"
+              >
+                <fa-icon icon="location-dot" [fixedWidth]="true"></fa-icon>
+                <span jhiTranslate="global.menu.entities.cidade">Cidade</span>
+              </a>
+            </li>
             <li>
               <a class="dropdown-item" routerLink="/admin/user-management" routerLinkActive="active" (click)="collapseNavbar()">
                 <fa-icon icon="users" [fixedWidth]="true"></fa-icon>

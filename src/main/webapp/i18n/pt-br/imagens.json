@@ -1,0 +1,28 @@
+{
+  "graoDiretoMvpApp": {
+    "imagens": {
+      "home": {
+        "title": "Imagens",
+        "refreshListLabel": "Atualizar lista",
+        "createLabel": "Criar novo Imagens",
+        "createOrEditLabel": "Criar ou editar Imagens",
+        "notFound": "Nenhum Imagens encontrado"
+      },
+      "created": "Um novo Imagens foi criado com o identificador {{ param }}",
+      "updated": "Um Imagens foi atualizado com o identificador {{ param }}",
+      "deleted": "Um Imagens foi excluído com o identificador {{ param }}",
+      "delete": {
+        "question": "Tem certeza de que deseja excluir Imagens {{ id }}?"
+      },
+      "detail": {
+        "title": "Imagens"
+      },
+      "id": "ID",
+      "imagemContent": "Imagem Content",
+      "imagemContentType": "Imagem Content Type",
+      "localImagem": "Local Imagem",
+      "estabelecimento": "Estabelecimento",
+      "produto": "Produto"
+    }
+  }
+}

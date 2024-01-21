@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <!--
+        Added the entity Estabelecimento.
+    -->
+    <changeSet id="20240120014824-1" author="jhipster">
+        <createTable tableName="estabelecimento">
+            <column name="id" type="bigint" autoIncrement="true" startWith="1500">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="nome" type="varchar(255)">
+                <constraints nullable="false" />
+            </column>
+            <column name="telefone" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="email" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="tipo_estabelecimento" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="capa" type="${blobType}">
+                <constraints nullable="true" />
+            </column>
+            <column name="capa_content_type" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="logo" type="${blobType}">
+                <constraints nullable="true" />
+            </column>
+            <column name="logo_content_type" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="criado_em" type="${datetimeType}">
+                <constraints nullable="true" />
+            </column>
+            <column name="logradouro" type="varchar(255)">
+                <constraints nullable="false" />
+            </column>
+            <column name="numero" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="complemento" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="bairro" type="varchar(255)">
+                <constraints nullable="false" />
+            </column>
+            <column name="cep" type="varchar(255)">
+                <constraints nullable="false" />
+            </column>
+            <column name="cidade_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
+        </createTable>
+        <dropDefaultValue tableName="estabelecimento" columnName="criado_em" columnDataType="${datetimeType}"/>
+    </changeSet>
+
+    <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here -->
+
+    
+</databaseChangeLog>

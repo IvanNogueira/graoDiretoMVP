@@ -1,0 +1,91 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-cardapio-heading" data-cy="CardapioCreateUpdateHeading" jhiTranslate="graoDiretoMvpApp.cardapio.home.createOrEditLabel">
+        Criar ou editar Cardapio
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        @if (editForm.controls.id.value !== null) {
+          <div class="mb-3">
+            <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+            <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+          </div>
+        }
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="graoDiretoMvpApp.cardapio.nome" for="field_nome">Nome</label>
+          <input type="text" class="form-control" name="nome" id="field_nome" data-cy="nome" formControlName="nome" />
+          @if (editForm.get('nome')!.invalid && (editForm.get('nome')!.dirty || editForm.get('nome')!.touched)) {
+            <div>
+              @if (editForm.get('nome')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">O campo é obrigatório.</small>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="graoDiretoMvpApp.cardapio.dataCriacao" for="field_dataCriacao">Data Criacao</label>
+          <div class="input-group">
+            <input
+              id="field_dataCriacao"
+              data-cy="dataCriacao"
+              type="text"
+              class="form-control"
+              name="dataCriacao"
+              ngbDatepicker
+              #dataCriacaoDp="ngbDatepicker"
+              formControlName="dataCriacao"
+            />
+            <button type="button" class="btn btn-secondary" (click)="dataCriacaoDp.toggle()">
+              <fa-icon icon="calendar-alt"></fa-icon>
+            </button>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="graoDiretoMvpApp.cardapio.ativo" for="field_ativo">Ativo</label>
+          <input type="checkbox" class="form-check" name="ativo" id="field_ativo" data-cy="ativo" formControlName="ativo" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="graoDiretoMvpApp.cardapio.estabelecimento" for="field_estabelecimento"
+            >Estabelecimento</label
+          >
+          <select
+            class="form-control"
+            id="field_estabelecimento"
+            data-cy="estabelecimento"
+            name="estabelecimento"
+            formControlName="estabelecimento"
+            [compareWith]="compareEstabelecimento"
+          >
+            <option [ngValue]="null"></option>
+            @for (estabelecimentoOption of estabelecimentosSharedCollection; track $index) {
+              <option [ngValue]="estabelecimentoOption">{{ estabelecimentoOption.nome }}</option>
+            }
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancelar</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Salvar</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

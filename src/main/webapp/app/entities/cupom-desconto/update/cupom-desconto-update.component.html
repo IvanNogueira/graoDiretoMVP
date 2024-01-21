@@ -1,0 +1,118 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2
+        id="jhi-cupom-desconto-heading"
+        data-cy="CupomDescontoCreateUpdateHeading"
+        jhiTranslate="graoDiretoMvpApp.cupomDesconto.home.createOrEditLabel"
+      >
+        Criar ou editar Cupom Desconto
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        @if (editForm.controls.id.value !== null) {
+          <div class="mb-3">
+            <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+            <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+          </div>
+        }
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="graoDiretoMvpApp.cupomDesconto.valorDesconto" for="field_valorDesconto"
+            >Valor Desconto</label
+          >
+          <input
+            type="number"
+            class="form-control"
+            name="valorDesconto"
+            id="field_valorDesconto"
+            data-cy="valorDesconto"
+            formControlName="valorDesconto"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="graoDiretoMvpApp.cupomDesconto.valorMinimo" for="field_valorMinimo">Valor Minimo</label>
+          <input
+            type="checkbox"
+            class="form-check"
+            name="valorMinimo"
+            id="field_valorMinimo"
+            data-cy="valorMinimo"
+            formControlName="valorMinimo"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="graoDiretoMvpApp.cupomDesconto.valorMinimoRegra" for="field_valorMinimoRegra"
+            >Valor Minimo Regra</label
+          >
+          <input
+            type="number"
+            class="form-control"
+            name="valorMinimoRegra"
+            id="field_valorMinimoRegra"
+            data-cy="valorMinimoRegra"
+            formControlName="valorMinimoRegra"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="graoDiretoMvpApp.cupomDesconto.descricaoRegras" for="field_descricaoRegras"
+            >Descricao Regras</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            name="descricaoRegras"
+            id="field_descricaoRegras"
+            data-cy="descricaoRegras"
+            formControlName="descricaoRegras"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="graoDiretoMvpApp.cupomDesconto.valido" for="field_valido">Valido</label>
+          <input type="checkbox" class="form-check" name="valido" id="field_valido" data-cy="valido" formControlName="valido" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="graoDiretoMvpApp.cupomDesconto.estabelecimento" for="field_estabelecimento"
+            >Estabelecimento</label
+          >
+          <select
+            class="form-control"
+            id="field_estabelecimento"
+            data-cy="estabelecimento"
+            name="estabelecimento"
+            formControlName="estabelecimento"
+            [compareWith]="compareEstabelecimento"
+          >
+            <option [ngValue]="null"></option>
+            @for (estabelecimentoOption of estabelecimentosSharedCollection; track $index) {
+              <option [ngValue]="estabelecimentoOption">{{ estabelecimentoOption.id }}</option>
+            }
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancelar</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Salvar</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

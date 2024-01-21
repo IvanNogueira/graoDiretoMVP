@@ -1,0 +1,100 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (estabelecimento) {
+      <div>
+        <h2 data-cy="estabelecimentoDetailsHeading">
+          <span jhiTranslate="graoDiretoMvpApp.estabelecimento.detail.title">Estabelecimento</span>
+        </h2>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="global.field.id">Código</span></dt>
+          <dd>
+            <span>{{ estabelecimento.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="graoDiretoMvpApp.estabelecimento.nome">Nome</span></dt>
+          <dd>
+            <span>{{ estabelecimento.nome }}</span>
+          </dd>
+          <dt><span jhiTranslate="graoDiretoMvpApp.estabelecimento.telefone">Telefone</span></dt>
+          <dd>
+            <span>{{ estabelecimento.telefone }}</span>
+          </dd>
+          <dt><span jhiTranslate="graoDiretoMvpApp.estabelecimento.email">Email</span></dt>
+          <dd>
+            <span>{{ estabelecimento.email }}</span>
+          </dd>
+          <dt><span jhiTranslate="graoDiretoMvpApp.estabelecimento.tipoEstabelecimento">Tipo Estabelecimento</span></dt>
+          <dd>
+            <span jhiTranslate="{{ 'graoDiretoMvpApp.TipoEstabelicimento.' + estabelecimento.tipoEstabelecimento }}">{{
+              estabelecimento.tipoEstabelecimento
+            }}</span>
+          </dd>
+          <dt><span jhiTranslate="graoDiretoMvpApp.estabelecimento.capa">Capa</span></dt>
+          <dd>
+            @if (estabelecimento.capa) {
+              <div>
+                <a (click)="openFile(estabelecimento.capa, estabelecimento.capaContentType)" jhiTranslate="entity.action.open">Abrir</a>
+                {{ estabelecimento.capaContentType }}, {{ byteSize(estabelecimento.capa) }}
+              </div>
+            }
+          </dd>
+          <dt><span jhiTranslate="graoDiretoMvpApp.estabelecimento.logo">Logo</span></dt>
+          <dd>
+            @if (estabelecimento.logo) {
+              <div>
+                <a (click)="openFile(estabelecimento.logo, estabelecimento.logoContentType)" jhiTranslate="entity.action.open">Abrir</a>
+                {{ estabelecimento.logoContentType }}, {{ byteSize(estabelecimento.logo) }}
+              </div>
+            }
+          </dd>
+          <dt><span jhiTranslate="graoDiretoMvpApp.estabelecimento.criadoEm">Criado Em</span></dt>
+          <dd>
+            <span>{{ estabelecimento.criadoEm | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span jhiTranslate="graoDiretoMvpApp.estabelecimento.logradouro">Logradouro</span></dt>
+          <dd>
+            <span>{{ estabelecimento.logradouro }}</span>
+          </dd>
+          <dt><span jhiTranslate="graoDiretoMvpApp.estabelecimento.numero">Numero</span></dt>
+          <dd>
+            <span>{{ estabelecimento.numero }}</span>
+          </dd>
+          <dt><span jhiTranslate="graoDiretoMvpApp.estabelecimento.complemento">Complemento</span></dt>
+          <dd>
+            <span>{{ estabelecimento.complemento }}</span>
+          </dd>
+          <dt><span jhiTranslate="graoDiretoMvpApp.estabelecimento.bairro">Bairro</span></dt>
+          <dd>
+            <span>{{ estabelecimento.bairro }}</span>
+          </dd>
+          <dt><span jhiTranslate="graoDiretoMvpApp.estabelecimento.cep">Cep</span></dt>
+          <dd>
+            <span>{{ estabelecimento.cep }}</span>
+          </dd>
+          <dt><span jhiTranslate="graoDiretoMvpApp.estabelecimento.cidade">Cidade</span></dt>
+          <dd>
+            @if (estabelecimento.cidade) {
+              <div>
+                <a [routerLink]="['/cidade', estabelecimento.cidade.id, 'view']">{{ estabelecimento.cidade.id }}</a>
+              </div>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Voltar</span>
+        </button>
+
+        <button type="button" [routerLink]="['/estabelecimento', estabelecimento.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Editar</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

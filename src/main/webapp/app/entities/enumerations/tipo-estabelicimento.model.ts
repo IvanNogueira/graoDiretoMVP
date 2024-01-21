@@ -1,0 +1,25 @@
+export enum TipoEstabelicimento {
+  LANCHES = 'LANCHES',
+
+  SAUDAVEIS = 'SAUDAVEIS',
+
+  PIZZA = 'PIZZA',
+
+  JAPONESA = 'JAPONESA',
+
+  BRASILEIRA = 'BRASILEIRA',
+
+  ITALIANA = 'ITALIANA',
+
+  PASTEL = 'PASTEL',
+
+  ARABE = 'ARABE',
+
+  DOCES_BOLOS = 'DOCES_BOLOS',
+
+  CARNES = 'CARNES',
+
+  SORVETE = 'SORVETE',
+
+  ACAI = 'ACAI',
+}

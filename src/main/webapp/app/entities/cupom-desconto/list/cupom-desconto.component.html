@@ -1,0 +1,138 @@
+<div>
+  <h2 id="page-heading" data-cy="CupomDescontoHeading">
+    <span jhiTranslate="graoDiretoMvpApp.cupomDesconto.home.title">Cupom Descontos</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="graoDiretoMvpApp.cupomDesconto.home.refreshListLabel">Atualizar lista</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-cupom-desconto"
+        [routerLink]="['/cupom-desconto/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="graoDiretoMvpApp.cupomDesconto.home.createLabel">Criar novo Cupom Desconto</span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  @if (cupomDescontos?.length === 0) {
+    <div class="alert alert-warning" id="no-result">
+      <span jhiTranslate="graoDiretoMvpApp.cupomDesconto.home.notFound">Nenhum Cupom Desconto encontrado</span>
+    </div>
+  }
+
+  @if (cupomDescontos && cupomDescontos.length > 0) {
+    <div class="table-responsive table-entities" id="entities">
+      <table class="table table-striped" aria-describedby="page-heading">
+        <thead>
+          <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
+            <th scope="col" jhiSortBy="id">
+              <div class="d-flex">
+                <span jhiTranslate="global.field.id">Código</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="valorDesconto">
+              <div class="d-flex">
+                <span jhiTranslate="graoDiretoMvpApp.cupomDesconto.valorDesconto">Valor Desconto</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="valorMinimo">
+              <div class="d-flex">
+                <span jhiTranslate="graoDiretoMvpApp.cupomDesconto.valorMinimo">Valor Minimo</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="valorMinimoRegra">
+              <div class="d-flex">
+                <span jhiTranslate="graoDiretoMvpApp.cupomDesconto.valorMinimoRegra">Valor Minimo Regra</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="descricaoRegras">
+              <div class="d-flex">
+                <span jhiTranslate="graoDiretoMvpApp.cupomDesconto.descricaoRegras">Descricao Regras</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="valido">
+              <div class="d-flex">
+                <span jhiTranslate="graoDiretoMvpApp.cupomDesconto.valido">Valido</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="estabelecimento.id">
+              <div class="d-flex">
+                <span jhiTranslate="graoDiretoMvpApp.cupomDesconto.estabelecimento">Estabelecimento</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody
+          infinite-scroll
+          (scrolled)="loadPage(page + 1)"
+          [infiniteScrollDisabled]="page - 1 >= links['last']"
+          [infiniteScrollDistance]="0"
+        >
+          @for (cupomDesconto of cupomDescontos; track trackId) {
+            <tr data-cy="entityTable">
+              <td>
+                <a [routerLink]="['/cupom-desconto', cupomDesconto.id, 'view']">{{ cupomDesconto.id }}</a>
+              </td>
+              <td>{{ cupomDesconto.valorDesconto }}</td>
+              <td>{{ cupomDesconto.valorMinimo }}</td>
+              <td>{{ cupomDesconto.valorMinimoRegra }}</td>
+              <td>{{ cupomDesconto.descricaoRegras }}</td>
+              <td>{{ cupomDesconto.valido }}</td>
+              <td>
+                @if (cupomDesconto.estabelecimento) {
+                  <div>
+                    <a [routerLink]="['/estabelecimento', cupomDesconto.estabelecimento.id, 'view']">{{
+                      cupomDesconto.estabelecimento.id
+                    }}</a>
+                  </div>
+                }
+              </td>
+              <td class="text-end">
+                <div class="btn-group">
+                  <a [routerLink]="['/cupom-desconto', cupomDesconto.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+                    <fa-icon icon="eye"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.view">Visualizar</span>
+                  </a>
+
+                  <a [routerLink]="['/cupom-desconto', cupomDesconto.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
+                    <fa-icon icon="pencil-alt"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Editar</span>
+                  </a>
+
+                  <button type="submit" (click)="delete(cupomDesconto)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                    <fa-icon icon="times"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Excluir</span>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+</div>

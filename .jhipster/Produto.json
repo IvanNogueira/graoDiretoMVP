@@ -1,0 +1,53 @@
+{
+  "annotations": {
+    "changelogDate": "20240120015024"
+  },
+  "applications": "*",
+  "entityTableName": "produto",
+  "fields": [
+    {
+      "fieldName": "nome",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "descricao",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "preco",
+      "fieldType": "BigDecimal",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "desconto",
+      "fieldType": "BigDecimal"
+    }
+  ],
+  "jpaMetamodelFiltering": true,
+  "name": "Produto",
+  "pagination": "infinite-scroll",
+  "relationships": [
+    {
+      "otherEntityName": "imagens",
+      "relationshipName": "imagens",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "categoriaProduto",
+      "relationshipName": "categoriaProduto",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "cardapio",
+      "otherEntityRelationshipName": "produto",
+      "relationshipName": "cardapio",
+      "relationshipSide": "right",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceImpl"
+}

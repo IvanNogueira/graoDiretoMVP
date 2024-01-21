@@ -1,0 +1,29 @@
+{
+  "annotations": {
+    "changelogDate": "20240120015224"
+  },
+  "applications": "*",
+  "entityTableName": "imagens",
+  "fields": [
+    {
+      "fieldName": "imagemContent",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "image"
+    },
+    {
+      "fieldName": "imagemContentType",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "localImagem",
+      "fieldType": "LocalImagem",
+      "fieldValues": "PRODUTO,LOGO,CAPA_ESTABELECIMENTO"
+    }
+  ],
+  "jpaMetamodelFiltering": true,
+  "name": "Imagens",
+  "pagination": "infinite-scroll",
+  "relationships": [],
+  "searchEngine": "no",
+  "service": "serviceImpl"
+}

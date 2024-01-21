@@ -1,0 +1,7 @@
+export enum LocalImagem {
+  PRODUTO = 'PRODUTO',
+
+  LOGO = 'LOGO',
+
+  CAPA_ESTABELECIMENTO = 'CAPA_ESTABELECIMENTO',
+}

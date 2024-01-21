@@ -1,0 +1,109 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-produto-heading" data-cy="ProdutoCreateUpdateHeading" jhiTranslate="graoDiretoMvpApp.produto.home.createOrEditLabel">
+        Criar ou editar Produto
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        @if (editForm.controls.id.value !== null) {
+          <div class="mb-3">
+            <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+            <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+          </div>
+        }
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="graoDiretoMvpApp.produto.nome" for="field_nome">Nome</label>
+          <input type="text" class="form-control" name="nome" id="field_nome" data-cy="nome" formControlName="nome" />
+          @if (editForm.get('nome')!.invalid && (editForm.get('nome')!.dirty || editForm.get('nome')!.touched)) {
+            <div>
+              @if (editForm.get('nome')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">O campo é obrigatório.</small>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="graoDiretoMvpApp.produto.descricao" for="field_descricao">Descricao</label>
+          <input type="text" class="form-control" name="descricao" id="field_descricao" data-cy="descricao" formControlName="descricao" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="graoDiretoMvpApp.produto.preco" for="field_preco">Preco</label>
+          <input type="number" class="form-control" name="preco" id="field_preco" data-cy="preco" formControlName="preco" />
+          @if (editForm.get('preco')!.invalid && (editForm.get('preco')!.dirty || editForm.get('preco')!.touched)) {
+            <div>
+              @if (editForm.get('preco')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">O campo é obrigatório.</small>
+              }
+              <small class="form-text text-danger" [hidden]="!editForm.get('preco')?.errors?.number" jhiTranslate="entity.validation.number"
+                >Este campo é do tipo numérico.</small
+              >
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="graoDiretoMvpApp.produto.desconto" for="field_desconto">Desconto</label>
+          <input type="number" class="form-control" name="desconto" id="field_desconto" data-cy="desconto" formControlName="desconto" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="graoDiretoMvpApp.produto.categoriaProduto" for="field_categoriaProduto"
+            >Categoria Produto</label
+          >
+          <select
+            class="form-control"
+            id="field_categoriaProduto"
+            data-cy="categoriaProduto"
+            name="categoriaProduto"
+            formControlName="categoriaProduto"
+            [compareWith]="compareCategoriaProduto"
+          >
+            <option [ngValue]="null"></option>
+            @for (categoriaProdutoOption of categoriaProdutosSharedCollection; track $index) {
+              <option [ngValue]="categoriaProdutoOption">{{ categoriaProdutoOption.id }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="graoDiretoMvpApp.produto.cardapio" for="field_cardapio">Cardapio</label>
+          <select
+            class="form-control"
+            id="field_cardapio"
+            data-cy="cardapio"
+            name="cardapio"
+            formControlName="cardapio"
+            [compareWith]="compareCardapio"
+          >
+            <option [ngValue]="null"></option>
+            @for (cardapioOption of cardapiosSharedCollection; track $index) {
+              <option [ngValue]="cardapioOption">{{ cardapioOption.id }}</option>
+            }
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancelar</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Salvar</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

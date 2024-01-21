@@ -1,0 +1,144 @@
+<div>
+  <h2 id="page-heading" data-cy="ImagensHeading">
+    <span jhiTranslate="graoDiretoMvpApp.imagens.home.title">Imagens</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="graoDiretoMvpApp.imagens.home.refreshListLabel">Atualizar lista</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-imagens"
+        [routerLink]="['/imagens/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="graoDiretoMvpApp.imagens.home.createLabel">Criar novo Imagens</span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  @if (imagens?.length === 0) {
+    <div class="alert alert-warning" id="no-result">
+      <span jhiTranslate="graoDiretoMvpApp.imagens.home.notFound">Nenhum Imagens encontrado</span>
+    </div>
+  }
+
+  @if (imagens && imagens.length > 0) {
+    <div class="table-responsive table-entities" id="entities">
+      <table class="table table-striped" aria-describedby="page-heading">
+        <thead>
+          <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
+            <th scope="col" jhiSortBy="id">
+              <div class="d-flex">
+                <span jhiTranslate="global.field.id">Código</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="imagemContent">
+              <div class="d-flex">
+                <span jhiTranslate="graoDiretoMvpApp.imagens.imagemContent">Imagem Content</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="imagemContentType">
+              <div class="d-flex">
+                <span jhiTranslate="graoDiretoMvpApp.imagens.imagemContentType">Imagem Content Type</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="localImagem">
+              <div class="d-flex">
+                <span jhiTranslate="graoDiretoMvpApp.imagens.localImagem">Local Imagem</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="estabelecimento.id">
+              <div class="d-flex">
+                <span jhiTranslate="graoDiretoMvpApp.imagens.estabelecimento">Estabelecimento</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="produto.id">
+              <div class="d-flex">
+                <span jhiTranslate="graoDiretoMvpApp.imagens.produto">Produto</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody
+          infinite-scroll
+          (scrolled)="loadPage(page + 1)"
+          [infiniteScrollDisabled]="page - 1 >= links['last']"
+          [infiniteScrollDistance]="0"
+        >
+          @for (imagens of imagens; track trackId) {
+            <tr data-cy="entityTable">
+              <td>
+                <a [routerLink]="['/imagens', imagens.id, 'view']">{{ imagens.id }}</a>
+              </td>
+              <td>
+                @if (imagens.imagemContent) {
+                  <a (click)="openFile(imagens.imagemContent, imagens.imagemContentContentType)">
+                    <img
+                      [src]="'data:' + imagens.imagemContentContentType + ';base64,' + imagens.imagemContent"
+                      style="max-height: 30px"
+                      alt="imagens image"
+                    />
+                  </a>
+                  <span>{{ imagens.imagemContentContentType }}, {{ byteSize(imagens.imagemContent) }}</span>
+                }
+              </td>
+              <td>{{ imagens.imagemContentType }}</td>
+              <td jhiTranslate="{{ 'graoDiretoMvpApp.LocalImagem.' + imagens.localImagem }}">{{ imagens.localImagem }}</td>
+              <td>
+                @if (imagens.estabelecimento) {
+                  <div>
+                    <a [routerLink]="['/estabelecimento', imagens.estabelecimento.id, 'view']">{{ imagens.estabelecimento.id }}</a>
+                  </div>
+                }
+              </td>
+              <td>
+                @if (imagens.produto) {
+                  <div>
+                    <a [routerLink]="['/produto', imagens.produto.id, 'view']">{{ imagens.produto.id }}</a>
+                  </div>
+                }
+              </td>
+              <td class="text-end">
+                <div class="btn-group">
+                  <a [routerLink]="['/imagens', imagens.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+                    <fa-icon icon="eye"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.view">Visualizar</span>
+                  </a>
+
+                  <a [routerLink]="['/imagens', imagens.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
+                    <fa-icon icon="pencil-alt"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Editar</span>
+                  </a>
+
+                  <button type="submit" (click)="delete(imagens)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                    <fa-icon icon="times"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Excluir</span>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+</div>
