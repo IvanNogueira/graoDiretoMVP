@@ -73,11 +73,11 @@ public class Estabelecimento implements Serializable {
     @Column(name = "cep", nullable = false)
     private String cep;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "estabelecimento")
-    @JsonIgnoreProperties(value = { "produtos" }, allowSetters = true)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "estabelecimento")
+    @JsonIgnoreProperties(value = {}, allowSetters = true)
     private Set<Cardapio> cardapios = new HashSet<>();
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "estabelecimento")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "estabelecimento")
     @JsonIgnoreProperties(value = { "estabelecimento" }, allowSetters = true)
     private Set<CupomDesconto> cupomDescontos = new HashSet<>();
 

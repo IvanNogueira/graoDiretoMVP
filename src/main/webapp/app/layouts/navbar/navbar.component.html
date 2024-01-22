@@ -18,66 +18,89 @@
     </a>
     <div class="navbar-collapse collapse" id="navbarResponsive" [ngbCollapse]="isNavbarCollapsed">
       <ul class="navbar-nav ms-auto">
-        <li *jhiHasAnyAuthority="['ROLE_ADMIN', 'ROLE_USER']">
+        <li
+          ngbDropdown
+          class="nav-item dropdown pointer"
+          display="dynamic"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+        >
           <a
-            class="nav-link"
-            routerLink="/cardapio"
-            routerLinkActive="active"
-            [routerLinkActiveOptions]="{ exact: true }"
-            (click)="collapseNavbar()"
+            class="nav-link dropdown-toggle"
+            ngbDropdownToggle
+            href="javascript:void(0);"
+            id="admin-estabelecimento"
+            data-cy="adminEstabelecimento"
           >
-            <fa-icon icon="utensils" [fixedWidth]="true"></fa-icon>
-            <span jhiTranslate="global.menu.entities.cardapio">Cardapio</span>
+            <span>
+              <fa-icon icon="users-cog"></fa-icon>
+              <span>Cadastre seu Restaurente</span>
+            </span>
           </a>
+          <ul class="dropdown-menu" ngbDropdownMenu aria-labelledby="admin-estabelecimento">
+            <li *jhiHasAnyAuthority="['ROLE_ADMIN', 'ROLE_USER']">
+              <a
+                class="dropdown-item"
+                routerLink="/cardapio"
+                routerLinkActive="active"
+                [routerLinkActiveOptions]="{ exact: true }"
+                (click)="collapseNavbar()"
+              >
+                <fa-icon icon="utensils" [fixedWidth]="true"></fa-icon>
+                <span jhiTranslate="global.menu.entities.cardapio">Cardapio</span>
+              </a>
+            </li>
+            <li *jhiHasAnyAuthority="['ROLE_ADMIN', 'ROLE_USER']">
+              <a
+                class="dropdown-item"
+                routerLink="/produto"
+                routerLinkActive="active"
+                [routerLinkActiveOptions]="{ exact: true }"
+                (click)="collapseNavbar()"
+              >
+                <fa-icon icon="pizza-slice" [fixedWidth]="true"></fa-icon>
+                <span jhiTranslate="global.menu.entities.produto">Produto</span>
+              </a>
+            </li>
+            <li *jhiHasAnyAuthority="['ROLE_ADMIN', 'ROLE_USER']">
+              <a
+                class="dropdown-item"
+                routerLink="/categoria-produto"
+                routerLinkActive="active"
+                [routerLinkActiveOptions]="{ exact: true }"
+                (click)="collapseNavbar()"
+              >
+                <fa-icon icon="list" [fixedWidth]="true"></fa-icon>
+                <span jhiTranslate="global.menu.entities.categoriaProduto">Categoria Produto</span>
+              </a>
+            </li>
+            <li *jhiHasAnyAuthority="['ROLE_ADMIN', 'ROLE_USER']">
+              <a
+                class="dropdown-item"
+                routerLink="/cupom-desconto"
+                routerLinkActive="active"
+                [routerLinkActiveOptions]="{ exact: true }"
+                (click)="collapseNavbar()"
+              >
+                <fa-icon icon="ticket" [fixedWidth]="true"></fa-icon>
+                <span jhiTranslate="global.menu.entities.cupomDesconto">Cupom Desconto</span>
+              </a>
+            </li>
+            <li *jhiHasAnyAuthority="['ROLE_ADMIN', 'ROLE_USER']">
+              <a
+                class="dropdown-item"
+                routerLink="/estabelecimento"
+                routerLinkActive="active"
+                [routerLinkActiveOptions]="{ exact: true }"
+                (click)="collapseNavbar()"
+              >
+                <fa-icon icon="shop" [fixedWidth]="true"></fa-icon>
+                <span jhiTranslate="global.menu.entities.estabelecimento">Estabelecimento</span>
+              </a>
+            </li>
+          </ul>
         </li>
-        <li *jhiHasAnyAuthority="['ROLE_ADMIN', 'ROLE_USER']">
-          <a
-            class="nav-link"
-            routerLink="/produto"
-            routerLinkActive="active"
-            [routerLinkActiveOptions]="{ exact: true }"
-            (click)="collapseNavbar()"
-          >
-            <fa-icon icon="pizza-slice" [fixedWidth]="true"></fa-icon>
-            <span jhiTranslate="global.menu.entities.produto">Produto</span>
-          </a>
-        </li>
-        <li *jhiHasAnyAuthority="['ROLE_ADMIN', 'ROLE_USER']">
-          <a
-            class="nav-link"
-            routerLink="/categoria-produto"
-            routerLinkActive="active"
-            [routerLinkActiveOptions]="{ exact: true }"
-            (click)="collapseNavbar()"
-          >
-            <fa-icon icon="list" [fixedWidth]="true"></fa-icon>
-            <span jhiTranslate="global.menu.entities.categoriaProduto">Categoria Produto</span>
-          </a>
-        </li>
-        <li *jhiHasAnyAuthority="['ROLE_ADMIN', 'ROLE_USER']">
-          <a
-            class="nav-link"
-            routerLink="/cupom-desconto"
-            routerLinkActive="active"
-            [routerLinkActiveOptions]="{ exact: true }"
-            (click)="collapseNavbar()"
-          >
-            <fa-icon icon="ticket" [fixedWidth]="true"></fa-icon>
-            <span jhiTranslate="global.menu.entities.cupomDesconto">Cupom Desconto</span>
-          </a>
-        </li>
-        <li *jhiHasAnyAuthority="['ROLE_ADMIN', 'ROLE_USER']">
-          <a
-            class="nav-link"
-            routerLink="/estabelecimento"
-            routerLinkActive="active"
-            [routerLinkActiveOptions]="{ exact: true }"
-            (click)="collapseNavbar()"
-          >
-            <fa-icon icon="shop" [fixedWidth]="true"></fa-icon>
-            <span jhiTranslate="global.menu.entities.estabelecimento">Estabelecimento</span>
-          </a>
-        </li>
+
         <li
           *jhiHasAnyAuthority="'ROLE_ADMIN'"
           ngbDropdown
@@ -93,6 +116,18 @@
             </span>
           </a>
           <ul class="dropdown-menu" ngbDropdownMenu aria-labelledby="admin-menu">
+            <li>
+              <a
+                class="dropdown-item"
+                routerLink="/detalhe"
+                routerLinkActive="active"
+                [routerLinkActiveOptions]="{ exact: true }"
+                (click)="collapseNavbar()"
+              >
+                <fa-icon icon="location-dot" [fixedWidth]="true"></fa-icon>
+                <span>Detalhe</span>
+              </a>
+            </li>
             <li>
               <a
                 class="dropdown-item"

@@ -33,8 +33,8 @@ public class Cardapio implements Serializable {
     @Column(name = "ativo")
     private Boolean ativo;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "cardapio")
-    @JsonIgnoreProperties(value = { "imagens", "categoriaProduto", "cardapio" }, allowSetters = true)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "cardapio")
+    @JsonIgnoreProperties(value = { "cardapio" }, allowSetters = true)
     private Set<Produto> produtos = new HashSet<>();
 
     @ManyToOne(fetch = FetchType.EAGER)

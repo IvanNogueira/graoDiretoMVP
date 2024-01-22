@@ -9,6 +9,7 @@ import { errorRoute } from './layouts/error/error.route';
 import HomeComponent from './home/home.component';
 import NavbarComponent from './layouts/navbar/navbar.component';
 import LoginComponent from './login/login.component';
+import DetalheComponent from './detalhe/detalhe.component';
 
 @NgModule({
   imports: [
@@ -31,6 +32,11 @@ import LoginComponent from './login/login.component';
           },
           canActivate: [UserRouteAccessService],
           loadChildren: () => import('./admin/admin-routing.module'),
+        },
+        {
+          path: 'detalhe/:id',
+          component: DetalheComponent,
+          title: 'detalhe.title',
         },
         {
           path: 'account',

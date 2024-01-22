@@ -1,0 +1,46 @@
+@if (estabelecimento) {
+  <!-- Seção de Restaurantes -->
+  <div class="detalhe-restaurante">
+    <div class="restaurante-info-container">
+      <div class="capa">
+        <img [src]="'data:image;base64,' + estabelecimento!.capa" alt="Imagem de Capa" class="image-capa" />
+      </div>
+      <div class="info">
+        <div class="nome-restaurante-detalhe">
+          <h3>{{ estabelecimento!.nome }}</h3>
+          <label>{{ estabelecimento!.tipoEstabelecimento ? estabelecimento!.tipoEstabelecimento : '' }}</label>
+          <label>{{ estabelecimento!.telefone ? estabelecimento!.telefone : '' }}</label>
+          <label
+            >{{ estabelecimento!.logradouro ? estabelecimento!.logradouro : '' }},
+            {{ estabelecimento!.numero ? estabelecimento!.numero : '' }}
+            {{ estabelecimento!.complemento ? estabelecimento!.complemento : '' }}
+            {{ estabelecimento!.bairro ? estabelecimento!.bairro : '' }} - {{ estabelecimento!.cep ? estabelecimento!.cep : '' }}
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Seção de Produtos -->
+  <div class="section-container" *ngFor="let categoria of getKeys(produtosPorCategoria!)">
+    <h2 class="section-title">{{ categoria }}</h2>
+    <div class="detalhe-restaurantes">
+      <div class="produto-info-container" *ngFor="let produto of produtosPorCategoria[categoria]">
+        <div class="div-detalhe">
+          <img
+            [src]="'data: produto.imagemProdutoContentType ;base64,' + produto.imagemProduto"
+            class="imagem-produto"
+            alt="Imagem de Capa"
+          />
+        </div>
+        <div class="info">
+          <div class="nome-restaurante-detalhe">
+            <label>{{ produto.nome }}</label>
+            <span>{{ produto.descricao }}</span>
+            <label style="font-size: 23px; color: rgb(204, 0, 0)">R$ {{ produto.preco }}0</label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+}

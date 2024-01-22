@@ -43,6 +43,7 @@ import {
   faPizzaSlice,
   faTicket,
   faShop,
+  faMagnifyingGlassLocation,
 
   // jhipster-needle-add-icon-import
 } from '@fortawesome/free-solid-svg-icons';
@@ -92,6 +93,7 @@ export const fontAwesomeIcons = [
   faPizzaSlice,
   faTicket,
   faShop,
+  faMagnifyingGlassLocation,
 
   // jhipster-needle-add-icon-import
 ];

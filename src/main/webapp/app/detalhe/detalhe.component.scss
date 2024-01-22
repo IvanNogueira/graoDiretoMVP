@@ -22,13 +22,17 @@ Main page styles
 /* restaurante-info.component.css */
 
 .capa {
-  width: 100%;
-  overflow: hidden;
+  max-height: 240px;
 }
 
-.capa img {
-  width: 100%;
-  transition: transform 0.3s ease-in-out;
+.nome-restaurante-detalhe {
+  display: flex;
+  flex-direction: column;
+}
+
+img.image-capa {
+  height: 200px;
+  background-size: contain;
 }
 
 .info {
@@ -37,50 +41,31 @@ Main page styles
   padding: 10px;
 }
 
-.bolinha {
-  max-width: 50px;
-  max-height: 50px;
-  border-radius: 50%;
-  overflow: hidden;
-  margin-top: -80px;
-}
-
-.bolinha img {
-  width: 100%;
-}
-
 .nome-restaurante {
   margin-left: 10px;
-  align-items: flex-start;
-}
-.restaurante-info-container:hover .nome-restaurante h3 {
-  color: rgb(204, 0, 0); /* Muda a cor do texto ao passar o mouse */
 }
 .restaurante-info-container {
-  max-width: 300px;
+  min-width: 100%;
   background-color: var(--background);
   border-radius: 1.5rem;
   box-shadow: var(--shadow);
-  flex-basis: calc(40% - 20px);
-  margin: 10px;
-  cursor: pointer;
-  transition: transform 0.3s ease-in-out;
-}
-.restaurante-info-container:hover .capa img {
-  transform: scale(1.1); /* Aumenta um pouco a imagem ao passar o mouse */
-}
-.restaurante-info-container:hover {
-  transform: scale(1.05); /* Aumenta um pouco o tamanho ao passar o mouse */
+  padding: 15px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
 }
 
 .produto-info-container {
-  max-width: 200px;
+  max-width: 700px;
   background-color: var(--background);
   border-radius: 1.5rem;
   box-shadow: var(--shadow);
-  flex-basis: calc(40% - 20px);
+  flex-basis: calc(47% - 20px);
   margin: 10px;
-  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
   transition: transform 0.3s ease-in-out;
 }
 
@@ -88,36 +73,31 @@ Main page styles
   transform: scale(1.05); /* Aumenta um pouco o tamanho ao passar o mouse */
 }
 
-.produto-info-container:hover .div-produto img {
-  transform: scale(1.1); /* Aumenta um pouco a imagem ao passar o mouse */
-}
-.produto-info-container:hover .nome-restaurante label:first-child {
-  color: rgb(204, 0, 0); /* Muda a cor do texto ao passar o mouse */
-}
-.home-restaurantes {
+.detalhe-restaurantes {
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;
 }
-.search {
-  width: 75%;
-  height: 35px;
-  margin-left: 10%;
-  border-radius: 5px;
-  text-indent: 10px;
+
+.div-detalhe {
+  min-width: 40%;
+  overflow: hidden;
+  max-height: 230px;
+  border-radius: 1.5em;
 }
 
-.div-search {
-  position: relative;
-  width: 88%;
-  padding-left: 5%;
-  margin-bottom: 15px;
-}
-.div-produto {
-  width: 100%;
+.imagem-produto {
+  max-width: 300px;
   overflow: hidden;
-  max-height: 150px;
   transition: transform 0.3s ease-in-out;
+}
+
+.produto-info-container:hover .imagem-produto {
+  transform: scale(1.1); /* Aumenta um pouco a imagem ao passar o mouse */
+}
+
+.produto-info-container:hover .nome-restaurante-detalhe label {
+  color: rgb(204, 0, 0); /* Muda a cor do texto ao passar o mouse */
 }
 
 .section-container {
@@ -125,6 +105,7 @@ Main page styles
   border: 2px solid #ffa5a5; /* Adiciona uma borda sólida */
   padding: 10px; /* Adiciona um preenchimento interno */
   border-radius: 1.5rem;
+  margin-top: 20px;
 }
 
 .section-title {
@@ -132,4 +113,9 @@ Main page styles
   font-size: 24px; /* Tamanho do título da seção */
   margin-bottom: 10px; /* Espaçamento inferior do título */
   font-weight: 600;
+}
+
+label {
+  font-weight: 500;
+  margin-bottom: 5px;
 }

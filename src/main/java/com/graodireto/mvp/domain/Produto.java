@@ -46,7 +46,7 @@ public class Produto implements Serializable {
     private CategoriaProduto categoriaProduto;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JsonIgnoreProperties(value = { "produtos", "estabelecimento" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "produtos" }, allowSetters = true)
     private Cardapio cardapio;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here

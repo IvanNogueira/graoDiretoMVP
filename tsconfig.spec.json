@@ -4,6 +4,7 @@
   "compilerOptions": {
     "composite": true,
     "outDir": "target/out-tsc/spec",
+    "declaration": true, // Certifique-se de que esta propriedade está definida como true
     "types": ["jest", "node"]
   }
 }

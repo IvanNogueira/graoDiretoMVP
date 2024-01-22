@@ -1,7 +1,7 @@
 import { NgModule, LOCALE_ID } from '@angular/core';
-import { registerLocaleData } from '@angular/common';
+import { CommonModule, registerLocaleData } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
-import locale from '@angular/common/locales/pt';
+import localePt from '@angular/common/locales/pt';
 import { BrowserModule, Title } from '@angular/platform-browser';
 import { TitleStrategy } from '@angular/router';
 import { ServiceWorkerModule } from '@angular/service-worker';
@@ -21,6 +21,9 @@ import MainModule from './layouts/main/main.module';
 import { AppPageTitleStrategy } from './app-page-title-strategy';
 import { TextMaskModule } from 'angular2-text-mask';
 
+// Registrar os dados de localidade para o locale 'pt'
+registerLocaleData(localePt);
+
 @NgModule({
   imports: [
     BrowserModule,
@@ -30,6 +33,7 @@ import { TextMaskModule } from 'angular2-text-mask';
     MainModule,
     TranslationModule,
     TextMaskModule,
+    CommonModule,
   ],
   providers: [
     Title,
@@ -43,7 +47,7 @@ import { TextMaskModule } from 'angular2-text-mask';
 export class AppModule {
   constructor(applicationConfigService: ApplicationConfigService, iconLibrary: FaIconLibrary, dpConfig: NgbDatepickerConfig) {
     applicationConfigService.setEndpointPrefix(SERVER_API_URL);
-    registerLocaleData(locale);
+    registerLocaleData(localePt);
     iconLibrary.addIcons(...fontAwesomeIcons);
     dpConfig.minDate = { year: dayjs().subtract(100, 'year').year(), month: 1, day: 1 };
   }

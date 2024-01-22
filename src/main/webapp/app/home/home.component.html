@@ -1,21 +1,56 @@
+<div class="div-search">
+  <input type="text" id="search-input" class="search" placeholder="Buscar..." (keyup.enter)="realizarBusca()" />
+  <button class="btn btn-primary" (click)="realizarBusca(); $event.stopPropagation()">
+    <fa-icon class="text-white fa-lg" icon="magnifying-glass-location" style="size: 50px"></fa-icon>
+  </button>
+</div>
+
 <h3>
   Olá,<strong> {{ account!.firstName! ? account!.firstName! : account!.login! }}</strong> . Explore o Sabor: Descubra uma Experiência
   Culinária Única nos Nossos Restaurantes.
 </h3>
 
-<div class="home-restaurantes">
-  <div class="restaurante-info-container" *ngFor="let estabelecimento of estabelecimentoCollection">
-    <div class="capa">
-      <img [src]="'data:.jpeg;base64,' + estabelecimento.capa" style="max-width: 300px; max-height: 260px" alt="Imagem de Capa" />
-    </div>
-
-    <div class="info">
-      <div class="bolinha">
-        <img [src]="'data:image;base64,' + estabelecimento.logo" alt="Logo do Restaurante" />
+<!-- Seção de Restaurantes -->
+<div class="section-container image-restaurante">
+  <h2 class="section-title">Restaurantes</h2>
+  <div class="home-restaurantes">
+    <div class="restaurante-info-container" *ngFor="let estabelecimento of estabelecimentoCollection" (click)="navegar(estabelecimento.id)">
+      <div class="capa">
+        <img [src]="'data:image;base64,' + estabelecimento.capa" style="max-width: 300px; max-height: 260px" alt="Imagem de Capa" />
       </div>
-      <div class="nome-restaurante">
-        <h3>{{ estabelecimento.nome }}</h3>
-        <label>{{ estabelecimento.tipoEstabelecimento }}</label>
+      <div class="info">
+        <div class="bolinha">
+          <img [src]="'data:image;base64,' + estabelecimento.logo" alt="Logo do Restaurante" />
+        </div>
+        <div class="nome-restaurante">
+          <h3>{{ estabelecimento.nome }}</h3>
+          <label>{{ estabelecimento.tipoEstabelecimento }}</label>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Seção de Produtos -->
+<div class="section-container image-produtos">
+  <h2 class="section-title">Produtos</h2>
+  <div class="home-restaurantes">
+    <div class="produto-info-container" *ngFor="let produto of produtoCollection">
+      <div class="div-produto">
+        <img
+          [src]="'data: produto.imagemProdutoContentType ;base64,' + produto.imagemProduto"
+          style="max-width: 300px; max-height: 260px"
+          alt="Imagem de Capa"
+        />
+      </div>
+      <div class="info">
+        <div class="bolinha">
+          <img [src]="'data:image;base64,' + produto!.cardapio!.estabelecimento!.logo" alt="Logo do Restaurante" />
+        </div>
+        <div class="nome-restaurante">
+          <label>{{ produto.nome }}</label>
+          <label>R$ {{ produto.preco }}0</label>
+        </div>
       </div>
     </div>
   </div>
