@@ -3,6 +3,7 @@
   <button class="btn btn-primary" (click)="realizarBusca(); $event.stopPropagation()">
     <fa-icon class="text-white fa-lg" icon="magnifying-glass-location" style="size: 50px"></fa-icon>
   </button>
+  <button class="btn btn-danger" (click)="resetBusca()">Recarregar Produtos</button>
 </div>
 
 <h3>
@@ -10,46 +11,101 @@
   Culinária Única nos Nossos Restaurantes.
 </h3>
 
-<!-- Seção de Restaurantes -->
-<div class="section-container image-restaurante">
-  <h2 class="section-title">Restaurantes</h2>
-  <div class="home-restaurantes">
-    <div class="restaurante-info-container" *ngFor="let estabelecimento of estabelecimentoCollection" (click)="navegar(estabelecimento.id)">
-      <div class="capa">
-        <img [src]="'data:image;base64,' + estabelecimento.capa" style="max-width: 300px; max-height: 260px" alt="Imagem de Capa" />
-      </div>
-      <div class="info">
-        <div class="bolinha">
-          <img [src]="'data:image;base64,' + estabelecimento.logo" alt="Logo do Restaurante" />
+<!-- Seção que faz a troca da pesquisa por produtos da home -->
+<div *ngIf="showSearchResults == false">
+  <!-- Seção de Restaurantes -->
+  <div class="section-container image-restaurante">
+    <h2 class="section-title">Restaurantes</h2>
+    <div class="home-restaurantes">
+      <div
+        class="restaurante-info-container"
+        *ngFor="let estabelecimento of estabelecimentoCollection"
+        (click)="navegar(estabelecimento.id)"
+      >
+        <div class="capa">
+          <img [src]="'data:image;base64,' + estabelecimento.capa" style="max-width: 300px; max-height: 260px" alt="Imagem de Capa" />
         </div>
-        <div class="nome-restaurante">
-          <h3>{{ estabelecimento.nome }}</h3>
-          <label>{{ estabelecimento.tipoEstabelecimento }}</label>
+        <div class="info">
+          <div class="bolinha">
+            <img [src]="'data:image;base64,' + estabelecimento.logo" alt="Logo do Restaurante" />
+          </div>
+          <div class="nome-restaurante">
+            <h3>{{ estabelecimento.nome }}</h3>
+            <label>{{ estabelecimento.tipoEstabelecimento }}</label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Seção de Produtos -->
+  <div class="section-container image-produtos">
+    <h2 class="section-title">Produtos</h2>
+    <div class="home-restaurantes">
+      <div class="produto-info-container" *ngFor="let produto of produtoCollection">
+        <div class="div-produto">
+          <img
+            [src]="'data: produto.imagemProdutoContentType ;base64,' + produto.imagemProduto"
+            style="max-width: 300px; max-height: 260px"
+            alt="Imagem de Capa"
+          />
+        </div>
+        <div class="info">
+          <div class="bolinha">
+            <img [src]="'data:image;base64,' + produto!.cardapio!.estabelecimento!.logo" alt="Logo do Restaurante" />
+          </div>
+          <div class="nome-restaurante">
+            <label>{{ produto.nome }}</label>
+            <label>R$ {{ produto.preco }}0</label>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- Seção de Produtos -->
-<div class="section-container image-produtos">
-  <h2 class="section-title">Produtos</h2>
-  <div class="home-restaurantes">
-    <div class="produto-info-container" *ngFor="let produto of produtoCollection">
-      <div class="div-produto">
-        <img
-          [src]="'data: produto.imagemProdutoContentType ;base64,' + produto.imagemProduto"
-          style="max-width: 300px; max-height: 260px"
-          alt="Imagem de Capa"
-        />
-      </div>
-      <div class="info">
-        <div class="bolinha">
-          <img [src]="'data:image;base64,' + produto!.cardapio!.estabelecimento!.logo" alt="Logo do Restaurante" />
+<div *ngIf="showSearchResults">
+  <!-- Seção de Restaurantes -->
+  <div class="section-container image-restaurante">
+    <h2 class="section-title">Restaurantes teste</h2>
+    <div class="home-restaurantes">
+      <div class="restaurante-info-container" *ngFor="let estabelecimento of estabelecimentoPesquisa" (click)="navegar(estabelecimento.id)">
+        <div class="capa">
+          <img [src]="'data:image;base64,' + estabelecimento.capa" style="max-width: 300px; max-height: 260px" alt="Imagem de Capa" />
         </div>
-        <div class="nome-restaurante">
-          <label>{{ produto.nome }}</label>
-          <label>R$ {{ produto.preco }}0</label>
+        <div class="info">
+          <div class="bolinha">
+            <img [src]="'data:image;base64,' + estabelecimento.logo" alt="Logo do Restaurante" />
+          </div>
+          <div class="nome-restaurante">
+            <h3>{{ estabelecimento.nome }}</h3>
+            <label>{{ estabelecimento.tipoEstabelecimento }}</label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Seção de Produtos -->
+  <div class="section-container image-produtos">
+    <h2 class="section-title">Produtos teste</h2>
+    <div class="home-restaurantes">
+      <div class="produto-info-container" *ngFor="let produto of produtoPesquisa">
+        <div class="div-produto">
+          <img
+            [src]="'data: produto.imagemProdutoContentType ;base64,' + produto.imagemProduto"
+            style="max-width: 300px; max-height: 260px"
+            alt="Imagem de Capa"
+          />
+        </div>
+        <div class="info">
+          <div class="bolinha">
+            <img [src]="'data:image;base64,' + produto!.cardapio!.estabelecimento!.logo" alt="Logo do Restaurante" />
+          </div>
+          <div class="nome-restaurante">
+            <label>{{ produto.nome }}</label>
+            <label>R$ {{ produto.preco }}0</label>
+          </div>
         </div>
       </div>
     </div>

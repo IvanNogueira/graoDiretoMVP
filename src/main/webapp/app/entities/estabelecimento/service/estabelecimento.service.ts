@@ -9,7 +9,7 @@ import dayjs from 'dayjs/esm';
 import { isPresent } from 'app/core/util/operators';
 import { ApplicationConfigService } from 'app/core/config/application-config.service';
 import { createRequestOption } from 'app/core/request/request-util';
-import { IEstabelecimento, NewEstabelecimento } from '../estabelecimento.model';
+import { IEstabelecimento, IEstabelecimentoProdutoDTO, NewEstabelecimento } from '../estabelecimento.model';
 
 export type PartialUpdateEstabelecimento = Partial<IEstabelecimento> & Pick<IEstabelecimento, 'id'>;
 
@@ -62,6 +62,10 @@ export class EstabelecimentoService {
     return this.http
       .get<RestEstabelecimento>(`${this.resourceUrl}/${id}`, { observe: 'response' })
       .pipe(map(res => this.convertResponseFromServer(res)));
+  }
+
+  findSearch(pesquisar: String): Observable<HttpResponse<IEstabelecimentoProdutoDTO>> {
+    return this.http.get<IEstabelecimentoProdutoDTO>(`${this.resourceUrl}/pesquisar/${pesquisar}`, { observe: 'response' });
   }
 
   query(req?: any): Observable<EntityArrayResponseType> {

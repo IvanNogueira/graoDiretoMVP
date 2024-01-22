@@ -16,6 +16,7 @@
             {{ estabelecimento!.complemento ? estabelecimento!.complemento : '' }}
             {{ estabelecimento!.bairro ? estabelecimento!.bairro : '' }} - {{ estabelecimento!.cep ? estabelecimento!.cep : '' }}
           </label>
+          <button class="btn btn-primary btncupom" (click)="openFullscreen()">Cupons</button>
         </div>
       </div>
     </div>
@@ -44,3 +45,29 @@
     </div>
   </div>
 }
+
+<ng-template #cupom let-modal>
+  <div class="modal-header" style="background-color: lightblue">
+    <h3 style="font-weight: 600">Cupons Válidos</h3>
+    <button type="button" class="btn btn-danger" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true"><strong>X</strong></span>
+    </button>
+  </div>
+
+  <div class="modal-content">
+    <div class="detalhe-restaurantes">
+      <div class="produto-info-container" *ngFor="let cupom of cupomCollection">
+        <div class="div-detalhe">
+          <div class="imagem-cupom"></div>
+        </div>
+        <div class="info">
+          <div class="nome-restaurante-detalhe">
+            <label style="font-size: 20px; font-weight: 600">Presente: R$ {{ cupom.valorDesconto }} para conhecer o Restaurente</label>
+            <label> {{ cupom.descricaoRegras }}</label>
+            <label *ngIf="cupom.valorMinimo">Compras com valores acima de R$ {{ cupom.valorMinimoRegra }}</label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>

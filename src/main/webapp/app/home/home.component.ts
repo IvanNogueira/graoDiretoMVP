@@ -6,7 +6,7 @@ import { map, takeUntil } from 'rxjs/operators';
 import SharedModule from 'app/shared/shared.module';
 import { AccountService } from 'app/core/auth/account.service';
 import { Account } from 'app/core/auth/account.model';
-import { IEstabelecimento } from 'app/entities/estabelecimento/estabelecimento.model';
+import { IEstabelecimento, IEstabelecimentoProdutoDTO } from 'app/entities/estabelecimento/estabelecimento.model';
 import { EstabelecimentoService } from 'app/entities/estabelecimento/service/estabelecimento.service';
 import { IProduto } from 'app/entities/produto/produto.model';
 import { ProdutoService } from 'app/entities/produto/service/produto.service';
@@ -24,6 +24,10 @@ export default class HomeComponent implements OnInit, OnDestroy {
 
   private readonly destroy$ = new Subject<void>();
   estabelecimentoCollection?: IEstabelecimento[];
+  estabelecimentoProdutoDTO?: IEstabelecimentoProdutoDTO;
+  produtoPesquisa: IProduto[] | undefined;
+  estabelecimentoPesquisa: IEstabelecimento[] | undefined;
+
   produtoCollection?: IProduto[];
 
   showSearchResults = false;
@@ -69,16 +73,38 @@ export default class HomeComponent implements OnInit, OnDestroy {
     this.destroy$.next();
     this.destroy$.complete();
   }
+
   realizarBusca() {
     if (event) {
       event.stopPropagation();
     }
     const searchInput = document.getElementById('search-input') as HTMLInputElement;
-    this.showSearchResults = true;
 
     if (searchInput) {
+      this.estabelecimentoService.findSearch(searchInput.value).subscribe(
+        res => {
+          this.estabelecimentoProdutoDTO = res.body!;
+          console.log('dto ', this.estabelecimentoProdutoDTO);
+
+          this.estabelecimentoPesquisa = res.body!.estabelecimento;
+          console.log('estabelecimentoPesquisa ', this.estabelecimentoPesquisa);
+
+          this.produtoPesquisa = res.body!.produto;
+          console.log('produtoPesquisa ', this.produtoPesquisa);
+
+          this.showSearchResults = true;
+        },
+        error => {
+          console.error('Erro:', error);
+        },
+      );
     }
   }
+
+  resetBusca() {
+    this.showSearchResults = false;
+  }
+
   navegar(estabelecimentoId: number) {
     console.log('estabelecimento:', estabelecimentoId);
     this.router.navigate(['/detalhe', estabelecimentoId]);

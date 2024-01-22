@@ -119,3 +119,10 @@ label {
   font-weight: 500;
   margin-bottom: 5px;
 }
+.imagem-cupom {
+  background-image: url(/content/images/cupom.png);
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 150px;
+}

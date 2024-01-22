@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { Subject } from 'rxjs';
 import { map, takeUntil } from 'rxjs/operators';
@@ -12,6 +12,8 @@ import { IProduto } from 'app/entities/produto/produto.model';
 import { ProdutoService } from 'app/entities/produto/service/produto.service';
 import { CommonModule } from '@angular/common';
 import { ICardapio } from 'app/entities/cardapio/cardapio.model';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ICupomDesconto } from 'app/entities/cupom-desconto/cupom-desconto.model';
 
 interface ProdutosPorCategoria {
   [categoria: string]: IProduto[];
@@ -30,8 +32,10 @@ export default class DetalheComponent implements OnInit, OnDestroy {
   private readonly destroy$ = new Subject<void>();
   estabelecimento?: IEstabelecimento;
   produtoCollection?: IProduto[];
+  cupomCollection?: ICupomDesconto[];
   showSearchResults = false;
   produtosPorCategoria: ProdutosPorCategoria = {};
+  @ViewChild('cupom') cupom: any;
 
   constructor(
     private accountService: AccountService,
@@ -39,6 +43,7 @@ export default class DetalheComponent implements OnInit, OnDestroy {
     private estabelecimentoService: EstabelecimentoService,
     private produtoService: ProdutoService,
     private activatedRoute: ActivatedRoute,
+    private modalService: NgbModal,
   ) {}
 
   ngOnInit(): void {
@@ -49,6 +54,7 @@ export default class DetalheComponent implements OnInit, OnDestroy {
         res => {
           this.estabelecimento = res.body!;
           this.getProdutosAtivosDoEstabelecimento();
+          this.getCuponsAtivos();
         },
         error => {
           console.error('Erro:', error);
@@ -60,6 +66,13 @@ export default class DetalheComponent implements OnInit, OnDestroy {
       .getAuthenticationState()
       .pipe(takeUntil(this.destroy$))
       .subscribe(account => ((this.account = account), console.log(this.account)));
+  }
+
+  getCuponsAtivos() {
+    if (this.estabelecimento!.cupomDescontos && Array.isArray(this.estabelecimento!.cupomDescontos)) {
+      this.cupomCollection = this.estabelecimento!.cupomDescontos.filter(cupom => cupom.valido);
+      console.log('cupons: ', this.cupomCollection);
+    }
   }
 
   getProdutosAtivosDoEstabelecimento(): void {
@@ -106,5 +119,9 @@ export default class DetalheComponent implements OnInit, OnDestroy {
 
     if (searchInput) {
     }
+  }
+
+  openFullscreen() {
+    this.modalService.open(this.cupom, { size: 'xl', windowClass: 'cupom', backdrop: 'static', keyboard: false });
   }
 }

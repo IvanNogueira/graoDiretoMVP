@@ -4,6 +4,7 @@ import { ICupomDesconto } from 'app/entities/cupom-desconto/cupom-desconto.model
 import { ICidade } from 'app/entities/cidade/cidade.model';
 import { TipoEstabelicimento } from 'app/entities/enumerations/tipo-estabelicimento.model';
 import { IUser } from '../user/user.model';
+import { IProduto } from '../produto/produto.model';
 
 export interface IEstabelecimento {
   id: number;
@@ -25,6 +26,11 @@ export interface IEstabelecimento {
   cupomDescontos?: ICupomDesconto[] | null;
   cidade?: ICidade | null;
   user?: IUser | null;
+}
+
+export interface IEstabelecimentoProdutoDTO {
+  estabelecimento?: IEstabelecimento[];
+  produto?: IProduto[];
 }
 
 export type NewEstabelecimento = Omit<IEstabelecimento, 'id'> & { id: null };

@@ -100,18 +100,16 @@ Main page styles
   flex-wrap: wrap;
 }
 .search {
-  width: 75%;
+  width: 50%;
   height: 35px;
-  margin-left: 10%;
   border-radius: 5px;
   text-indent: 10px;
 }
 
 .div-search {
-  position: relative;
-  width: 88%;
-  padding-left: 5%;
+  display: flex;
   margin-bottom: 15px;
+  justify-content: center;
 }
 .div-produto {
   width: 100%;

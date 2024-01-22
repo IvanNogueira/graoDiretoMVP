@@ -1,9 +1,16 @@
 package com.graodireto.mvp.service.impl;
 
 import com.graodireto.mvp.domain.Estabelecimento;
+import com.graodireto.mvp.domain.Produto;
 import com.graodireto.mvp.repository.EstabelecimentoRepository;
+import com.graodireto.mvp.repository.ProdutoRepository;
 import com.graodireto.mvp.service.EstabelecimentoService;
+import com.graodireto.mvp.service.dto.EstabelecimentoProdutoDTO;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -22,8 +29,11 @@ public class EstabelecimentoServiceImpl implements EstabelecimentoService {
 
     private final EstabelecimentoRepository estabelecimentoRepository;
 
-    public EstabelecimentoServiceImpl(EstabelecimentoRepository estabelecimentoRepository) {
+    private final ProdutoRepository produtoRepository;
+
+    public EstabelecimentoServiceImpl(EstabelecimentoRepository estabelecimentoRepository, ProdutoRepository produtoRepository) {
         this.estabelecimentoRepository = estabelecimentoRepository;
+        this.produtoRepository = produtoRepository;
     }
 
     @Override
@@ -105,6 +115,24 @@ public class EstabelecimentoServiceImpl implements EstabelecimentoService {
     public Optional<Estabelecimento> findOne(Long id) {
         log.debug("Request to get Estabelecimento : {}", id);
         return estabelecimentoRepository.findById(id);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<EstabelecimentoProdutoDTO> findByNomeContaining(String pesquisar) {
+        log.debug("Request to get all Estabelecimentos");
+
+        List<Estabelecimento> estabelecimentos = estabelecimentoRepository.findByNomeContaining(pesquisar);
+        List<Produto> produtos = produtoRepository.findByNomeOrDescricaoProduto(pesquisar);
+
+        List<EstabelecimentoProdutoDTO> result = new ArrayList<>();
+
+        EstabelecimentoProdutoDTO dto = new EstabelecimentoProdutoDTO();
+        dto.setEstabelecimento(estabelecimentos);
+        dto.setProduto(produtos);
+        result.add(dto);
+
+        return result;
     }
 
     @Override

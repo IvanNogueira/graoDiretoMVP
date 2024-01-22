@@ -5,6 +5,7 @@ import com.graodireto.mvp.repository.EstabelecimentoRepository;
 import com.graodireto.mvp.service.EstabelecimentoQueryService;
 import com.graodireto.mvp.service.EstabelecimentoService;
 import com.graodireto.mvp.service.criteria.EstabelecimentoCriteria;
+import com.graodireto.mvp.service.dto.EstabelecimentoProdutoDTO;
 import com.graodireto.mvp.web.rest.errors.BadRequestAlertException;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
@@ -164,6 +165,18 @@ public class EstabelecimentoResource {
         Page<Estabelecimento> page = estabelecimentoQueryService.findByCriteria(criteria, pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
+    /**
+     * {@code GET  /estabelecimentos} : get all the estabelecimentos.
+     *
+     * @param pesquisar the pagination information.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of estabelecimentos in body.
+     */
+    @GetMapping("pesquisar/{pesquisar}")
+    public ResponseEntity<List<EstabelecimentoProdutoDTO>> getAllEstabelecimentos(@PathVariable("pesquisar") String pesquisar) {
+        List<EstabelecimentoProdutoDTO> estabelecimentos = estabelecimentoService.findByNomeContaining(pesquisar);
+        return ResponseEntity.ok().body(estabelecimentos);
     }
 
     /**

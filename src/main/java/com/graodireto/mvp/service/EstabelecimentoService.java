@@ -1,6 +1,8 @@
 package com.graodireto.mvp.service;
 
 import com.graodireto.mvp.domain.Estabelecimento;
+import com.graodireto.mvp.service.dto.EstabelecimentoProdutoDTO;
+import java.util.List;
 import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -48,6 +50,15 @@ public interface EstabelecimentoService {
      * @return the entity.
      */
     Optional<Estabelecimento> findOne(Long id);
+
+    /**
+     *
+     * Get a list of establishments by LIKE the "name".
+     *
+     * @param pesquisar the name in the entity.
+     * @return the entity.
+     */
+    List<EstabelecimentoProdutoDTO> findByNomeContaining(String pesquisar);
 
     /**
      * Delete the "id" estabelecimento.
