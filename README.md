@@ -4,20 +4,17 @@ Antes de iniciar o projeto, certifique-se de ter as seguintes dependências inst
 Node.js: Utilizamos o Node para executar um servidor web de desenvolvimento e construir o projeto. Dependendo do seu sistema, você pode instalar o Node a partir da fonte ou como um pacote pré-empacotado.
 Após instalar o Node, execute o seguinte comando para instalar as ferramentas de desenvolvimento. Você só precisará executar este comando quando as dependências mudarem no arquivo package.json.
 
-bash
- code
-npm install
-Execute os seguintes comandos para criar uma experiência de desenvolvimento tranquila:
+bash code 
+ npm install
+ Execute os seguintes comandos para criar uma experiência de desenvolvimento tranquila:
 
 No terminal, execute:
 
-bash
- code
+bash code
 ./mvnw
 Em outro terminal, execute:
 
-bash
-Copy code
+bash code
 npm run start
 Agora, seu ambiente de desenvolvimento está pronto e o projeto está em execução. Certifique-se de ajustar as instruções conforme necessário para se adequar ao seu projeto específico.
 
