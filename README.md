@@ -1,260 +1,227 @@
-# graoDiretoMvp
+**graoDiretoMvp**
 
-This application was generated using JHipster 8.1.0, you can find documentation and help at [https://www.jhipster.tech/documentation-archive/v8.1.0](https://www.jhipster.tech/documentation-archive/v8.1.0).
+Esta aplicação foi gerada usando o JHipster 8.1.0. Você pode encontrar documentação e ajuda em [https://www.jhipster.tech/documentation-archive/v8.1.0](https://www.jhipster.tech/documentation-archive/v8.1.0).
 
-## Project Structure
+**Estrutura do Projeto**
 
-Node is required for generation and recommended for development. `package.json` is always generated for a better development experience with prettier, commit hooks, scripts and so on.
+O Node é necessário para a geração e é recomendado para o desenvolvimento. O `package.json` é sempre gerado para uma melhor experiência de desenvolvimento com prettier, ganchos de commit, scripts e assim por diante.
 
-In the project root, JHipster generates configuration files for tools like git, prettier, eslint, husky, and others that are well known and you can find references in the web.
+Na raiz do projeto, o JHipster gera arquivos de configuração para ferramentas como git, prettier, eslint, husky e outros que são bem conhecidos e você pode encontrar referências na web.
 
-`/src/*` structure follows default Java structure.
+A estrutura em `/src/*` segue a estrutura padrão do Java.
 
-- `.yo-rc.json` - Yeoman configuration file
-  JHipster configuration is stored in this file at `generator-jhipster` key. You may find `generator-jhipster-*` for specific blueprints configuration.
-- `.yo-resolve` (optional) - Yeoman conflict resolver
-  Allows to use a specific action when conflicts are found skipping prompts for files that matches a pattern. Each line should match `[pattern] [action]` with pattern been a [Minimatch](https://github.com/isaacs/minimatch#minimatch) pattern and action been one of skip (default if ommited) or force. Lines starting with `#` are considered comments and are ignored.
-- `.jhipster/*.json` - JHipster entity configuration files
+- `.yo-rc.json`: Arquivo de configuração do Yeoman. A configuração do JHipster é armazenada neste arquivo na chave `generator-jhipster`. Você pode encontrar configurações específicas para blueprints como `generator-jhipster-*`.
+- `.yo-resolve` (opcional): Resolvedor de conflitos do Yeoman. Permite usar uma ação específica quando conflitos são encontrados, ignorando prompts para arquivos que correspondem a um padrão.
+- `.jhipster/*.json`: Arquivos de configuração de entidades do JHipster.
 
-- `npmw` - wrapper to use locally installed npm.
-  JHipster installs Node and npm locally using the build tool by default. This wrapper makes sure npm is installed locally and uses it avoiding some differences different versions can cause. By using `./npmw` instead of the traditional `npm` you can configure a Node-less environment to develop or test your application.
-- `/src/main/docker` - Docker configurations for the application and services that the application depends on
+`npmw`: Invólucro para usar o npm instalado localmente. O JHipster instala o Node e o npm localmente usando a ferramenta de construção por padrão. Este invólucro garante que o npm esteja instalado localmente e o utiliza, evitando algumas diferenças que versões diferentes podem causar.
 
-## Development
+`/src/main/docker`: Configurações do Docker para a aplicação e serviços dos quais a aplicação depende.
 
-Before you can build this project, you must install and configure the following dependencies on your machine:
+**Desenvolvimento**
 
-1. [Node.js][]: We use Node to run a development web server and build the project.
-   Depending on your system, you can install Node either from source or as a pre-packaged bundle.
+Antes de construir este projeto, você deve instalar e configurar as seguintes dependências em sua máquina:
 
-After installing Node, you should be able to run the following command to install development tools.
-You will only need to run this command when dependencies change in [package.json](package.json).
+- Node.js: Usamos o Node para executar um servidor web de desenvolvimento e construir o projeto. Dependendo do seu sistema, você pode instalar o Node de origem ou como um pacote pré-empacotado.
+  
+Depois de instalar o Node, você deve conseguir executar o seguinte comando para instalar as ferramentas de desenvolvimento. Você só precisará executar este comando quando as dependências mudarem no `package.json`.
 
-```
+```bash
 npm install
 ```
 
-We use npm scripts and [Angular CLI][] with [Webpack][] as our build system.
+Usamos scripts npm e Angular CLI com Webpack como nosso sistema de construção.
 
-Run the following commands in two separate terminals to create a blissful development experience where your browser
-auto-refreshes when files change on your hard drive.
+Execute os seguintes comandos em dois terminais separados para criar uma experiência de desenvolvimento agradável, onde o navegador atualiza automaticamente quando os arquivos mudam no seu disco rígido.
 
-```
+```bash
 ./mvnw
 npm start
 ```
 
-Npm is also used to manage CSS and JavaScript dependencies used in this application. You can upgrade dependencies by
-specifying a newer version in [package.json](package.json). You can also run `npm update` and `npm install` to manage dependencies.
-Add the `help` flag on any command to see how you can use it. For example, `npm help update`.
+O Npm também é usado para gerenciar as dependências de CSS e JavaScript usadas nesta aplicação. Você pode atualizar as dependências especificando uma versão mais recente no `package.json`. Você também pode executar `npm update` e `npm install` para gerenciar dependências. Adicione a flag de ajuda em qualquer comando para ver como você pode usá-lo. Por exemplo, `npm help update`.
 
-The `npm run` command will list all of the scripts available to run for this project.
+O comando `npm run` listará todos os scripts disponíveis para execução neste projeto.
 
-### PWA Support
+**Suporte a PWA**
 
-JHipster ships with PWA (Progressive Web App) support, and it's turned off by default. One of the main components of a PWA is a service worker.
+O JHipster possui suporte a PWA (Progressive Web App), mas está desativado por padrão. Um dos principais componentes de uma PWA é um service worker.
 
-The service worker initialization code is disabled by default. To enable it, uncomment the following code in `src/main/webapp/app/app.config.ts`:
+O código de inicialização do service worker está desativado por padrão. Para ativá-lo, descomente o seguinte código em `src/main/webapp/app/app.config.ts`:
 
 ```typescript
 ServiceWorkerModule.register('ngsw-worker.js', { enabled: false }),
 ```
 
-### Managing dependencies
+**Gerenciamento de Dependências**
 
-For example, to add [Leaflet][] library as a runtime dependency of your application, you would run following command:
+Por exemplo, para adicionar a biblioteca Leaflet como uma dependência de tempo de execução da sua aplicação, você executaria o seguinte comando:
 
-```
+```bash
 npm install --save --save-exact leaflet
 ```
 
-To benefit from TypeScript type definitions from [DefinitelyTyped][] repository in development, you would run following command:
+Para se beneficiar das definições de tipo TypeScript do repositório DefinitelyTyped no desenvolvimento, você executaria o seguinte comando:
 
-```
+```bash
 npm install --save-dev --save-exact @types/leaflet
 ```
 
-Then you would import the JS and CSS files specified in library's installation instructions so that [Webpack][] knows about them:
-Edit [src/main/webapp/app/app.config.ts](src/main/webapp/app/app.config.ts) file:
+Então, você importaria os arquivos JS e CSS especificados nas instruções de instalação da biblioteca para que o Webpack saiba sobre eles. Edite o arquivo `src/main/webapp/app/app.config.ts`:
 
-```
+```typescript
 import 'leaflet/dist/leaflet.js';
 ```
 
-Edit [src/main/webapp/content/scss/vendor.scss](src/main/webapp/content/scss/vendor.scss) file:
+Edite o arquivo `src/main/webapp/content/scss/vendor.scss`:
 
-```
+```scss
 @import 'leaflet/dist/leaflet.css';
 ```
 
-Note: There are still a few other things remaining to do for Leaflet that we won't detail here.
+Observação: Ainda existem algumas outras coisas a serem feitas para o Leaflet que não detalharemos aqui.
 
-For further instructions on how to develop with JHipster, have a look at [Using JHipster in development][].
+Para mais instruções sobre como desenvolver com o JHipster, dê uma olhada em [Usando o JHipster no desenvolvimento](https://www.jhipster.tech/development/).
 
-### Using Angular CLI
+**Usando Angular CLI**
 
-You can also use [Angular CLI][] to generate some custom client code.
+Você também pode usar o Angular CLI para gerar algum código cliente personalizado.
 
-For example, the following command:
+Por exemplo, o seguinte comando:
 
-```
+```bash
 ng generate component my-component
 ```
 
-will generate few files:
+gerará alguns arquivos:
 
-```
-create src/main/webapp/app/my-component/my-component.component.html
-create src/main/webapp/app/my-component/my-component.component.ts
-update src/main/webapp/app/app.config.ts
-```
+- Cria `src/main/webapp/app/my-component/my-component.component.html`
+- Cria `src/main/webapp/app/my-component/my-component.component.ts`
+- Atualiza `src/main/webapp/app/app.config.ts`
 
-## Building for production
+**Construção para Produção**
 
-### Packaging as jar
+**Empacotando como JAR**
 
-To build the final jar and optimize the graoDiretoMvp application for production, run:
+Para construir o jar final e otimizar a aplicação `graoDiretoMvp` para produção, execute:
 
-```
+```bash
 ./mvnw -Pprod clean verify
 ```
 
-This will concatenate and minify the client CSS and JavaScript files. It will also modify `index.html` so it references these new files.
-To ensure everything worked, run:
+Isso concatenará e minificará os arquivos CSS e JavaScript do cliente. Ele também modificará o `index.html` para referenciar esses novos arquivos. Para garantir que tudo funcionou, execute:
 
-```
+```bash
 java -jar target/*.jar
 ```
 
-Then navigate to [http://localhost:8080](http://localhost:8080) in your browser.
+Em seguida, acesse [http://localhost:8080](http://localhost:8080) no seu navegador.
 
-Refer to [Using JHipster in production][] for more details.
+Consulte [Usando o JHipster em produção](https://www.jhipster.tech/production/) para mais detalhes.
 
-### Packaging as war
+**Empacotando como WAR**
 
-To package your application as a war in order to deploy it to an application server, run:
+Para empacotar sua aplic
 
-```
+ação como um WAR para implantá-la em um servidor de aplicativos, execute:
+
+```bash
 ./mvnw -Pprod,war clean verify
 ```
 
-### JHipster Control Center
+**Centro de Controle JHipster**
 
-JHipster Control Center can help you manage and control your application(s). You can start a local control center server (accessible on http://localhost:7419) with:
+O Centro de Controle JHipster pode ajudá-lo a gerenciar e controlar sua(s) aplicação(ões). Você pode iniciar um servidor de centro de controle local (acessível em [http://localhost:7419](http://localhost:7419)) com:
 
-```
+```bash
 docker compose -f src/main/docker/jhipster-control-center.yml up
 ```
 
-## Testing
+**Testes**
 
-### Spring Boot tests
+**Testes do Spring Boot**
 
-To launch your application's tests, run:
+Para iniciar os testes de sua aplicação, execute:
 
-```
+```bash
 ./mvnw verify
 ```
 
-### Client tests
+**Testes do Cliente**
 
-Unit tests are run by [Jest][]. They're located in [src/test/javascript/](src/test/javascript/) and can be run with:
+Os testes de unidade são executados pelo Jest. Eles estão localizados em `src/test/javascript/` e podem ser executados com:
 
-```
+```bash
 npm test
 ```
 
-## Others
+**Outros**
 
-### Code quality using Sonar
+**Qualidade do Código usando Sonar**
 
-Sonar is used to analyse code quality. You can start a local Sonar server (accessible on http://localhost:9001) with:
+O Sonar é usado para analisar a qualidade do código. Você pode iniciar um servidor Sonar local (acessível em [http://localhost:9001](http://localhost:9001)) com:
 
-```
+```bash
 docker compose -f src/main/docker/sonar.yml up -d
 ```
 
-Note: we have turned off forced authentication redirect for UI in [src/main/docker/sonar.yml](src/main/docker/sonar.yml) for out of the box experience while trying out SonarQube, for real use cases turn it back on.
+Em seguida, execute uma análise do Sonar com o `sonar-scanner` ou usando o plugin Maven.
 
-You can run a Sonar analysis with using the [sonar-scanner](https://docs.sonarqube.org/display/SCAN/Analyzing+with+SonarQube+Scanner) or by using the maven plugin.
-
-Then, run a Sonar analysis:
-
-```
+```bash
 ./mvnw -Pprod clean verify sonar:sonar -Dsonar.login=admin -Dsonar.password=admin
 ```
 
-If you need to re-run the Sonar phase, please be sure to specify at least the `initialize` phase since Sonar properties are loaded from the sonar-project.properties file.
+Se precisar executar novamente a fase do Sonar, certifique-se de especificar pelo menos a fase de inicialização, pois as propriedades do Sonar são carregadas do arquivo `sonar-project.properties`.
 
-```
+```bash
 ./mvnw initialize sonar:sonar -Dsonar.login=admin -Dsonar.password=admin
 ```
 
-Additionally, Instead of passing `sonar.password` and `sonar.login` as CLI arguments, these parameters can be configured from [sonar-project.properties](sonar-project.properties) as shown below:
+Além disso, em vez de passar `sonar.password` e `sonar.login` como argumentos da CLI, esses parâmetros podem ser configurados a partir do `sonar-project.properties`.
 
-```
+```properties
 sonar.login=admin
 sonar.password=admin
 ```
 
-For more information, refer to the [Code quality page][].
+Para mais informações, consulte a página de [Qualidade do Código](https://www.jhipster.tech/code-quality/).
 
-### Using Docker to simplify development (optional)
+**Usando Docker para Simplificar o Desenvolvimento (opcional)**
 
-You can use Docker to improve your JHipster development experience. A number of docker-compose configuration are available in the [src/main/docker](src/main/docker) folder to launch required third party services.
+Você pode usar o Docker para melhorar sua experiência de desenvolvimento com o JHipster. Várias configurações do docker-compose estão disponíveis na pasta `src/main/docker` para iniciar serviços de terceiros necessários.
 
-For example, to start a mysql database in a docker container, run:
+Por exemplo, para iniciar um banco de dados MySQL em um contêiner Docker, execute:
 
-```
+```bash
 docker compose -f src/main/docker/mysql.yml up -d
 ```
 
-To stop it and remove the container, run:
+Para pará-lo e remover o contêiner, execute:
 
-```
+```bash
 docker compose -f src/main/docker/mysql.yml down
 ```
 
-You can also fully dockerize your application and all the services that it depends on.
-To achieve this, first build a docker image of your app by running:
+Você também pode dockerizar completamente sua aplicação e todos os serviços de que ela depende. Para fazer isso, primeiro construa uma imagem Docker do seu aplicativo executando:
 
-```
+```bash
 npm run java:docker
 ```
 
-Or build a arm64 docker image when using an arm64 processor os like MacOS with M1 processor family running:
+Ou construa uma imagem Docker arm64 ao usar um processador arm64 como MacOS com a família de processadores M1 em execução:
 
-```
+```bash
 npm run java:docker:arm64
 ```
 
-Then run:
+Em seguida, execute:
 
-```
+```bash
 docker compose -f src/main/docker/app.yml up -d
 ```
 
-When running Docker Desktop on MacOS Big Sur or later, consider enabling experimental `Use the new Virtualization framework` for better processing performance ([disk access performance is worse](https://github.com/docker/roadmap/issues/7)).
+Para obter mais informações, consulte [Usando Docker e Docker-Compose](https://www.jhipster.tech/docker/).
 
-For more information refer to [Using Docker and Docker-Compose][], this page also contains information on the docker-compose sub-generator (`jhipster docker-compose`), which is able to generate docker configurations for one or several JHipster applications.
+**Integração Contínua (opcional)**
 
-## Continuous Integration (optional)
-
-To configure CI for your project, run the ci-cd sub-generator (`jhipster ci-cd`), this will let you generate configuration files for a number of Continuous Integration systems. Consult the [Setting up Continuous Integration][] page for more information.
-
-[JHipster Homepage and latest documentation]: https://www.jhipster.tech
-[JHipster 8.1.0 archive]: https://www.jhipster.tech/documentation-archive/v8.1.0
-[Using JHipster in development]: https://www.jhipster.tech/documentation-archive/v8.1.0/development/
-[Using Docker and Docker-Compose]: https://www.jhipster.tech/documentation-archive/v8.1.0/docker-compose
-[Using JHipster in production]: https://www.jhipster.tech/documentation-archive/v8.1.0/production/
-[Running tests page]: https://www.jhipster.tech/documentation-archive/v8.1.0/running-tests/
-[Code quality page]: https://www.jhipster.tech/documentation-archive/v8.1.0/code-quality/
-[Setting up Continuous Integration]: https://www.jhipster.tech/documentation-archive/v8.1.0/setting-up-ci/
-[Node.js]: https://nodejs.org/
-[NPM]: https://www.npmjs.com/
-[Webpack]: https://webpack.github.io/
-[BrowserSync]: https://www.browsersync.io/
-[Jest]: https://facebook.github.io/jest/
-[Leaflet]: https://leafletjs.com/
-[DefinitelyTyped]: https://definitelytyped.org/
-[Angular CLI]: https://cli.angular.io/
+Para configurar CI para o seu projeto, execute o sub-gerador ci-cd (jhipster ci-cd). Isso permitirá que você gere arquivos de configuração para um número de sistemas de Integração Contínua. Consulte a página [Configuração de Integração Contínua](https://www.jhipster.tech/setting-up-ci/) para mais informações.
