@@ -1,10 +1,13 @@
 package com.graodireto.mvp.web.rest;
 
+import com.graodireto.mvp.domain.CategoriaProduto;
 import com.graodireto.mvp.domain.CupomDesconto;
 import com.graodireto.mvp.repository.CupomDescontoRepository;
+import com.graodireto.mvp.security.SecurityUtils;
 import com.graodireto.mvp.service.CupomDescontoQueryService;
 import com.graodireto.mvp.service.CupomDescontoService;
 import com.graodireto.mvp.service.criteria.CupomDescontoCriteria;
+import com.graodireto.mvp.service.dto.AdminUserDTO;
 import com.graodireto.mvp.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -44,14 +47,18 @@ public class CupomDescontoResource {
 
     private final CupomDescontoQueryService cupomDescontoQueryService;
 
+    private final AccountResource accountResource;
+
     public CupomDescontoResource(
         CupomDescontoService cupomDescontoService,
         CupomDescontoRepository cupomDescontoRepository,
-        CupomDescontoQueryService cupomDescontoQueryService
+        CupomDescontoQueryService cupomDescontoQueryService,
+        AccountResource accountResource
     ) {
         this.cupomDescontoService = cupomDescontoService;
         this.cupomDescontoRepository = cupomDescontoRepository;
         this.cupomDescontoQueryService = cupomDescontoQueryService;
+        this.accountResource = accountResource;
     }
 
     /**
@@ -151,7 +158,7 @@ public class CupomDescontoResource {
      * @param criteria the criteria which the requested entities should match.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of cupomDescontos in body.
      */
-    @GetMapping("")
+    @GetMapping("/user")
     public ResponseEntity<List<CupomDesconto>> getAllCupomDescontos(
         CupomDescontoCriteria criteria,
         @org.springdoc.core.annotations.ParameterObject Pageable pageable
@@ -161,6 +168,31 @@ public class CupomDescontoResource {
         Page<CupomDesconto> page = cupomDescontoQueryService.findByCriteria(criteria, pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
+    /**
+     * {@code GET  /cupom-descontos} : get all the cupomDescontos.
+     *
+     * @param pageable the pagination information.
+     * @param criteria the criteria which the requested entities should match.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of cupomDescontos in body.
+     */
+    @GetMapping("")
+    public ResponseEntity<List<CupomDesconto>> getAllCupomDescontosUser(
+        CupomDescontoCriteria criteria,
+        @org.springdoc.core.annotations.ParameterObject Pageable pageable
+    ) {
+        log.debug("REST request to get CupomDescontos by criteria: {}", criteria);
+        AdminUserDTO user = accountResource.getAccount();
+
+        if (SecurityUtils.hasCurrentUserAnyOfAuthorities("ROLE_ADMIN")) {
+            Page<CupomDesconto> page = cupomDescontoQueryService.findByCriteria(criteria, pageable);
+            HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+            return ResponseEntity.ok().headers(headers).body(page.getContent());
+        } else {
+            List<CupomDesconto> cupomDesconto = cupomDescontoService.findCuponsDescontoByUserId(user.getId());
+            return ResponseEntity.ok().body(cupomDesconto);
+        }
     }
 
     /**

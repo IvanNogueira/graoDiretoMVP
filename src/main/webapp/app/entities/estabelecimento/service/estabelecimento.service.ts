@@ -29,6 +29,7 @@ export type EntityArrayResponseType = HttpResponse<IEstabelecimento[]>;
 @Injectable({ providedIn: 'root' })
 export class EstabelecimentoService {
   protected resourceUrl = this.applicationConfigService.getEndpointFor('api/estabelecimentos');
+  protected resourceUrlHome = this.applicationConfigService.getEndpointFor('api/estabelecimentos/user');
 
   constructor(
     protected http: HttpClient,
@@ -64,14 +65,21 @@ export class EstabelecimentoService {
       .pipe(map(res => this.convertResponseFromServer(res)));
   }
 
-  findSearch(pesquisar: String): Observable<HttpResponse<IEstabelecimentoProdutoDTO>> {
-    return this.http.get<IEstabelecimentoProdutoDTO>(`${this.resourceUrl}/pesquisar/${pesquisar}`, { observe: 'response' });
+  findSearch(pesquisar: String): Observable<HttpResponse<IEstabelecimentoProdutoDTO[]>> {
+    return this.http.get<IEstabelecimentoProdutoDTO[]>(`${this.resourceUrl}/pesquisar/${pesquisar}`, { observe: 'response' });
   }
 
   query(req?: any): Observable<EntityArrayResponseType> {
     const options = createRequestOption(req);
     return this.http
       .get<RestEstabelecimento[]>(this.resourceUrl, { params: options, observe: 'response' })
+      .pipe(map(res => this.convertResponseArrayFromServer(res)));
+  }
+
+  queryHome(req?: any): Observable<EntityArrayResponseType> {
+    const options = createRequestOption(req);
+    return this.http
+      .get<RestEstabelecimento[]>(this.resourceUrlHome, { params: options, observe: 'response' })
       .pipe(map(res => this.convertResponseArrayFromServer(res)));
   }
 

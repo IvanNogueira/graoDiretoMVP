@@ -1,10 +1,13 @@
 package com.graodireto.mvp.web.rest;
 
+import com.graodireto.mvp.domain.CupomDesconto;
 import com.graodireto.mvp.domain.Estabelecimento;
 import com.graodireto.mvp.repository.EstabelecimentoRepository;
+import com.graodireto.mvp.security.SecurityUtils;
 import com.graodireto.mvp.service.EstabelecimentoQueryService;
 import com.graodireto.mvp.service.EstabelecimentoService;
 import com.graodireto.mvp.service.criteria.EstabelecimentoCriteria;
+import com.graodireto.mvp.service.dto.AdminUserDTO;
 import com.graodireto.mvp.service.dto.EstabelecimentoProdutoDTO;
 import com.graodireto.mvp.web.rest.errors.BadRequestAlertException;
 import jakarta.validation.Valid;
@@ -47,14 +50,18 @@ public class EstabelecimentoResource {
 
     private final EstabelecimentoQueryService estabelecimentoQueryService;
 
+    private final AccountResource accountResource;
+
     public EstabelecimentoResource(
         EstabelecimentoService estabelecimentoService,
         EstabelecimentoRepository estabelecimentoRepository,
-        EstabelecimentoQueryService estabelecimentoQueryService
+        EstabelecimentoQueryService estabelecimentoQueryService,
+        AccountResource accountResource
     ) {
         this.estabelecimentoService = estabelecimentoService;
         this.estabelecimentoRepository = estabelecimentoRepository;
         this.estabelecimentoQueryService = estabelecimentoQueryService;
+        this.accountResource = accountResource;
     }
 
     /**
@@ -155,7 +162,7 @@ public class EstabelecimentoResource {
      * @param criteria the criteria which the requested entities should match.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of estabelecimentos in body.
      */
-    @GetMapping("")
+    @GetMapping("/user")
     public ResponseEntity<List<Estabelecimento>> getAllEstabelecimentos(
         EstabelecimentoCriteria criteria,
         @org.springdoc.core.annotations.ParameterObject Pageable pageable
@@ -165,6 +172,30 @@ public class EstabelecimentoResource {
         Page<Estabelecimento> page = estabelecimentoQueryService.findByCriteria(criteria, pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
+    /**
+     * {@code GET  /estabelecimentos} : get all the estabelecimentos.
+     *
+     * @param pageable the pagination information.
+     * @param criteria the criteria which the requested entities should match.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of estabelecimentos in body.
+     */
+    @GetMapping("")
+    public ResponseEntity<List<Estabelecimento>> getAllEstabelecimentosuser(
+        EstabelecimentoCriteria criteria,
+        @org.springdoc.core.annotations.ParameterObject Pageable pageable
+    ) {
+        log.debug("REST request to get Estabelecimentos by criteria: {}", criteria);
+        AdminUserDTO user = accountResource.getAccount();
+        if (SecurityUtils.hasCurrentUserAnyOfAuthorities("ROLE_ADMIN")) {
+            Page<Estabelecimento> page = estabelecimentoQueryService.findByCriteria(criteria, pageable);
+            HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+            return ResponseEntity.ok().headers(headers).body(page.getContent());
+        } else {
+            List<Estabelecimento> estabelecimento = estabelecimentoService.findEstabelecimentosByUserId(user.getId());
+            return ResponseEntity.ok().body(estabelecimento);
+        }
     }
 
     /**

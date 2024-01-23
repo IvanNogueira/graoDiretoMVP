@@ -24,7 +24,7 @@ export default class HomeComponent implements OnInit, OnDestroy {
 
   private readonly destroy$ = new Subject<void>();
   estabelecimentoCollection?: IEstabelecimento[];
-  estabelecimentoProdutoDTO?: IEstabelecimentoProdutoDTO;
+  estabelecimentoProdutoDTO?: IEstabelecimentoProdutoDTO[];
   produtoPesquisa: IProduto[] | undefined;
   estabelecimentoPesquisa: IEstabelecimento[] | undefined;
 
@@ -43,9 +43,9 @@ export default class HomeComponent implements OnInit, OnDestroy {
     this.accountService
       .getAuthenticationState()
       .pipe(takeUntil(this.destroy$))
-      .subscribe(account => ((this.account = account), console.log(this.account)));
+      .subscribe(account => (this.account = account));
 
-    this.estabelecimentoService.query().subscribe(
+    this.estabelecimentoService.queryHome().subscribe(
       res => {
         this.estabelecimentoCollection = res.body!;
       },
@@ -54,10 +54,9 @@ export default class HomeComponent implements OnInit, OnDestroy {
       },
     );
 
-    this.produtoService.query().subscribe(
+    this.produtoService.queryHome().subscribe(
       res => {
         this.produtoCollection = res.body!;
-        console.log(this.produtoCollection);
       },
       error => {
         console.error('Erro:', error);
@@ -84,13 +83,10 @@ export default class HomeComponent implements OnInit, OnDestroy {
       this.estabelecimentoService.findSearch(searchInput.value).subscribe(
         res => {
           this.estabelecimentoProdutoDTO = res.body!;
-          console.log('dto ', this.estabelecimentoProdutoDTO);
 
-          this.estabelecimentoPesquisa = res.body!.estabelecimento;
-          console.log('estabelecimentoPesquisa ', this.estabelecimentoPesquisa);
+          this.estabelecimentoPesquisa = this.estabelecimentoProdutoDTO[0].estabelecimento;
 
-          this.produtoPesquisa = res.body!.produto;
-          console.log('produtoPesquisa ', this.produtoPesquisa);
+          this.produtoPesquisa = this.estabelecimentoProdutoDTO[0].produto;
 
           this.showSearchResults = true;
         },

@@ -14,4 +14,7 @@ import org.springframework.stereotype.Repository;
 public interface EstabelecimentoRepository extends JpaRepository<Estabelecimento, Long>, JpaSpecificationExecutor<Estabelecimento> {
     @Query("SELECT e FROM Estabelecimento e WHERE LOWER(e.nome) LIKE LOWER(CONCAT('%', :pesquisar, '%'))")
     List<Estabelecimento> findByNomeContaining(@Param("pesquisar") String pesquisar);
+
+    @Query("SELECT e FROM Estabelecimento e WHERE e.user.id = :userId")
+    List<Estabelecimento> findEstabelecimentosByUserId(@Param("userId") Long userId);
 }

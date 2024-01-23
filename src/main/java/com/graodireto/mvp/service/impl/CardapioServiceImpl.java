@@ -1,9 +1,12 @@
 package com.graodireto.mvp.service.impl;
 
 import com.graodireto.mvp.domain.Cardapio;
+import com.graodireto.mvp.domain.User;
 import com.graodireto.mvp.repository.CardapioRepository;
 import com.graodireto.mvp.service.CardapioService;
+import com.graodireto.mvp.service.UserService;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,9 +25,11 @@ public class CardapioServiceImpl implements CardapioService {
     private final Logger log = LoggerFactory.getLogger(CardapioServiceImpl.class);
 
     private final CardapioRepository cardapioRepository;
+    private final UserService userService;
 
-    public CardapioServiceImpl(CardapioRepository cardapioRepository) {
+    public CardapioServiceImpl(CardapioRepository cardapioRepository, UserService userService) {
         this.cardapioRepository = cardapioRepository;
+        this.userService = userService;
     }
 
     @Override
@@ -67,6 +72,14 @@ public class CardapioServiceImpl implements CardapioService {
     public Page<Cardapio> findAll(Pageable pageable) {
         log.debug("Request to get all Cardapios");
         return cardapioRepository.findAll(pageable);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Cardapio> findAllUserEstabelicimento(Long userId) {
+        log.debug("Request to get all Cardapios");
+        List<Cardapio> cardapios = cardapioRepository.findCardapiosByUserId(userId);
+        return cardapios;
     }
 
     @Override

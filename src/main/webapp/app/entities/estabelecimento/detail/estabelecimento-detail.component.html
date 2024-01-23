@@ -39,6 +39,9 @@
           <dd>
             @if (estabelecimento.capa) {
               <div>
+                <div class="capa" *ngIf="estabelecimento.capa">
+                  <img [src]="'data:image;base64,' + estabelecimento.capa" style="max-width: 200px; max-height: 160px" alt="Imagem" />
+                </div>
                 <a (click)="openFile(estabelecimento.capa, estabelecimento.capaContentType)" jhiTranslate="entity.action.open">Abrir</a>
                 {{ estabelecimento.capaContentType }}, {{ byteSize(estabelecimento.capa) }}
               </div>
@@ -48,6 +51,9 @@
           <dd>
             @if (estabelecimento.logo) {
               <div>
+                <div class="capa" *ngIf="estabelecimento.logo">
+                  <img [src]="'data:image;base64,' + estabelecimento.logo" style="max-width: 200px; max-height: 160px" alt="Imagem" />
+                </div>
                 <a (click)="openFile(estabelecimento.logo, estabelecimento.logoContentType)" jhiTranslate="entity.action.open">Abrir</a>
                 {{ estabelecimento.logoContentType }}, {{ byteSize(estabelecimento.logo) }}
               </div>

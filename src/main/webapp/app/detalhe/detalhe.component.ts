@@ -122,6 +122,8 @@ export default class DetalheComponent implements OnInit, OnDestroy {
   }
 
   openFullscreen() {
-    this.modalService.open(this.cupom, { size: 'xl', windowClass: 'cupom', backdrop: 'static', keyboard: false });
+    if (this.cupomCollection?.length != 0) {
+      this.modalService.open(this.cupom, { size: 'xl', windowClass: 'cupom', backdrop: 'static', keyboard: false });
+    }
   }
 }

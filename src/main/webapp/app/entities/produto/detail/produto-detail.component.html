@@ -35,6 +35,9 @@
           <dd>
             @if (produto.imagemProduto) {
               <div>
+                <div class="capa" *ngIf="produto.imagemProduto">
+                  <img [src]="'data:image;base64,' + produto.imagemProduto" style="max-width: 200px; max-height: 160px" alt="Imagem" />
+                </div>
                 <a (click)="openFile(produto.imagemProduto, produto.imagemProdutoContentType)" jhiTranslate="entity.action.open">Abrir</a>
                 {{ produto.imagemProdutoContentType }}, {{ byteSize(produto.imagemProduto) }}
               </div>

@@ -112,6 +112,13 @@ public class EstabelecimentoServiceImpl implements EstabelecimentoService {
 
     @Override
     @Transactional(readOnly = true)
+    public List<Estabelecimento> findEstabelecimentosByUserId(Long userId) {
+        log.debug("Request to get all Estabelecimentos");
+        return estabelecimentoRepository.findEstabelecimentosByUserId(userId);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
     public Optional<Estabelecimento> findOne(Long id) {
         log.debug("Request to get Estabelecimento : {}", id);
         return estabelecimentoRepository.findById(id);

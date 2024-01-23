@@ -1,6 +1,7 @@
 package com.graodireto.mvp.service;
 
 import com.graodireto.mvp.domain.Produto;
+import java.util.List;
 import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -40,6 +41,8 @@ public interface ProdutoService {
      * @return the list of entities.
      */
     Page<Produto> findAll(Pageable pageable);
+
+    List<Produto> findProdutosByUserId(Long userId);
 
     /**
      * Get the "id" produto.

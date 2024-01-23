@@ -15,6 +15,7 @@ export type EntityArrayResponseType = HttpResponse<ICupomDesconto[]>;
 @Injectable({ providedIn: 'root' })
 export class CupomDescontoService {
   protected resourceUrl = this.applicationConfigService.getEndpointFor('api/cupom-descontos');
+  protected resourceUrlHome = this.applicationConfigService.getEndpointFor('api/cupom-descontos/user');
 
   constructor(
     protected http: HttpClient,
@@ -44,6 +45,11 @@ export class CupomDescontoService {
   query(req?: any): Observable<EntityArrayResponseType> {
     const options = createRequestOption(req);
     return this.http.get<ICupomDesconto[]>(this.resourceUrl, { params: options, observe: 'response' });
+  }
+
+  queryHome(req?: any): Observable<EntityArrayResponseType> {
+    const options = createRequestOption(req);
+    return this.http.get<ICupomDesconto[]>(this.resourceUrlHome, { params: options, observe: 'response' });
   }
 
   delete(id: number): Observable<HttpResponse<{}>> {

@@ -57,15 +57,24 @@
           <div>
             @if (editForm.get('imagemProduto')!.value) {
               <div class="form-text text-danger clearfix">
+                <div class="capa" *ngIf="editForm.get('imagemProduto')!.value!">
+                  <img
+                    [src]="'data:image;base64,' + editForm.get('imagemProduto')!.value!"
+                    style="max-width: 200px; max-height: 160px"
+                    alt="Imagem"
+                  />
+                </div>
                 <a
                   class="pull-start"
                   (click)="openFile(editForm.get('imagemProduto')!.value!, editForm.get('imagemProdutoContentType')!.value!)"
                   jhiTranslate="entity.action.open"
-                  >Abrir</a
-                ><br />
-                <span class="pull-start"
-                  >{{ editForm.get('imagemProdutoContentType')!.value }}, {{ byteSize(editForm.get('imagemProduto')!.value!) }}</span
                 >
+                  Abrir</a
+                >
+                <br />
+                <span class="pull-start">
+                  {{ editForm.get('imagemProdutoContentType')!.value }}, {{ byteSize(editForm.get('imagemProduto')!.value!) }}
+                </span>
                 <button
                   type="button"
                   (click)="editForm.patchValue({ imagemProduto: undefined, imagemProdutoContentType: undefined })"

@@ -30,7 +30,7 @@ public class CategoriaProduto implements Serializable {
     private String descricao;
 
     @OneToMany(mappedBy = "categoriaProduto", cascade = CascadeType.REFRESH, orphanRemoval = true)
-    @JsonIgnoreProperties(value = { "estabelecimento", "categoriaProduto", "cardapio" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "categoriaProduto", "cardapio" }, allowSetters = true)
     private Set<Produto> produtos = new HashSet<>();
 
     @PreRemove

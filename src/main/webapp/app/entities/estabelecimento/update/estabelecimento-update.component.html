@@ -73,6 +73,9 @@
           <div>
             @if (editForm.get('capa')!.value) {
               <div class="form-text text-danger clearfix">
+                <div class="capa" *ngIf="editForm.get('capa')!.value!">
+                  <img [src]="'data:image;base64,' + editForm.get('capa')!.value!" style="max-width: 200px; max-height: 160px" alt="Capa" />
+                </div>
                 <a
                   class="pull-start"
                   (click)="openFile(editForm.get('capa')!.value!, editForm.get('capaContentType')!.value!)"
@@ -106,6 +109,9 @@
           <div>
             @if (editForm.get('logo')!.value) {
               <div class="form-text text-danger clearfix">
+                <div class="capa" *ngIf="editForm.get('logo')!.value!">
+                  <img [src]="'data:image;base64,' + editForm.get('logo')!.value!" style="max-width: 200px; max-height: 160px" alt="Logo" />
+                </div>
                 <a
                   class="pull-start"
                   (click)="openFile(editForm.get('logo')!.value!, editForm.get('logoContentType')!.value!)"

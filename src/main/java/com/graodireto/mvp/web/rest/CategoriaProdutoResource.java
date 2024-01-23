@@ -1,10 +1,13 @@
 package com.graodireto.mvp.web.rest;
 
 import com.graodireto.mvp.domain.CategoriaProduto;
+import com.graodireto.mvp.domain.Produto;
 import com.graodireto.mvp.repository.CategoriaProdutoRepository;
+import com.graodireto.mvp.security.SecurityUtils;
 import com.graodireto.mvp.service.CategoriaProdutoQueryService;
 import com.graodireto.mvp.service.CategoriaProdutoService;
 import com.graodireto.mvp.service.criteria.CategoriaProdutoCriteria;
+import com.graodireto.mvp.service.dto.AdminUserDTO;
 import com.graodireto.mvp.web.rest.errors.BadRequestAlertException;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
@@ -46,14 +49,18 @@ public class CategoriaProdutoResource {
 
     private final CategoriaProdutoQueryService categoriaProdutoQueryService;
 
+    private final AccountResource accountResource;
+
     public CategoriaProdutoResource(
         CategoriaProdutoService categoriaProdutoService,
         CategoriaProdutoRepository categoriaProdutoRepository,
-        CategoriaProdutoQueryService categoriaProdutoQueryService
+        CategoriaProdutoQueryService categoriaProdutoQueryService,
+        AccountResource accountResource
     ) {
         this.categoriaProdutoService = categoriaProdutoService;
         this.categoriaProdutoRepository = categoriaProdutoRepository;
         this.categoriaProdutoQueryService = categoriaProdutoQueryService;
+        this.accountResource = accountResource;
     }
 
     /**
@@ -156,6 +163,30 @@ public class CategoriaProdutoResource {
      */
     @GetMapping("")
     public ResponseEntity<List<CategoriaProduto>> getAllCategoriaProdutos(
+        CategoriaProdutoCriteria criteria,
+        @org.springdoc.core.annotations.ParameterObject Pageable pageable
+    ) {
+        log.debug("REST request to get CategoriaProdutos by criteria: {}", criteria);
+        AdminUserDTO user = accountResource.getAccount();
+        if (SecurityUtils.hasCurrentUserAnyOfAuthorities("ROLE_ADMIN")) {
+            Page<CategoriaProduto> page = categoriaProdutoQueryService.findByCriteria(criteria, pageable);
+            HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+            return ResponseEntity.ok().headers(headers).body(page.getContent());
+        } else {
+            List<CategoriaProduto> categoriaProduto = categoriaProdutoService.findCategoriasByUserId(user.getId());
+            return ResponseEntity.ok().body(categoriaProduto);
+        }
+    }
+
+    /**
+     * {@code GET  /categoria-produtos} : get all the categoriaProdutos.
+     *
+     * @param pageable the pagination information.
+     * @param criteria the criteria which the requested entities should match.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of categoriaProdutos in body.
+     */
+    @GetMapping("/user")
+    public ResponseEntity<List<CategoriaProduto>> getAllCategoriaProdutosUser(
         CategoriaProdutoCriteria criteria,
         @org.springdoc.core.annotations.ParameterObject Pageable pageable
     ) {

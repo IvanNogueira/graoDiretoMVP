@@ -3,6 +3,7 @@ package com.graodireto.mvp.service.impl;
 import com.graodireto.mvp.domain.Produto;
 import com.graodireto.mvp.repository.ProdutoRepository;
 import com.graodireto.mvp.service.ProdutoService;
+import java.util.List;
 import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -74,6 +75,13 @@ public class ProdutoServiceImpl implements ProdutoService {
     public Page<Produto> findAll(Pageable pageable) {
         log.debug("Request to get all Produtos");
         return produtoRepository.findAll(pageable);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Produto> findProdutosByUserId(Long userId) {
+        log.debug("Request to get all Produtos");
+        return produtoRepository.findProdutosByUserId(userId);
     }
 
     @Override

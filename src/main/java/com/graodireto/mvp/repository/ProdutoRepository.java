@@ -17,4 +17,7 @@ public interface ProdutoRepository extends JpaRepository<Produto, Long>, JpaSpec
         "SELECT p FROM Produto p WHERE LOWER(p.nome) LIKE LOWER(CONCAT('%', :pesquisar, '%')) OR LOWER(p.descricao) LIKE LOWER(CONCAT('%', :pesquisar, '%'))"
     )
     List<Produto> findByNomeOrDescricaoProduto(@Param("pesquisar") String pesquisar);
+
+    @Query("SELECT p FROM Produto p " + "JOIN p.cardapio c " + "JOIN c.estabelecimento e " + "WHERE e.user.id = :userId")
+    List<Produto> findProdutosByUserId(@Param("userId") Long userId);
 }

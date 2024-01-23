@@ -42,7 +42,11 @@
   <div class="section-container image-produtos">
     <h2 class="section-title">Produtos</h2>
     <div class="home-restaurantes">
-      <div class="produto-info-container" *ngFor="let produto of produtoCollection">
+      <div
+        class="produto-info-container"
+        *ngFor="let produto of produtoCollection"
+        (click)="navegar(produto!.cardapio!.estabelecimento!.id)"
+      >
         <div class="div-produto">
           <img
             [src]="'data: produto.imagemProdutoContentType ;base64,' + produto.imagemProduto"
@@ -64,10 +68,11 @@
   </div>
 </div>
 
+<!-- Seção de resultado de pesquisa -->
 <div *ngIf="showSearchResults">
   <!-- Seção de Restaurantes -->
-  <div class="section-container image-restaurante">
-    <h2 class="section-title">Restaurantes teste</h2>
+  <div class="section-container image-restaurante" *ngIf="estabelecimentoPesquisa?.length">
+    <h2 class="section-title">Restaurantes</h2>
     <div class="home-restaurantes">
       <div class="restaurante-info-container" *ngFor="let estabelecimento of estabelecimentoPesquisa" (click)="navegar(estabelecimento.id)">
         <div class="capa">
@@ -87,10 +92,10 @@
   </div>
 
   <!-- Seção de Produtos -->
-  <div class="section-container image-produtos">
-    <h2 class="section-title">Produtos teste</h2>
+  <div class="section-container image-produtos" *ngIf="produtoPesquisa?.length">
+    <h2 class="section-title">Produtos</h2>
     <div class="home-restaurantes">
-      <div class="produto-info-container" *ngFor="let produto of produtoPesquisa">
+      <div class="produto-info-container" *ngFor="let produto of produtoPesquisa" (click)="navegar(produto!.cardapio!.estabelecimento!.id)">
         <div class="div-produto">
           <img
             [src]="'data: produto.imagemProdutoContentType ;base64,' + produto.imagemProduto"

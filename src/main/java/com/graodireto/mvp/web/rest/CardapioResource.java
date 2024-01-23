@@ -1,10 +1,14 @@
 package com.graodireto.mvp.web.rest;
 
 import com.graodireto.mvp.domain.Cardapio;
+import com.graodireto.mvp.domain.User;
 import com.graodireto.mvp.repository.CardapioRepository;
+import com.graodireto.mvp.security.SecurityUtils;
 import com.graodireto.mvp.service.CardapioQueryService;
 import com.graodireto.mvp.service.CardapioService;
+import com.graodireto.mvp.service.UserService;
 import com.graodireto.mvp.service.criteria.CardapioCriteria;
+import com.graodireto.mvp.service.dto.AdminUserDTO;
 import com.graodireto.mvp.web.rest.errors.BadRequestAlertException;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
@@ -45,15 +49,18 @@ public class CardapioResource {
     private final CardapioRepository cardapioRepository;
 
     private final CardapioQueryService cardapioQueryService;
+    private final AccountResource accountResource;
 
     public CardapioResource(
         CardapioService cardapioService,
         CardapioRepository cardapioRepository,
-        CardapioQueryService cardapioQueryService
+        CardapioQueryService cardapioQueryService,
+        AccountResource accountResource
     ) {
         this.cardapioService = cardapioService;
         this.cardapioRepository = cardapioRepository;
         this.cardapioQueryService = cardapioQueryService;
+        this.accountResource = accountResource;
     }
 
     /**
@@ -153,7 +160,7 @@ public class CardapioResource {
      * @param criteria the criteria which the requested entities should match.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of cardapios in body.
      */
-    @GetMapping("")
+    @GetMapping("/user")
     public ResponseEntity<List<Cardapio>> getAllCardapios(
         CardapioCriteria criteria,
         @org.springdoc.core.annotations.ParameterObject Pageable pageable
@@ -163,6 +170,30 @@ public class CardapioResource {
         Page<Cardapio> page = cardapioQueryService.findByCriteria(criteria, pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
+    /**
+     * {@code GET  /cardapios} : get all the cardapios.
+     *
+     * @param pageable the pagination information.
+     * @param criteria the criteria which the requested entities should match.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of cardapios in body.
+     */
+    @GetMapping("")
+    public ResponseEntity<List<Cardapio>> getAllCardapiosUser(
+        CardapioCriteria criteria,
+        @org.springdoc.core.annotations.ParameterObject Pageable pageable
+    ) {
+        log.debug("REST request to get Cardapios by criteria: {}", criteria);
+        AdminUserDTO user = accountResource.getAccount();
+        if (SecurityUtils.hasCurrentUserAnyOfAuthorities("ROLE_ADMIN")) {
+            Page<Cardapio> page = cardapioQueryService.findByCriteria(criteria, pageable);
+            HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+            return ResponseEntity.ok().headers(headers).body(page.getContent());
+        } else {
+            List<Cardapio> cardapios = cardapioService.findAllUserEstabelicimento(user.getId());
+            return ResponseEntity.ok().body(cardapios);
+        }
     }
 
     /**

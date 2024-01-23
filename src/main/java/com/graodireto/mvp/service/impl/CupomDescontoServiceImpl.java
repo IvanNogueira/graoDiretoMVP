@@ -3,6 +3,7 @@ package com.graodireto.mvp.service.impl;
 import com.graodireto.mvp.domain.CupomDesconto;
 import com.graodireto.mvp.repository.CupomDescontoRepository;
 import com.graodireto.mvp.service.CupomDescontoService;
+import java.util.List;
 import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -74,6 +75,13 @@ public class CupomDescontoServiceImpl implements CupomDescontoService {
     public Page<CupomDesconto> findAll(Pageable pageable) {
         log.debug("Request to get all CupomDescontos");
         return cupomDescontoRepository.findAll(pageable);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<CupomDesconto> findCuponsDescontoByUserId(Long userId) {
+        log.debug("Request to get all CupomDescontos");
+        return cupomDescontoRepository.findCuponsDescontoByUserId(userId);
     }
 
     @Override

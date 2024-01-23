@@ -16,7 +16,7 @@
             {{ estabelecimento!.complemento ? estabelecimento!.complemento : '' }}
             {{ estabelecimento!.bairro ? estabelecimento!.bairro : '' }} - {{ estabelecimento!.cep ? estabelecimento!.cep : '' }}
           </label>
-          <button class="btn btn-primary btncupom" (click)="openFullscreen()">Cupons</button>
+          <button *ngIf="this.cupomCollection?.length != 0" class="btn btn-primary btncupom" (click)="openFullscreen()">Cupons</button>
         </div>
       </div>
     </div>

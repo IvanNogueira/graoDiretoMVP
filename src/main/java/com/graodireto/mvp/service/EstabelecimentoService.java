@@ -42,6 +42,7 @@ public interface EstabelecimentoService {
      * @return the list of entities.
      */
     Page<Estabelecimento> findAll(Pageable pageable);
+    List<Estabelecimento> findEstabelecimentosByUserId(Long userId);
 
     /**
      * Get the "id" estabelecimento.

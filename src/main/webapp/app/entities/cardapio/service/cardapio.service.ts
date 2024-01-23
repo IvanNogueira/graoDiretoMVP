@@ -30,6 +30,7 @@ export type EntityArrayResponseType = HttpResponse<ICardapio[]>;
 @Injectable({ providedIn: 'root' })
 export class CardapioService {
   protected resourceUrl = this.applicationConfigService.getEndpointFor('api/cardapios');
+  protected resourceUrlHome = this.applicationConfigService.getEndpointFor('api/cardapios/user');
 
   constructor(
     protected http: HttpClient,
@@ -67,6 +68,13 @@ export class CardapioService {
     const options = createRequestOption(req);
     return this.http
       .get<RestCardapio[]>(this.resourceUrl, { params: options, observe: 'response' })
+      .pipe(map(res => this.convertResponseArrayFromServer(res)));
+  }
+
+  queryHome(req?: any): Observable<EntityArrayResponseType> {
+    const options = createRequestOption(req);
+    return this.http
+      .get<RestCardapio[]>(this.resourceUrlHome, { params: options, observe: 'response' })
       .pipe(map(res => this.convertResponseArrayFromServer(res)));
   }
 

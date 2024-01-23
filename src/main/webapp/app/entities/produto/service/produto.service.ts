@@ -15,6 +15,7 @@ export type EntityArrayResponseType = HttpResponse<IProduto[]>;
 @Injectable({ providedIn: 'root' })
 export class ProdutoService {
   protected resourceUrl = this.applicationConfigService.getEndpointFor('api/produtos');
+  protected resourceUrlHome = this.applicationConfigService.getEndpointFor('api/produtos/user');
 
   constructor(
     protected http: HttpClient,
@@ -40,6 +41,11 @@ export class ProdutoService {
   query(req?: any): Observable<EntityArrayResponseType> {
     const options = createRequestOption(req);
     return this.http.get<IProduto[]>(this.resourceUrl, { params: options, observe: 'response' });
+  }
+
+  queryHome(req?: any): Observable<EntityArrayResponseType> {
+    const options = createRequestOption(req);
+    return this.http.get<IProduto[]>(this.resourceUrlHome, { params: options, observe: 'response' });
   }
 
   delete(id: number): Observable<HttpResponse<{}>> {

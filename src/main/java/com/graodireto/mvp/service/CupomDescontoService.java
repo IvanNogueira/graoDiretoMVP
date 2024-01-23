@@ -1,6 +1,7 @@
 package com.graodireto.mvp.service;
 
 import com.graodireto.mvp.domain.CupomDesconto;
+import java.util.List;
 import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -40,6 +41,8 @@ public interface CupomDescontoService {
      * @return the list of entities.
      */
     Page<CupomDesconto> findAll(Pageable pageable);
+
+    List<CupomDesconto> findCuponsDescontoByUserId(Long userId);
 
     /**
      * Get the "id" cupomDesconto.
