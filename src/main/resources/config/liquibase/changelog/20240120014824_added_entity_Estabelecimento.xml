@@ -59,12 +59,19 @@
             <column name="cidade_id" type="bigint">
                 <constraints nullable="true" />
             </column>
+            <column name="user_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
         </createTable>
         <dropDefaultValue tableName="estabelecimento" columnName="criado_em" columnDataType="${datetimeType}"/>
     </changeSet>
+    
+
+    
 
     <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here -->
 
-
+    
+    
 </databaseChangeLog>

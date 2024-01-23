@@ -1,3 +1,7 @@
-id;login;password_hash;first_name;last_name;email;image_url;activated;lang_key;created_by;last_modified_by
-1;admin;$2a$10$gSAhZrxMllrbgj/kkK9UceBPpChGWJA7SYIb1Mqo.n5aNLq1/oRrC;Administrator;Administrator;admin@localhost;;true;pt-br;system;system
-2;user;$2a$10$VEjxo0jq2YG9Rbk2HmX9S.k1uZBGYUHdUcid3g/vfiEl7lwWgOH/K;User;User;user@localhost;;true;pt-br;system;system
+id;login;password_hash;first_name;last_name;email;image_url;activated;lang_key;activation_key;reset_key;created_by;created_date;reset_date;last_modified_by;last_modified_date
+1;admin;$2a$10$gSAhZrxMllrbgj/kkK9UceBPpChGWJA7SYIb1Mqo.n5aNLq1/oRrC;Administrator;Administrator;admin@localhost;;1;pt-br;;;system;2024-01-21 18:23:55;;admin;2024-01-21 23:43:12
+2;user;$2a$10$VEjxo0jq2YG9Rbk2HmX9S.k1uZBGYUHdUcid3g/vfiEl7lwWgOH/K;User;User;user@localhost;;1;pt-br;;;system;2024-01-21 18:23:55;;admin;2024-01-21 23:43:17
+3;ivan;$2a$10$ReumRXco1pdzkmiP9Q9fqehMhMvcJAL757ltdifLCWSmg8EGSn4ja;ivan;rezende;ivanrezendenogueira@hotmail.com;;1;pt-br;Yk13XmI1oWzP0VW4MgJE;;anonymousUser;2024-01-21 18:23:55;;admin;2024-01-21 23:46:58
+4;thiago;$2a$10$UThdLq4oFfJDd8NxJTJO2uTmqTVltC/KDyyGPaNdETqnmHdl/TiS.;thiago;da silva;thiago@gmail.com;;1;pt-br;GUXuijokvcTqswpQHIuU;;anonymousUser;2024-01-21 23:45:51;;admin;2024-01-21 23:49:28
+5;amanda;$2a$10$Wkx2AGBnujYuQ4.rIk0QROWSLrYJgI3CAVGGnvUaZyMCk9vOfQIOm;amanda;resende;amanda@gmail.com;;1;pt-br;94delJVPnqQlti3PsLdF;;anonymousUser;2024-01-21 23:46:11;;admin;2024-01-21 23:49:29
+7;fred;$2a$10$U6eTtg9A/jVTpIcqqsfJVeHaeVBWMJcgqo22K7uEDZNcGaKqk4/py;;;fred@graodireto.com.br;;1;pt-br;uU2Y6ArI2Zt00ImVAriL;;anonymousUser;2024-01-23 02:42:59;;admin;2024-01-23 02:43:19

@@ -26,5 +26,5 @@
 
     <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here -->
 
-
+   
 </databaseChangeLog>
