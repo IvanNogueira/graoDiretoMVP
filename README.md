@@ -1,6 +1,6 @@
 **graoDiretoMvp**
 
-Esta aplicação foi gerada usando o JHipster 8.1.0. Você pode encontrar documentação e ajuda em [https://www.jhipster.tech/documentation-archive/v8.1.0](https://www.jhipster.tech/documentation-archive/v8.1.0).
+Esta aplicação foi gerada usando o JHipster 8.1.0.
 
 **Estrutura do Projeto**
 
