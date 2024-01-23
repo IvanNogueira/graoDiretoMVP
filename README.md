@@ -1,3 +1,29 @@
+Executando o Projeto com Docker
+Agora que o Docker está instalado em sua máquina, siga os passos abaixo para executar o projeto:
+
+1. JHipster Application:
+docker run -d -p 0.0.0.0:8080:8080 -p 0.0.0.0:9000:9000 --expose=8080 --expose=9000 --name grao-direto jhipster/jhipster
+Este comando baixará e executará a imagem Docker do JHipster, expondo as portas 8080 (aplicação) e 9000 (JHipster Control Center). Certifique-se de ajustar os detalhes conforme necessário.
+
+2.MySQL:
+docker run -d --name graodireto-mysql -e MYSQL_ROOT_PASSWORD=1234 -e MYSQL_DATABASE=mvp -e MYSQL_USER=mvp -e MYSQL_PASSWORD=mvp -p 3306:3306 mysql:8.0.30
+Este comando baixará e executará a imagem Docker do MySQL, criando um contêiner com uma instância do MySQL configurada. Certifique-se de ajustar as configurações conforme necessário.
+
+3. Configuração do Banco de Dados:
+Abra o arquivo application-dev.yml, geralmente localizado em src/main/resources/config/application-dev.yml dentro do seu projeto.
+
+Localize a seção de configuração do banco de dados (datasource). Deve se parecer com algo assim:
+datasource:
+  type: com.zaxxer.hikari.HikariDataSource
+  url: jdbc:mysql://172.17.0.2:3306/mvp?useUnicode=true&characterEncoding=utf8&useSSL=false&useLegacyDatetimeCode=false&createDatabaseIfNotExist=true
+  username: root
+  password: 1234
+
+Atualize a URL do banco de dados para apontar para o endereço IP do contêiner do Docker onde o MySQL está sendo executado. Substitua localhost pelo endereço IP do Docker.
+
+Salve as alterações no arquivo application-dev.yml.
+
+Após essas alterações, ao iniciar sua aplicação, ela deve se conectar ao banco de dados MySQL dentro do contêiner Docker. Lembre-se de que o contêiner Docker e a aplicação Java precisam estar na mesma rede para que a comunicação ocorra corretamente.
 Rodando o Projeto
 Antes de iniciar o projeto, certifique-se de ter as seguintes dependências instaladas em sua máquina:
 
